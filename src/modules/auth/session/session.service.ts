@@ -1,11 +1,11 @@
+import { RedisService } from '@core/redis'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { getSessionMetadata } from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
 
 import { Permission } from '@/prisma/generated'
-import { RedisService } from '@/src/core/redis'
-import { getSessionMetadata } from '@/src/shared/utils'
 
 import { AccountService } from '../account'
 

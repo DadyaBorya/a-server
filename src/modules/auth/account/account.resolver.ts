@@ -1,11 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-
-import { Permission } from '@/prisma/generated'
 import {
 	Authorized,
 	GqlAuthorization,
 	GqlAuthorizedWithPermissions
-} from '@/src/shared/decorators'
+} from '@shared/decorators'
+
+import { Permission } from '@/prisma/generated'
 
 import { AccountService } from './account.service'
 import { CreateUserInput, UpdateUserInput } from './inputs'

@@ -1,8 +1,7 @@
 import { ApolloDriverConfig } from '@nestjs/apollo'
 import { ConfigService } from '@nestjs/config'
+import { isDev } from '@shared/utils'
 import { join } from 'path'
-
-import { isDev } from '@/src/shared/utils'
 
 export function getGraphQLConfig(
 	configService: ConfigService
