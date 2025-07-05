@@ -50,6 +50,7 @@ type Mutation {
   removeSession(id: String!): Boolean!
   updatePasswordUser(data: UpdateUserPasswordInput!): Boolean!
   updateUser(data: UpdateUserInput!): Boolean!
+  upload(file: Upload!): Boolean!
 }
 
 """Перелік дозволів користувача"""
@@ -99,6 +100,9 @@ input UpdateUserPasswordInput {
   id: String!
   password: String!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type UserModel {
   createdAt: DateTime!

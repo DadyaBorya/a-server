@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { isDev } from '@shared/utils'
 import { NestMinioModule } from 'nestjs-minio'
 
+import { StorageResolver } from './storage.resolver'
 import { StorageService } from './storage.service'
 
 @Module({
@@ -20,7 +21,7 @@ import { StorageService } from './storage.service'
 			})
 		})
 	],
-	providers: [StorageService],
+	providers: [StorageResolver, StorageService],
 	exports: [StorageService]
 })
 export class StorageModule {}

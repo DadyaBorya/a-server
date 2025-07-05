@@ -140,7 +140,8 @@ exports.Prisma.StorageFileScalarFieldEnum = {
   outputFilename: 'outputFilename',
   extention: 'extention',
   size: 'size',
-  bucket: 'bucket'
+  bucket: 'bucket',
+  path: 'path'
 };
 
 exports.Prisma.SortOrder = {

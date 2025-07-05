@@ -44,6 +44,7 @@ model StorageFile {
   extention      String
   size           Int
   bucket         String
+  path           String
 
   @@map("storage_files")
 }
