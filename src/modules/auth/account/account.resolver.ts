@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import {
-	Authorized,
 	GqlAuthorization,
+	GqlAuthorized,
 	GqlAuthorizedWithPermissions
 } from '@shared/decorators'
 
@@ -25,7 +25,7 @@ export class AccountResolver {
 	// Отримання поточного користувача
 	@Query(() => UserModel, { name: 'findMe' })
 	@GqlAuthorization()
-	async me(@Authorized('id') id: string) {
+	async me(@GqlAuthorized('id') id: string) {
 		return this.accountService.findById(id)
 	}
 

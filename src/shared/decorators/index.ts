@@ -1,5 +1,5 @@
 export * from './gql-auth.decorator'
-export * from './authorized.decorator'
+export * from './gql-authorized.decorator'
 export * from './user-agent.decorator'
 export * from './gql-permission.decorator'
 export * from './gql-authorized-with-permissions.decorator'
