@@ -7,7 +7,7 @@ import {
 	UsernameAlreadyTakenException,
 	UserNotFoundException
 } from './exceptions'
-import { CreateUserInput } from './inputs'
+import { CreateUserInput, UpdateUserPasswordInput } from './inputs'
 import { UserRepository } from './user.repository'
 
 @Injectable()
@@ -64,5 +64,13 @@ export class AccountService {
 		await this.userRepository.updateUser(id, data)
 
 		return true
+	}
+
+	async updatePassword(input: UpdateUserPasswordInput) {
+		const { id, password } = input
+
+		const hashedPassword = await hash(password)
+
+		return this.update(id, { password: hashedPassword })
 	}
 }

@@ -6,8 +6,7 @@ import {
 	IsNotEmpty,
 	IsString,
 	IsUUID,
-	Matches,
-	MinLength
+	Matches
 } from 'class-validator'
 
 import { Permission } from '../models'
@@ -24,10 +23,6 @@ export class UpdateUserInput {
 	@Matches(/^[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*$/)
 	username: string
 
-	@Field()
-	@IsString()
-	@IsNotEmpty()
-	@MinLength(8)
 	password: string
 
 	@Field()

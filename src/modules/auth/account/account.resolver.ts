@@ -8,7 +8,11 @@ import {
 import { Permission } from '@/prisma/generated'
 
 import { AccountService } from './account.service'
-import { CreateUserInput, UpdateUserInput } from './inputs'
+import {
+	CreateUserInput,
+	UpdateUserInput,
+	UpdateUserPasswordInput
+} from './inputs'
 import { UserModel } from './models'
 
 @Resolver('Account')
@@ -41,5 +45,12 @@ export class AccountResolver {
 	@Mutation(() => Boolean, { name: 'updateUser' })
 	async update(@Args('data') input: UpdateUserInput) {
 		return this.accountService.update(input.id, input)
+	}
+
+	// Зміна пароля користувача
+	@GqlAuthorizedWithPermissions(Permission.USER_UPDATE)
+	@Mutation(() => Boolean, { name: 'updatePasswordUser' })
+	async updatePassword(@Args('data') input: UpdateUserPasswordInput) {
+		return this.accountService.updatePassword(input)
 	}
 }
