@@ -1,15 +1,13 @@
 import { RedisService } from '@core/redis'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { getSessionMetadata } from '@shared/utils'
+import { createTotp, getSessionMetadata, validateTotp } from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
-import { TOTP } from 'otpauth'
 
 import { Permission } from '@/prisma/generated'
 
 import { AccountService } from '../account'
-import { TotpInvalidPinException } from '../totp/exceptions'
 
 import {
 	CannotDeleteCurrentSessionException,
@@ -93,19 +91,9 @@ export class SessionService {
 				throw new TotpPinRequiredException()
 			}
 
-			const totp = new TOTP({
-				issuer: 'AnalysisPlus',
-				label: username,
-				algorithm: 'SHA1',
-				digits: 6,
-				secret: user.totpSecret
-			})
+			const totp = createTotp(username, user.totpSecret)
 
-			const delta = totp.validate({ token: pin })
-
-			if (delta === null) {
-				throw new TotpInvalidPinException()
-			}
+			validateTotp(totp, pin)
 		}
 
 		const metadata = getSessionMetadata(request, userAgent)

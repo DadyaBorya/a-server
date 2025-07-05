@@ -1,17 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { randomBytes } from 'crypto'
 import { encode } from 'hi-base32'
-import { TOTP } from 'otpauth'
 import * as QRCode from 'qrcode'
 
 import { User } from '@/prisma/generated'
+import { createTotp, validateTotp } from '@/src/shared/utils'
 
 import { AccountService } from '../account'
 
-import {
-	TotpAlreadyEnabledException,
-	TotpInvalidPinException
-} from './exceptions'
+import { TotpAlreadyEnabledException } from './exceptions'
 import { EnableTotpInput } from './inputs'
 
 @Injectable()
@@ -27,7 +24,7 @@ export class TotpService {
 			.replace(/=/g, '')
 			.substring(0, 14)
 
-		const totp = this.createTotp(user.username, secret)
+		const totp = createTotp(user.username, secret)
 
 		const otpauthUrl = totp.toString()
 		const qrcodeUrl = await QRCode.toDataURL(otpauthUrl)
@@ -45,13 +42,9 @@ export class TotpService {
 
 		const { secret, pin } = input
 
-		const totp = this.createTotp(user.username, secret)
+		const totp = createTotp(user.username, secret)
 
-		const delta = totp.validate({ token: pin })
-
-		if (delta === null) {
-			throw new TotpInvalidPinException()
-		}
+		validateTotp(totp, pin)
 
 		await this.accountService.update(user.id, {
 			isTotpEnabled: true,
@@ -70,15 +63,5 @@ export class TotpService {
 		})
 
 		return true
-	}
-
-	private createTotp(username: string, secret: string) {
-		return new TOTP({
-			issuer: 'AnalysisPlus',
-			label: username,
-			algorithm: 'SHA1',
-			digits: 6,
-			secret
-		})
 	}
 }
