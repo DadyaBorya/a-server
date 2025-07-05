@@ -101,7 +101,6 @@ input UpdateUserPasswordInput {
 }
 
 type UserModel {
-  avatar: String
   createdAt: DateTime!
   displayName: String!
   id: ID!

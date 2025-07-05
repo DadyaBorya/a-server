@@ -26,9 +26,7 @@ model User {
   isBlocked   Boolean @default(false) @map("is_blocked")
 
   isTotpEnabled Boolean @default(false) @map("is_totp_enabled")
-  totpSecret String? @map("totp_secret")
-
-  avatar String?
+  totpSecret    String? @map("totp_secret")
 
   permissions Permission[]
 
@@ -36,4 +34,14 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model StorageFile {
+  id String @id @default(uuid())
+
+  inputFilename  String  @map("input_filename")
+  outputFilename String? @map("output_filename")
+  extention      String
+
+  @@map("storage_files")
 }

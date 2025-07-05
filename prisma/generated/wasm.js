@@ -129,10 +129,16 @@ exports.Prisma.UserScalarFieldEnum = {
   isBlocked: 'isBlocked',
   isTotpEnabled: 'isTotpEnabled',
   totpSecret: 'totpSecret',
-  avatar: 'avatar',
   permissions: 'permissions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StorageFileScalarFieldEnum = {
+  id: 'id',
+  inputFilename: 'inputFilename',
+  outputFilename: 'outputFilename',
+  extention: 'extention'
 };
 
 exports.Prisma.SortOrder = {
@@ -157,7 +163,8 @@ exports.Permission = exports.$Enums.Permission = {
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  StorageFile: 'StorageFile'
 };
 
 /**

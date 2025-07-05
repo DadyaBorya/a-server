@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model StorageFile
+ * 
+ */
+export type StorageFile = $Result.DefaultSelection<Prisma.$StorageFilePayload>
 
 /**
  * Enums
@@ -172,6 +177,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.storageFile`: Exposes CRUD operations for the **StorageFile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StorageFiles
+    * const storageFiles = await prisma.storageFile.findMany()
+    * ```
+    */
+  get storageFile(): Prisma.StorageFileDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -612,7 +627,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    StorageFile: 'StorageFile'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -631,7 +647,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "storageFile"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -706,6 +722,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      StorageFile: {
+        payload: Prisma.$StorageFilePayload<ExtArgs>
+        fields: Prisma.StorageFileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StorageFileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StorageFileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          findFirst: {
+            args: Prisma.StorageFileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StorageFileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          findMany: {
+            args: Prisma.StorageFileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>[]
+          }
+          create: {
+            args: Prisma.StorageFileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          createMany: {
+            args: Prisma.StorageFileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StorageFileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>[]
+          }
+          delete: {
+            args: Prisma.StorageFileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          update: {
+            args: Prisma.StorageFileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          deleteMany: {
+            args: Prisma.StorageFileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StorageFileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StorageFileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>[]
+          }
+          upsert: {
+            args: Prisma.StorageFileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorageFilePayload>
+          }
+          aggregate: {
+            args: Prisma.StorageFileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStorageFile>
+          }
+          groupBy: {
+            args: Prisma.StorageFileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StorageFileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StorageFileCountArgs<ExtArgs>
+            result: $Utils.Optional<StorageFileCountAggregateOutputType> | number
           }
         }
       }
@@ -794,6 +884,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    storageFile?: StorageFileOmit
   }
 
   /* Types for Logging */
@@ -907,7 +998,6 @@ export namespace Prisma {
     isBlocked: boolean | null
     isTotpEnabled: boolean | null
     totpSecret: string | null
-    avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -921,7 +1011,6 @@ export namespace Prisma {
     isBlocked: boolean | null
     isTotpEnabled: boolean | null
     totpSecret: string | null
-    avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -935,7 +1024,6 @@ export namespace Prisma {
     isBlocked: number
     isTotpEnabled: number
     totpSecret: number
-    avatar: number
     permissions: number
     createdAt: number
     updatedAt: number
@@ -952,7 +1040,6 @@ export namespace Prisma {
     isBlocked?: true
     isTotpEnabled?: true
     totpSecret?: true
-    avatar?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -966,7 +1053,6 @@ export namespace Prisma {
     isBlocked?: true
     isTotpEnabled?: true
     totpSecret?: true
-    avatar?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -980,7 +1066,6 @@ export namespace Prisma {
     isBlocked?: true
     isTotpEnabled?: true
     totpSecret?: true
-    avatar?: true
     permissions?: true
     createdAt?: true
     updatedAt?: true
@@ -1068,7 +1153,6 @@ export namespace Prisma {
     isBlocked: boolean
     isTotpEnabled: boolean
     totpSecret: string | null
-    avatar: string | null
     permissions: $Enums.Permission[]
     createdAt: Date
     updatedAt: Date
@@ -1100,7 +1184,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: boolean
-    avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1115,7 +1198,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: boolean
-    avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1130,7 +1212,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: boolean
-    avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1145,13 +1226,12 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: boolean
-    avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "displayName" | "isSuperUser" | "isBlocked" | "isTotpEnabled" | "totpSecret" | "avatar" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "displayName" | "isSuperUser" | "isBlocked" | "isTotpEnabled" | "totpSecret" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1165,7 +1245,6 @@ export namespace Prisma {
       isBlocked: boolean
       isTotpEnabled: boolean
       totpSecret: string | null
-      avatar: string | null
       permissions: $Enums.Permission[]
       createdAt: Date
       updatedAt: Date
@@ -1600,7 +1679,6 @@ export namespace Prisma {
     readonly isBlocked: FieldRef<"User", 'Boolean'>
     readonly isTotpEnabled: FieldRef<"User", 'Boolean'>
     readonly totpSecret: FieldRef<"User", 'String'>
-    readonly avatar: FieldRef<"User", 'String'>
     readonly permissions: FieldRef<"User", 'Permission[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -1971,6 +2049,988 @@ export namespace Prisma {
 
 
   /**
+   * Model StorageFile
+   */
+
+  export type AggregateStorageFile = {
+    _count: StorageFileCountAggregateOutputType | null
+    _min: StorageFileMinAggregateOutputType | null
+    _max: StorageFileMaxAggregateOutputType | null
+  }
+
+  export type StorageFileMinAggregateOutputType = {
+    id: string | null
+    inputFilename: string | null
+    outputFilename: string | null
+    extention: string | null
+  }
+
+  export type StorageFileMaxAggregateOutputType = {
+    id: string | null
+    inputFilename: string | null
+    outputFilename: string | null
+    extention: string | null
+  }
+
+  export type StorageFileCountAggregateOutputType = {
+    id: number
+    inputFilename: number
+    outputFilename: number
+    extention: number
+    _all: number
+  }
+
+
+  export type StorageFileMinAggregateInputType = {
+    id?: true
+    inputFilename?: true
+    outputFilename?: true
+    extention?: true
+  }
+
+  export type StorageFileMaxAggregateInputType = {
+    id?: true
+    inputFilename?: true
+    outputFilename?: true
+    extention?: true
+  }
+
+  export type StorageFileCountAggregateInputType = {
+    id?: true
+    inputFilename?: true
+    outputFilename?: true
+    extention?: true
+    _all?: true
+  }
+
+  export type StorageFileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StorageFile to aggregate.
+     */
+    where?: StorageFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StorageFiles to fetch.
+     */
+    orderBy?: StorageFileOrderByWithRelationInput | StorageFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StorageFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StorageFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StorageFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StorageFiles
+    **/
+    _count?: true | StorageFileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StorageFileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StorageFileMaxAggregateInputType
+  }
+
+  export type GetStorageFileAggregateType<T extends StorageFileAggregateArgs> = {
+        [P in keyof T & keyof AggregateStorageFile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStorageFile[P]>
+      : GetScalarType<T[P], AggregateStorageFile[P]>
+  }
+
+
+
+
+  export type StorageFileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StorageFileWhereInput
+    orderBy?: StorageFileOrderByWithAggregationInput | StorageFileOrderByWithAggregationInput[]
+    by: StorageFileScalarFieldEnum[] | StorageFileScalarFieldEnum
+    having?: StorageFileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StorageFileCountAggregateInputType | true
+    _min?: StorageFileMinAggregateInputType
+    _max?: StorageFileMaxAggregateInputType
+  }
+
+  export type StorageFileGroupByOutputType = {
+    id: string
+    inputFilename: string
+    outputFilename: string | null
+    extention: string
+    _count: StorageFileCountAggregateOutputType | null
+    _min: StorageFileMinAggregateOutputType | null
+    _max: StorageFileMaxAggregateOutputType | null
+  }
+
+  type GetStorageFileGroupByPayload<T extends StorageFileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StorageFileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StorageFileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StorageFileGroupByOutputType[P]>
+            : GetScalarType<T[P], StorageFileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StorageFileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    inputFilename?: boolean
+    outputFilename?: boolean
+    extention?: boolean
+  }, ExtArgs["result"]["storageFile"]>
+
+  export type StorageFileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    inputFilename?: boolean
+    outputFilename?: boolean
+    extention?: boolean
+  }, ExtArgs["result"]["storageFile"]>
+
+  export type StorageFileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    inputFilename?: boolean
+    outputFilename?: boolean
+    extention?: boolean
+  }, ExtArgs["result"]["storageFile"]>
+
+  export type StorageFileSelectScalar = {
+    id?: boolean
+    inputFilename?: boolean
+    outputFilename?: boolean
+    extention?: boolean
+  }
+
+  export type StorageFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inputFilename" | "outputFilename" | "extention", ExtArgs["result"]["storageFile"]>
+
+  export type $StorageFilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StorageFile"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      inputFilename: string
+      outputFilename: string | null
+      extention: string
+    }, ExtArgs["result"]["storageFile"]>
+    composites: {}
+  }
+
+  type StorageFileGetPayload<S extends boolean | null | undefined | StorageFileDefaultArgs> = $Result.GetResult<Prisma.$StorageFilePayload, S>
+
+  type StorageFileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StorageFileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StorageFileCountAggregateInputType | true
+    }
+
+  export interface StorageFileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StorageFile'], meta: { name: 'StorageFile' } }
+    /**
+     * Find zero or one StorageFile that matches the filter.
+     * @param {StorageFileFindUniqueArgs} args - Arguments to find a StorageFile
+     * @example
+     * // Get one StorageFile
+     * const storageFile = await prisma.storageFile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StorageFileFindUniqueArgs>(args: SelectSubset<T, StorageFileFindUniqueArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StorageFile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StorageFileFindUniqueOrThrowArgs} args - Arguments to find a StorageFile
+     * @example
+     * // Get one StorageFile
+     * const storageFile = await prisma.storageFile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StorageFileFindUniqueOrThrowArgs>(args: SelectSubset<T, StorageFileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StorageFile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileFindFirstArgs} args - Arguments to find a StorageFile
+     * @example
+     * // Get one StorageFile
+     * const storageFile = await prisma.storageFile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StorageFileFindFirstArgs>(args?: SelectSubset<T, StorageFileFindFirstArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StorageFile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileFindFirstOrThrowArgs} args - Arguments to find a StorageFile
+     * @example
+     * // Get one StorageFile
+     * const storageFile = await prisma.storageFile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StorageFileFindFirstOrThrowArgs>(args?: SelectSubset<T, StorageFileFindFirstOrThrowArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StorageFiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StorageFiles
+     * const storageFiles = await prisma.storageFile.findMany()
+     * 
+     * // Get first 10 StorageFiles
+     * const storageFiles = await prisma.storageFile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const storageFileWithIdOnly = await prisma.storageFile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StorageFileFindManyArgs>(args?: SelectSubset<T, StorageFileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StorageFile.
+     * @param {StorageFileCreateArgs} args - Arguments to create a StorageFile.
+     * @example
+     * // Create one StorageFile
+     * const StorageFile = await prisma.storageFile.create({
+     *   data: {
+     *     // ... data to create a StorageFile
+     *   }
+     * })
+     * 
+     */
+    create<T extends StorageFileCreateArgs>(args: SelectSubset<T, StorageFileCreateArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StorageFiles.
+     * @param {StorageFileCreateManyArgs} args - Arguments to create many StorageFiles.
+     * @example
+     * // Create many StorageFiles
+     * const storageFile = await prisma.storageFile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StorageFileCreateManyArgs>(args?: SelectSubset<T, StorageFileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StorageFiles and returns the data saved in the database.
+     * @param {StorageFileCreateManyAndReturnArgs} args - Arguments to create many StorageFiles.
+     * @example
+     * // Create many StorageFiles
+     * const storageFile = await prisma.storageFile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StorageFiles and only return the `id`
+     * const storageFileWithIdOnly = await prisma.storageFile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StorageFileCreateManyAndReturnArgs>(args?: SelectSubset<T, StorageFileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StorageFile.
+     * @param {StorageFileDeleteArgs} args - Arguments to delete one StorageFile.
+     * @example
+     * // Delete one StorageFile
+     * const StorageFile = await prisma.storageFile.delete({
+     *   where: {
+     *     // ... filter to delete one StorageFile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StorageFileDeleteArgs>(args: SelectSubset<T, StorageFileDeleteArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StorageFile.
+     * @param {StorageFileUpdateArgs} args - Arguments to update one StorageFile.
+     * @example
+     * // Update one StorageFile
+     * const storageFile = await prisma.storageFile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StorageFileUpdateArgs>(args: SelectSubset<T, StorageFileUpdateArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StorageFiles.
+     * @param {StorageFileDeleteManyArgs} args - Arguments to filter StorageFiles to delete.
+     * @example
+     * // Delete a few StorageFiles
+     * const { count } = await prisma.storageFile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StorageFileDeleteManyArgs>(args?: SelectSubset<T, StorageFileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StorageFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StorageFiles
+     * const storageFile = await prisma.storageFile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StorageFileUpdateManyArgs>(args: SelectSubset<T, StorageFileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StorageFiles and returns the data updated in the database.
+     * @param {StorageFileUpdateManyAndReturnArgs} args - Arguments to update many StorageFiles.
+     * @example
+     * // Update many StorageFiles
+     * const storageFile = await prisma.storageFile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StorageFiles and only return the `id`
+     * const storageFileWithIdOnly = await prisma.storageFile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StorageFileUpdateManyAndReturnArgs>(args: SelectSubset<T, StorageFileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StorageFile.
+     * @param {StorageFileUpsertArgs} args - Arguments to update or create a StorageFile.
+     * @example
+     * // Update or create a StorageFile
+     * const storageFile = await prisma.storageFile.upsert({
+     *   create: {
+     *     // ... data to create a StorageFile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StorageFile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StorageFileUpsertArgs>(args: SelectSubset<T, StorageFileUpsertArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StorageFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileCountArgs} args - Arguments to filter StorageFiles to count.
+     * @example
+     * // Count the number of StorageFiles
+     * const count = await prisma.storageFile.count({
+     *   where: {
+     *     // ... the filter for the StorageFiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends StorageFileCountArgs>(
+      args?: Subset<T, StorageFileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StorageFileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StorageFile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StorageFileAggregateArgs>(args: Subset<T, StorageFileAggregateArgs>): Prisma.PrismaPromise<GetStorageFileAggregateType<T>>
+
+    /**
+     * Group by StorageFile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StorageFileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StorageFileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StorageFileGroupByArgs['orderBy'] }
+        : { orderBy?: StorageFileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StorageFileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStorageFileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StorageFile model
+   */
+  readonly fields: StorageFileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StorageFile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StorageFile model
+   */
+  interface StorageFileFieldRefs {
+    readonly id: FieldRef<"StorageFile", 'String'>
+    readonly inputFilename: FieldRef<"StorageFile", 'String'>
+    readonly outputFilename: FieldRef<"StorageFile", 'String'>
+    readonly extention: FieldRef<"StorageFile", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StorageFile findUnique
+   */
+  export type StorageFileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter, which StorageFile to fetch.
+     */
+    where: StorageFileWhereUniqueInput
+  }
+
+  /**
+   * StorageFile findUniqueOrThrow
+   */
+  export type StorageFileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter, which StorageFile to fetch.
+     */
+    where: StorageFileWhereUniqueInput
+  }
+
+  /**
+   * StorageFile findFirst
+   */
+  export type StorageFileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter, which StorageFile to fetch.
+     */
+    where?: StorageFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StorageFiles to fetch.
+     */
+    orderBy?: StorageFileOrderByWithRelationInput | StorageFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StorageFiles.
+     */
+    cursor?: StorageFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StorageFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StorageFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StorageFiles.
+     */
+    distinct?: StorageFileScalarFieldEnum | StorageFileScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile findFirstOrThrow
+   */
+  export type StorageFileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter, which StorageFile to fetch.
+     */
+    where?: StorageFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StorageFiles to fetch.
+     */
+    orderBy?: StorageFileOrderByWithRelationInput | StorageFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StorageFiles.
+     */
+    cursor?: StorageFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StorageFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StorageFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StorageFiles.
+     */
+    distinct?: StorageFileScalarFieldEnum | StorageFileScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile findMany
+   */
+  export type StorageFileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter, which StorageFiles to fetch.
+     */
+    where?: StorageFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StorageFiles to fetch.
+     */
+    orderBy?: StorageFileOrderByWithRelationInput | StorageFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StorageFiles.
+     */
+    cursor?: StorageFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StorageFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StorageFiles.
+     */
+    skip?: number
+    distinct?: StorageFileScalarFieldEnum | StorageFileScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile create
+   */
+  export type StorageFileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * The data needed to create a StorageFile.
+     */
+    data: XOR<StorageFileCreateInput, StorageFileUncheckedCreateInput>
+  }
+
+  /**
+   * StorageFile createMany
+   */
+  export type StorageFileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StorageFiles.
+     */
+    data: StorageFileCreateManyInput | StorageFileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StorageFile createManyAndReturn
+   */
+  export type StorageFileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * The data used to create many StorageFiles.
+     */
+    data: StorageFileCreateManyInput | StorageFileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StorageFile update
+   */
+  export type StorageFileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * The data needed to update a StorageFile.
+     */
+    data: XOR<StorageFileUpdateInput, StorageFileUncheckedUpdateInput>
+    /**
+     * Choose, which StorageFile to update.
+     */
+    where: StorageFileWhereUniqueInput
+  }
+
+  /**
+   * StorageFile updateMany
+   */
+  export type StorageFileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StorageFiles.
+     */
+    data: XOR<StorageFileUpdateManyMutationInput, StorageFileUncheckedUpdateManyInput>
+    /**
+     * Filter which StorageFiles to update
+     */
+    where?: StorageFileWhereInput
+    /**
+     * Limit how many StorageFiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StorageFile updateManyAndReturn
+   */
+  export type StorageFileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * The data used to update StorageFiles.
+     */
+    data: XOR<StorageFileUpdateManyMutationInput, StorageFileUncheckedUpdateManyInput>
+    /**
+     * Filter which StorageFiles to update
+     */
+    where?: StorageFileWhereInput
+    /**
+     * Limit how many StorageFiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StorageFile upsert
+   */
+  export type StorageFileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * The filter to search for the StorageFile to update in case it exists.
+     */
+    where: StorageFileWhereUniqueInput
+    /**
+     * In case the StorageFile found by the `where` argument doesn't exist, create a new StorageFile with this data.
+     */
+    create: XOR<StorageFileCreateInput, StorageFileUncheckedCreateInput>
+    /**
+     * In case the StorageFile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StorageFileUpdateInput, StorageFileUncheckedUpdateInput>
+  }
+
+  /**
+   * StorageFile delete
+   */
+  export type StorageFileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Filter which StorageFile to delete.
+     */
+    where: StorageFileWhereUniqueInput
+  }
+
+  /**
+   * StorageFile deleteMany
+   */
+  export type StorageFileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StorageFiles to delete
+     */
+    where?: StorageFileWhereInput
+    /**
+     * Limit how many StorageFiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StorageFile without action
+   */
+  export type StorageFileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1993,13 +3053,22 @@ export namespace Prisma {
     isBlocked: 'isBlocked',
     isTotpEnabled: 'isTotpEnabled',
     totpSecret: 'totpSecret',
-    avatar: 'avatar',
     permissions: 'permissions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const StorageFileScalarFieldEnum: {
+    id: 'id',
+    inputFilename: 'inputFilename',
+    outputFilename: 'outputFilename',
+    extention: 'extention'
+  };
+
+  export type StorageFileScalarFieldEnum = (typeof StorageFileScalarFieldEnum)[keyof typeof StorageFileScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2109,7 +3178,6 @@ export namespace Prisma {
     isBlocked?: BoolFilter<"User"> | boolean
     isTotpEnabled?: BoolFilter<"User"> | boolean
     totpSecret?: StringNullableFilter<"User"> | string | null
-    avatar?: StringNullableFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -2124,7 +3192,6 @@ export namespace Prisma {
     isBlocked?: SortOrder
     isTotpEnabled?: SortOrder
     totpSecret?: SortOrderInput | SortOrder
-    avatar?: SortOrderInput | SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2142,7 +3209,6 @@ export namespace Prisma {
     isBlocked?: BoolFilter<"User"> | boolean
     isTotpEnabled?: BoolFilter<"User"> | boolean
     totpSecret?: StringNullableFilter<"User"> | string | null
-    avatar?: StringNullableFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -2157,7 +3223,6 @@ export namespace Prisma {
     isBlocked?: SortOrder
     isTotpEnabled?: SortOrder
     totpSecret?: SortOrderInput | SortOrder
-    avatar?: SortOrderInput | SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2178,10 +3243,56 @@ export namespace Prisma {
     isBlocked?: BoolWithAggregatesFilter<"User"> | boolean
     isTotpEnabled?: BoolWithAggregatesFilter<"User"> | boolean
     totpSecret?: StringNullableWithAggregatesFilter<"User"> | string | null
-    avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type StorageFileWhereInput = {
+    AND?: StorageFileWhereInput | StorageFileWhereInput[]
+    OR?: StorageFileWhereInput[]
+    NOT?: StorageFileWhereInput | StorageFileWhereInput[]
+    id?: StringFilter<"StorageFile"> | string
+    inputFilename?: StringFilter<"StorageFile"> | string
+    outputFilename?: StringNullableFilter<"StorageFile"> | string | null
+    extention?: StringFilter<"StorageFile"> | string
+  }
+
+  export type StorageFileOrderByWithRelationInput = {
+    id?: SortOrder
+    inputFilename?: SortOrder
+    outputFilename?: SortOrderInput | SortOrder
+    extention?: SortOrder
+  }
+
+  export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StorageFileWhereInput | StorageFileWhereInput[]
+    OR?: StorageFileWhereInput[]
+    NOT?: StorageFileWhereInput | StorageFileWhereInput[]
+    inputFilename?: StringFilter<"StorageFile"> | string
+    outputFilename?: StringNullableFilter<"StorageFile"> | string | null
+    extention?: StringFilter<"StorageFile"> | string
+  }, "id">
+
+  export type StorageFileOrderByWithAggregationInput = {
+    id?: SortOrder
+    inputFilename?: SortOrder
+    outputFilename?: SortOrderInput | SortOrder
+    extention?: SortOrder
+    _count?: StorageFileCountOrderByAggregateInput
+    _max?: StorageFileMaxOrderByAggregateInput
+    _min?: StorageFileMinOrderByAggregateInput
+  }
+
+  export type StorageFileScalarWhereWithAggregatesInput = {
+    AND?: StorageFileScalarWhereWithAggregatesInput | StorageFileScalarWhereWithAggregatesInput[]
+    OR?: StorageFileScalarWhereWithAggregatesInput[]
+    NOT?: StorageFileScalarWhereWithAggregatesInput | StorageFileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StorageFile"> | string
+    inputFilename?: StringWithAggregatesFilter<"StorageFile"> | string
+    outputFilename?: StringNullableWithAggregatesFilter<"StorageFile"> | string | null
+    extention?: StringWithAggregatesFilter<"StorageFile"> | string
   }
 
   export type UserCreateInput = {
@@ -2193,7 +3304,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: string | null
-    avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2208,7 +3318,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: string | null
-    avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2223,7 +3332,6 @@ export namespace Prisma {
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
     isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2238,7 +3346,6 @@ export namespace Prisma {
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
     isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2253,7 +3360,6 @@ export namespace Prisma {
     isBlocked?: boolean
     isTotpEnabled?: boolean
     totpSecret?: string | null
-    avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2268,7 +3374,6 @@ export namespace Prisma {
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
     isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2283,10 +3388,58 @@ export namespace Prisma {
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
     isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StorageFileCreateInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+  }
+
+  export type StorageFileUncheckedCreateInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+  }
+
+  export type StorageFileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StorageFileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StorageFileCreateManyInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+  }
+
+  export type StorageFileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StorageFileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2357,7 +3510,6 @@ export namespace Prisma {
     isBlocked?: SortOrder
     isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
-    avatar?: SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2372,7 +3524,6 @@ export namespace Prisma {
     isBlocked?: SortOrder
     isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
-    avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2386,7 +3537,6 @@ export namespace Prisma {
     isBlocked?: SortOrder
     isTotpEnabled?: SortOrder
     totpSecret?: SortOrder
-    avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2447,6 +3597,27 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StorageFileCountOrderByAggregateInput = {
+    id?: SortOrder
+    inputFilename?: SortOrder
+    outputFilename?: SortOrder
+    extention?: SortOrder
+  }
+
+  export type StorageFileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    inputFilename?: SortOrder
+    outputFilename?: SortOrder
+    extention?: SortOrder
+  }
+
+  export type StorageFileMinOrderByAggregateInput = {
+    id?: SortOrder
+    inputFilename?: SortOrder
+    outputFilename?: SortOrder
+    extention?: SortOrder
   }
 
   export type UserCreatepermissionsInput = {
