@@ -5,7 +5,7 @@ import {
 	GqlAuthorizedWithPermissions
 } from '@shared/decorators'
 
-import { Permission } from '@/prisma/generated'
+import { Permission, User } from '@/prisma/generated'
 
 import { AccountService } from './account.service'
 import {
@@ -29,8 +29,8 @@ export class AccountResolver {
 	// Отримання поточного користувача
 	@Query(() => UserModel, { name: 'findMe' })
 	@GqlAuthorization()
-	async me(@GqlAuthorized('id') id: string) {
-		return this.accountService.findById(id)
+	async me(@GqlAuthorized() user: User) {
+		return user
 	}
 
 	// Створення нового користувача

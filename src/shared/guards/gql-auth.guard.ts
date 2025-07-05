@@ -1,16 +1,23 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
 
 import { PrismaService } from '@/src/core/prisma'
 
 import {
 	AuthNotAuthenticatedException,
-	AuthUserBlockedException
+	AuthUserBlockedException,
+	TotpNotEnabledException
 } from '../exceptions'
+
+export const SKIP_TOTP_CHECK = 'skipTotpCheck'
 
 @Injectable()
 export class GqlAuthGuard implements CanActivate {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly reflector: Reflector
+	) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const ctx = GqlExecutionContext.create(context)
@@ -29,6 +36,15 @@ export class GqlAuthGuard implements CanActivate {
 
 		if (user.isBlocked) {
 			throw new AuthUserBlockedException()
+		}
+
+		const skipTotpCheck = this.reflector.getAllAndOverride<boolean>(
+			SKIP_TOTP_CHECK,
+			[context.getHandler(), context.getClass()]
+		)
+
+		if (!skipTotpCheck && !user.isTotpEnabled) {
+			throw new TotpNotEnabledException()
 		}
 
 		request.user = user

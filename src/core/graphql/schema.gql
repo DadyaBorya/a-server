@@ -4,10 +4,10 @@
 
 input CreateUserInput {
   displayName: String!
-  isBlocked: Boolean!
-  isSuperUser: Boolean!
+  isBlocked: Boolean
+  isSuperUser: Boolean
   password: String!
-  permissions: [Permission!]!
+  permissions: [Permission!]
   username: String!
 }
 
@@ -22,6 +22,11 @@ type DeviceModel {
   type: String
 }
 
+input EnableTotpInput {
+  pin: String!
+  secret: String!
+}
+
 type LocationModel {
   city: String!
   country: String!
@@ -31,12 +36,15 @@ type LocationModel {
 
 input LoginInput {
   password: String!
+  pin: String
   username: String!
 }
 
 type Mutation {
   clearSessionCookie: Boolean!
   createUser(data: CreateUserInput!): Boolean!
+  disabledTotp(userId: String!): Boolean!
+  enableTotp(data: EnableTotpInput!): Boolean!
   login(data: LoginInput!): Boolean!
   logout: Boolean!
   removeSession(id: String!): Boolean!
@@ -57,6 +65,7 @@ type Query {
   findCurrentSession: SessionModel!
   findMe: UserModel!
   findSessions: [SessionModel!]!
+  generateTotpSecret: TotpModel!
 }
 
 type SessionMetadaModel {
@@ -72,13 +81,18 @@ type SessionModel {
   userId: String!
 }
 
+type TotpModel {
+  qrcodeUrl: String!
+  secret: String!
+}
+
 input UpdateUserInput {
-  displayName: String!
+  displayName: String
   id: String!
-  isBlocked: Boolean!
-  isSuperUser: Boolean!
-  permissions: [Permission!]!
-  username: String!
+  isBlocked: Boolean
+  isSuperUser: Boolean
+  permissions: [Permission!]
+  username: String
 }
 
 input UpdateUserPasswordInput {
@@ -93,6 +107,7 @@ type UserModel {
   id: ID!
   isBlocked: Boolean!
   isSuperUser: Boolean!
+  isTotpEnabled: Boolean!
   permissions: [Permission!]!
   updatedAt: DateTime!
   username: String!

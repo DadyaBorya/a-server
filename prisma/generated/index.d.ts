@@ -905,6 +905,8 @@ export namespace Prisma {
     displayName: string | null
     isSuperUser: boolean | null
     isBlocked: boolean | null
+    isTotpEnabled: boolean | null
+    totpSecret: string | null
     avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -917,6 +919,8 @@ export namespace Prisma {
     displayName: string | null
     isSuperUser: boolean | null
     isBlocked: boolean | null
+    isTotpEnabled: boolean | null
+    totpSecret: string | null
     avatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -929,6 +933,8 @@ export namespace Prisma {
     displayName: number
     isSuperUser: number
     isBlocked: number
+    isTotpEnabled: number
+    totpSecret: number
     avatar: number
     permissions: number
     createdAt: number
@@ -944,6 +950,8 @@ export namespace Prisma {
     displayName?: true
     isSuperUser?: true
     isBlocked?: true
+    isTotpEnabled?: true
+    totpSecret?: true
     avatar?: true
     createdAt?: true
     updatedAt?: true
@@ -956,6 +964,8 @@ export namespace Prisma {
     displayName?: true
     isSuperUser?: true
     isBlocked?: true
+    isTotpEnabled?: true
+    totpSecret?: true
     avatar?: true
     createdAt?: true
     updatedAt?: true
@@ -968,6 +978,8 @@ export namespace Prisma {
     displayName?: true
     isSuperUser?: true
     isBlocked?: true
+    isTotpEnabled?: true
+    totpSecret?: true
     avatar?: true
     permissions?: true
     createdAt?: true
@@ -1054,6 +1066,8 @@ export namespace Prisma {
     displayName: string
     isSuperUser: boolean
     isBlocked: boolean
+    isTotpEnabled: boolean
+    totpSecret: string | null
     avatar: string | null
     permissions: $Enums.Permission[]
     createdAt: Date
@@ -1084,6 +1098,8 @@ export namespace Prisma {
     displayName?: boolean
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: boolean
     avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
@@ -1097,6 +1113,8 @@ export namespace Prisma {
     displayName?: boolean
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: boolean
     avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
@@ -1110,6 +1128,8 @@ export namespace Prisma {
     displayName?: boolean
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: boolean
     avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
@@ -1123,13 +1143,15 @@ export namespace Prisma {
     displayName?: boolean
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: boolean
     avatar?: boolean
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "displayName" | "isSuperUser" | "isBlocked" | "avatar" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "displayName" | "isSuperUser" | "isBlocked" | "isTotpEnabled" | "totpSecret" | "avatar" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1141,6 +1163,8 @@ export namespace Prisma {
       displayName: string
       isSuperUser: boolean
       isBlocked: boolean
+      isTotpEnabled: boolean
+      totpSecret: string | null
       avatar: string | null
       permissions: $Enums.Permission[]
       createdAt: Date
@@ -1574,6 +1598,8 @@ export namespace Prisma {
     readonly displayName: FieldRef<"User", 'String'>
     readonly isSuperUser: FieldRef<"User", 'Boolean'>
     readonly isBlocked: FieldRef<"User", 'Boolean'>
+    readonly isTotpEnabled: FieldRef<"User", 'Boolean'>
+    readonly totpSecret: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly permissions: FieldRef<"User", 'Permission[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -1965,6 +1991,8 @@ export namespace Prisma {
     displayName: 'displayName',
     isSuperUser: 'isSuperUser',
     isBlocked: 'isBlocked',
+    isTotpEnabled: 'isTotpEnabled',
+    totpSecret: 'totpSecret',
     avatar: 'avatar',
     permissions: 'permissions',
     createdAt: 'createdAt',
@@ -2079,6 +2107,8 @@ export namespace Prisma {
     displayName?: StringFilter<"User"> | string
     isSuperUser?: BoolFilter<"User"> | boolean
     isBlocked?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
+    totpSecret?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -2092,6 +2122,8 @@ export namespace Prisma {
     displayName?: SortOrder
     isSuperUser?: SortOrder
     isBlocked?: SortOrder
+    isTotpEnabled?: SortOrder
+    totpSecret?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
@@ -2108,6 +2140,8 @@ export namespace Prisma {
     displayName?: StringFilter<"User"> | string
     isSuperUser?: BoolFilter<"User"> | boolean
     isBlocked?: BoolFilter<"User"> | boolean
+    isTotpEnabled?: BoolFilter<"User"> | boolean
+    totpSecret?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -2121,6 +2155,8 @@ export namespace Prisma {
     displayName?: SortOrder
     isSuperUser?: SortOrder
     isBlocked?: SortOrder
+    isTotpEnabled?: SortOrder
+    totpSecret?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
@@ -2140,6 +2176,8 @@ export namespace Prisma {
     displayName?: StringWithAggregatesFilter<"User"> | string
     isSuperUser?: BoolWithAggregatesFilter<"User"> | boolean
     isBlocked?: BoolWithAggregatesFilter<"User"> | boolean
+    isTotpEnabled?: BoolWithAggregatesFilter<"User"> | boolean
+    totpSecret?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -2153,6 +2191,8 @@ export namespace Prisma {
     displayName: string
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
     avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
@@ -2166,6 +2206,8 @@ export namespace Prisma {
     displayName: string
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
     avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
@@ -2179,6 +2221,8 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     isSuperUser?: BoolFieldUpdateOperationsInput | boolean
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2192,6 +2236,8 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     isSuperUser?: BoolFieldUpdateOperationsInput | boolean
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2205,6 +2251,8 @@ export namespace Prisma {
     displayName: string
     isSuperUser?: boolean
     isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
     avatar?: string | null
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
@@ -2218,6 +2266,8 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     isSuperUser?: BoolFieldUpdateOperationsInput | boolean
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2231,6 +2281,8 @@ export namespace Prisma {
     displayName?: StringFieldUpdateOperationsInput | string
     isSuperUser?: BoolFieldUpdateOperationsInput | boolean
     isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2303,6 +2355,8 @@ export namespace Prisma {
     displayName?: SortOrder
     isSuperUser?: SortOrder
     isBlocked?: SortOrder
+    isTotpEnabled?: SortOrder
+    totpSecret?: SortOrder
     avatar?: SortOrder
     permissions?: SortOrder
     createdAt?: SortOrder
@@ -2316,6 +2370,8 @@ export namespace Prisma {
     displayName?: SortOrder
     isSuperUser?: SortOrder
     isBlocked?: SortOrder
+    isTotpEnabled?: SortOrder
+    totpSecret?: SortOrder
     avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2328,6 +2384,8 @@ export namespace Prisma {
     displayName?: SortOrder
     isSuperUser?: SortOrder
     isBlocked?: SortOrder
+    isTotpEnabled?: SortOrder
+    totpSecret?: SortOrder
     avatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder

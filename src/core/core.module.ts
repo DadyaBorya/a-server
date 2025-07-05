@@ -1,5 +1,7 @@
 import { AccountModule } from '@modules/auth/account'
 import { SessionModule } from '@modules/auth/session'
+import { TotpModule } from '@modules/auth/totp'
+import { StorageModule } from '@modules/storage'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
@@ -22,7 +24,9 @@ import { RedisModule } from './redis'
 		PrismaModule,
 		RedisModule,
 		AccountModule,
-		SessionModule
+		SessionModule,
+		TotpModule,
+		StorageModule
 	]
 })
 export class CoreModule {}

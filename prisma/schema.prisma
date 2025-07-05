@@ -25,6 +25,9 @@ model User {
   isSuperUser Boolean @default(false) @map("is_super_user")
   isBlocked   Boolean @default(false) @map("is_blocked")
 
+  isTotpEnabled Boolean @default(false) @map("is_totp_enabled")
+  totpSecret String? @map("totp_secret")
+
   avatar String?
 
   permissions Permission[]

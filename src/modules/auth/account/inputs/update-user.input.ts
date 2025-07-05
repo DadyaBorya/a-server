@@ -4,6 +4,7 @@ import {
 	IsBoolean,
 	IsEnum,
 	IsNotEmpty,
+	IsOptional,
 	IsString,
 	IsUUID,
 	Matches
@@ -17,31 +18,36 @@ export class UpdateUserInput {
 	@IsUUID()
 	id: string
 
-	@Field()
+	@Field({ nullable: true })
 	@IsString()
 	@IsNotEmpty()
 	@Matches(/^[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*$/)
+	@IsOptional()
 	username: string
 
 	password: string
 
-	@Field()
+	@Field({ nullable: true })
 	@IsString()
 	@IsNotEmpty()
+	@IsOptional()
 	displayName: string
 
-	@Field()
+	@Field({ nullable: true })
 	@IsBoolean()
+	@IsOptional()
 	isSuperUser: boolean
 
-	@Field(() => [Permission])
+	@Field(() => [Permission], { nullable: true })
 	@IsArray()
 	@IsEnum(Permission, {
 		each: true
 	})
+	@IsOptional()
 	permissions: Permission[]
 
-	@Field()
+	@Field({ nullable: true })
 	@IsBoolean()
+	@IsOptional()
 	isBlocked: boolean
 }

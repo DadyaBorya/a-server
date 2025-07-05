@@ -4,6 +4,7 @@ import {
 	IsBoolean,
 	IsEnum,
 	IsNotEmpty,
+	IsOptional,
 	IsString,
 	Matches,
 	MinLength
@@ -30,18 +31,21 @@ export class CreateUserInput {
 	@IsNotEmpty()
 	displayName: string
 
-	@Field()
+	@Field({ nullable: true })
 	@IsBoolean()
+	@IsOptional()
 	isSuperUser: boolean
 
-	@Field(() => [Permission])
+	@Field(() => [Permission], { nullable: true })
 	@IsArray()
 	@IsEnum(Permission, {
 		each: true
 	})
+	@IsOptional()
 	permissions: Permission[]
 
-	@Field()
+	@Field({ nullable: true })
 	@IsBoolean()
+	@IsOptional()
 	isBlocked: boolean
 }

@@ -4,10 +4,12 @@ import { ConfigService } from '@nestjs/config'
 import { getSessionMetadata } from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
+import { TOTP } from 'otpauth'
 
 import { Permission } from '@/prisma/generated'
 
 import { AccountService } from '../account'
+import { TotpInvalidPinException } from '../totp/exceptions'
 
 import {
 	CannotDeleteCurrentSessionException,
@@ -16,6 +18,7 @@ import {
 	SessionDestroyFailedException,
 	SessionNotFoundException,
 	SessionSaveFailedException,
+	TotpPinRequiredException,
 	UserNotFoundInSessionException
 } from './exceptions'
 import { LoginInput } from './input'
@@ -77,13 +80,33 @@ export class SessionService {
 	}
 
 	public async login(request: Request, input: LoginInput, userAgent: string) {
-		const { username, password } = input
+		const { username, password, pin } = input
 
 		const user = await this.accountService.findByUsername(username)
 
 		const isValidPassword = await verify(user.password, password)
 
 		if (!isValidPassword) throw new InvalidCredentialsException()
+
+		if (user.isTotpEnabled) {
+			if (!pin) {
+				throw new TotpPinRequiredException()
+			}
+
+			const totp = new TOTP({
+				issuer: 'AnalysisPlus',
+				label: username,
+				algorithm: 'SHA1',
+				digits: 6,
+				secret: user.totpSecret
+			})
+
+			const delta = totp.validate({ token: pin })
+
+			if (delta === null) {
+				throw new TotpInvalidPinException()
+			}
+		}
 
 		const metadata = getSessionMetadata(request, userAgent)
 

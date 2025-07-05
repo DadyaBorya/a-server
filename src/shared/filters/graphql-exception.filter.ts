@@ -17,21 +17,28 @@ export class GqlAllExceptionsFilter implements ExceptionFilter {
 
 		let status = HttpStatus.INTERNAL_SERVER_ERROR
 		let message = 'Невідома помилка GraphQL'
+		let errorCode = 'GRAPHQL_ERROR'
 
 		if (exception instanceof HttpException) {
 			status = exception.getStatus()
 			const res = exception.getResponse()
-			message =
-				typeof res === 'string'
-					? res
-					: (res as any)?.message || exception.message
+
+			if (typeof res === 'string') {
+				message = res
+			} else if (typeof res === 'object' && res !== null) {
+				const response = res as Record<string, any>
+				message = response.message || exception.message
+				errorCode = response.errorCode || errorCode
+			} else {
+				message = exception.message
+			}
 		} else if (exception instanceof Error) {
 			message = exception.message
 		}
 
 		throw new GraphQLError(message, {
 			extensions: {
-				code: 'GRAPHQL_ERROR',
+				code: errorCode,
 				statusCode: status,
 				timestamp,
 				path

@@ -61,6 +61,16 @@ export class AccountService {
 	async update(id: string, data: Partial<User>) {
 		await this.findById(id)
 
+		if (data.username) {
+			const isUsernameExists = await this.userRepository.findByUsername(
+				data.username
+			)
+
+			if (isUsernameExists) {
+				throw new UsernameAlreadyTakenException()
+			}
+		}
+
 		await this.userRepository.updateUser(id, data)
 
 		return true

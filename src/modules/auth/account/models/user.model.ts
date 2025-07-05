@@ -12,13 +12,14 @@ export class UserModel implements User {
 	@Field(() => String)
 	username: string
 
-	password: string
-
 	@Field(() => String)
 	displayName: string
 
 	@Field(() => [Permission])
 	permissions: Permission[]
+
+	@Field(() => Boolean)
+	isTotpEnabled: boolean
 
 	@Field(() => String, { nullable: true })
 	avatar: string
@@ -34,4 +35,7 @@ export class UserModel implements User {
 
 	@Field(() => Date)
 	updatedAt: Date
+
+	password: string
+	totpSecret: string
 }

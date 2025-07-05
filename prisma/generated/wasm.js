@@ -127,6 +127,8 @@ exports.Prisma.UserScalarFieldEnum = {
   displayName: 'displayName',
   isSuperUser: 'isSuperUser',
   isBlocked: 'isBlocked',
+  isTotpEnabled: 'isTotpEnabled',
+  totpSecret: 'totpSecret',
   avatar: 'avatar',
   permissions: 'permissions',
   createdAt: 'createdAt',
