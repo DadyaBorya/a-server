@@ -42,6 +42,8 @@ model StorageFile {
   inputFilename  String  @map("input_filename")
   outputFilename String? @map("output_filename")
   extention      String
+  size           Int
+  bucket         String
 
   @@map("storage_files")
 }

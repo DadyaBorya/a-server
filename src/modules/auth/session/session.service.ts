@@ -1,7 +1,12 @@
 import { RedisService } from '@core/redis'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { createTotp, getSessionMetadata, validateTotp } from '@shared/utils'
+import {
+	createTotp,
+	getSessionMetadata,
+	permission,
+	validateTotp
+} from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
 
@@ -151,15 +156,12 @@ export class SessionService {
 			req.session.userId
 		)
 
-		const isOwner = session.userId === req.session.userId
-		const hasUpdatePermission = currentUser.permissions.includes(
-			Permission.USER_UPDATE
+		permission(
+			currentUser,
+			[Permission.USER_UPDATE],
+			NoPermissionToDeleteSessionException,
+			() => session.userId === req.session.userId
 		)
-		const isSuperUser = currentUser.isSuperUser
-
-		if (!isOwner && !isSuperUser && !hasUpdatePermission) {
-			throw new NoPermissionToDeleteSessionException()
-		}
 
 		await this.redisService.del(`${this.sessionFolder}${id}`)
 
