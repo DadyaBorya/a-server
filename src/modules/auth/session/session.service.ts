@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config'
 import {
 	createTotp,
 	getSessionMetadata,
-	permission,
+	hasPermission,
 	validateTotp
 } from '@shared/utils'
 import { verify } from 'argon2'
@@ -21,8 +21,7 @@ import {
 	SessionDestroyFailedException,
 	SessionNotFoundException,
 	SessionSaveFailedException,
-	TotpPinRequiredException,
-	UserNotFoundInSessionException
+	TotpPinRequiredException
 } from './exceptions'
 import { LoginInput } from './input'
 
@@ -41,9 +40,7 @@ export class SessionService {
 		this.sessionName = this.configService.getOrThrow<string>('SESSION_NAME')
 	}
 
-	public async findSessions(userId: string, requestSessionId?: string) {
-		if (!userId) throw new UserNotFoundInSessionException()
-
+	public async findSessions(userId: string, requestSessionId: string) {
 		const keys = await this.redisService.keys(`${this.sessionFolder}*`)
 
 		const userSessions = []
@@ -63,22 +60,13 @@ export class SessionService {
 
 		userSessions.sort((a, b) => b.createdAt - a.createdAt)
 
-		if (!requestSessionId) {
-			return userSessions
-		}
-
 		return userSessions.filter(session => session.id !== requestSessionId)
 	}
 
 	async findCurrent(request: Request) {
 		const sessionId = request.session.id
-		const sessionData = await this.redisService.get(
-			`${this.sessionFolder}${sessionId}`
-		)
 
-		if (!sessionData) throw new SessionNotFoundException()
-
-		const session = JSON.parse(sessionData)
+		const session = await this.getSession(sessionId)
 		return { ...session, id: sessionId }
 	}
 
@@ -142,21 +130,13 @@ export class SessionService {
 			throw new CannotDeleteCurrentSessionException()
 		}
 
-		const sessionData = await this.redisService.get(
-			`${this.sessionFolder}${id}`
-		)
-
-		if (!sessionData) {
-			throw new SessionNotFoundException()
-		}
-
-		const session = JSON.parse(sessionData)
+		const session = await this.getSession(id)
 
 		const currentUser = await this.accountService.findById(
 			req.session.userId
 		)
 
-		permission(
+		hasPermission(
 			currentUser,
 			[Permission.USER_UPDATE],
 			NoPermissionToDeleteSessionException,
@@ -166,5 +146,17 @@ export class SessionService {
 		await this.redisService.del(`${this.sessionFolder}${id}`)
 
 		return true
+	}
+
+	async getSession(id: string) {
+		const sessionData = await this.redisService.get(
+			`${this.sessionFolder}${id}`
+		)
+
+		if (!sessionData) {
+			throw new SessionNotFoundException()
+		}
+
+		return JSON.parse(sessionData)
 	}
 }

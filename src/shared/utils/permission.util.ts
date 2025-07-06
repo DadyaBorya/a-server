@@ -1,6 +1,6 @@
 import { Permission, User } from '@/prisma/generated'
 
-export function permission(
+export function hasPermission(
 	user: User,
 	requiredPermissions: Permission[],
 	PermissionError: new () => Error,
@@ -17,4 +17,6 @@ export function permission(
 	if (!other && !isSuperUser && !hasPermission) {
 		throw new PermissionError()
 	}
+
+	return true
 }

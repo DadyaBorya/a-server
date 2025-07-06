@@ -6,13 +6,14 @@ import { MINIO_CONNECTION } from 'nestjs-minio'
 
 @Injectable()
 export class StorageService {
-	private readonly bucket: string
+	private readonly dataBucket: string
 
 	constructor(
 		@Inject(MINIO_CONNECTION) private readonly minioClient: Client,
 		private readonly configService: ConfigService
 	) {
-		this.bucket = this.configService.getOrThrow<string>('MINIO_BUCKET')
+		this.dataBucket =
+			this.configService.getOrThrow<string>('MINIO_DATA_BUCKET')
 	}
 
 	// TODO! NEED TO CHECK
