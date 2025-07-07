@@ -1,23 +1,14 @@
 import { RedisService } from '@core/redis'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import {
-	createTotp,
-	getSessionMetadata,
-	hasPermission,
-	validateTotp
-} from '@shared/utils'
+import { createTotp, getSessionMetadata, validateTotp } from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
-
-import { Permission } from '@/prisma/generated'
 
 import { AccountService } from '../account'
 
 import {
-	CannotDeleteCurrentSessionException,
 	InvalidCredentialsException,
-	NoPermissionToDeleteSessionException,
 	SessionDestroyFailedException,
 	SessionNotFoundException,
 	SessionSaveFailedException,
@@ -126,23 +117,6 @@ export class SessionService {
 	}
 
 	public async remove(req: Request, id: string) {
-		if (req.session.id === id) {
-			throw new CannotDeleteCurrentSessionException()
-		}
-
-		const session = await this.getSession(id)
-
-		const currentUser = await this.accountService.findById(
-			req.session.userId
-		)
-
-		hasPermission(
-			currentUser,
-			[Permission.USER_UPDATE],
-			NoPermissionToDeleteSessionException,
-			() => session.userId === req.session.userId
-		)
-
 		await this.redisService.del(`${this.sessionFolder}${id}`)
 
 		return true

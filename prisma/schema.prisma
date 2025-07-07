@@ -13,6 +13,14 @@ enum Permission {
   USER_CREATE
   USER_UPDATE
   USER_DELETE
+
+  REQUEST_READ_OWN
+  REQUEST_READ_ALL
+
+  // ГСЦ МВС
+  HSTS_MVS_READ_OWN
+  HSTS_MVS_READ_ALL
+  HSTS_MVS_READ_CREATE
 }
 
 model User {

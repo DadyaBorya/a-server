@@ -1,7 +1,9 @@
+import { UseGuards } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { GqlAuthorization, UserAgent } from '@shared/decorators'
 import { GqlContext } from '@shared/types'
 
+import { GqlRemoveSessionGuard } from './guards'
 import { LoginInput } from './input'
 import { SessionModel } from './models'
 import { SessionService } from './session.service'
@@ -51,6 +53,7 @@ export class SessionResolver {
 	}
 
 	// Видалити сесію окрім поточної
+	@UseGuards(GqlRemoveSessionGuard)
 	@GqlAuthorization()
 	@Mutation(() => Boolean, { name: 'removeSession' })
 	async remove(@Context() { request }: GqlContext, @Args('id') id: string) {

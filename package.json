@@ -13,7 +13,8 @@
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
 		"db:push": "prisma db push",
-		"db:studio": "prisma studio"
+		"db:studio": "prisma studio",
+		"db:seed": "ts-node src/core/prisma/prisma.seed.ts"
 	},
 	"dependencies": {
 		"@apollo/server": "^4.12.2",

@@ -4,7 +4,6 @@
 
 input CreateUserInput {
   displayName: String!
-  isBlocked: Boolean
   isSuperUser: Boolean
   password: String!
   permissions: [Permission!]
@@ -53,7 +52,6 @@ type Mutation {
   upload(file: Upload!): Boolean!
 }
 
-"""Перелік дозволів користувача"""
 enum Permission {
   USER_CREATE
   USER_DELETE

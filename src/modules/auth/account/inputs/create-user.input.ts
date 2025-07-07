@@ -44,8 +44,5 @@ export class CreateUserInput {
 	@IsOptional()
 	permissions: Permission[]
 
-	@Field({ nullable: true })
-	@IsBoolean()
-	@IsOptional()
 	isBlocked: boolean
 }
