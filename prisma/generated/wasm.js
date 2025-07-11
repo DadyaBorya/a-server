@@ -144,6 +144,23 @@ exports.Prisma.StorageFileScalarFieldEnum = {
   path: 'path'
 };
 
+exports.Prisma.ProcessScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  userId: 'userId',
+  owner: 'owner',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProcessHstsMvsScalarFieldEnum = {
+  processId: 'processId',
+  driverLicenseFileId: 'driverLicenseFileId',
+  carInfoFileId: 'carInfoFileId',
+  resultFileId: 'resultFileId',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,12 +179,31 @@ exports.Permission = exports.$Enums.Permission = {
   USER_READ: 'USER_READ',
   USER_CREATE: 'USER_CREATE',
   USER_UPDATE: 'USER_UPDATE',
-  USER_DELETE: 'USER_DELETE'
+  USER_DELETE: 'USER_DELETE',
+  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
+  REQUEST_READ_OWN: 'REQUEST_READ_OWN',
+  REQUEST_READ_ALL: 'REQUEST_READ_ALL',
+  HSTS_MVS_READ_OWN: 'HSTS_MVS_READ_OWN',
+  HSTS_MVS_READ_ALL: 'HSTS_MVS_READ_ALL',
+  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE'
+};
+
+exports.Status = exports.$Enums.Status = {
+  PENDING: 'PENDING',
+  STARTED: 'STARTED',
+  END: 'END',
+  ERROR: 'ERROR'
+};
+
+exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
+  VALIDATE: 'VALIDATE'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  StorageFile: 'StorageFile'
+  StorageFile: 'StorageFile',
+  Process: 'Process',
+  ProcessHstsMvs: 'ProcessHstsMvs'
 };
 
 /**

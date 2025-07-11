@@ -5,7 +5,8 @@ export class AuthUserBlockedException extends ForbiddenException {
 		super({
 			statusCode: 403,
 			message:
-				'Ваш обліковий запис заблоковано. Зверніться до адміністратора.'
+				'Ваш обліковий запис заблоковано. Зверніться до адміністратора.',
+			errorCode: 'USER_IS_BLOCKED'
 		})
 	}
 }

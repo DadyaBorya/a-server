@@ -1,11 +1,15 @@
 import { RedisService } from '@core/redis'
+import { AccountService } from '@modules/users/account'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { createTotp, getSessionMetadata, validateTotp } from '@shared/utils'
 import { verify } from 'argon2'
 import { Request } from 'express'
 
-import { AccountService } from '../account'
+import {
+	AuthUserBlockedException,
+	TotpNotEnabledException
+} from '@/src/shared/exceptions'
 
 import {
 	InvalidCredentialsException,
@@ -70,6 +74,10 @@ export class SessionService {
 
 		if (!isValidPassword) throw new InvalidCredentialsException()
 
+		if (user.isBlocked) {
+			throw new AuthUserBlockedException()
+		}
+
 		if (user.isTotpEnabled) {
 			if (!pin) {
 				throw new TotpPinRequiredException()
@@ -90,6 +98,10 @@ export class SessionService {
 			request.session.save(err => {
 				if (err) {
 					return reject(new SessionSaveFailedException())
+				}
+
+				if (!user.isTotpEnabled) {
+					return reject(new TotpNotEnabledException())
 				}
 
 				resolve(true)

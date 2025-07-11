@@ -4,6 +4,7 @@
 
 input CreateUserInput {
   displayName: String!
+  isBlocked: Boolean
   isSuperUser: Boolean
   password: String!
   permissions: [Permission!]
@@ -24,6 +25,14 @@ type DeviceModel {
 input EnableTotpInput {
   pin: String!
   secret: String!
+}
+
+input ListUsersInput {
+  limit: Int = 20
+  orderBy: String
+  orderDirection: OrderDirection = ASC
+  page: Int = 1
+  searchFor: String
 }
 
 type LocationModel {
@@ -47,24 +56,42 @@ type Mutation {
   login(data: LoginInput!): Boolean!
   logout: Boolean!
   removeSession(id: String!): Boolean!
+  resetPasswordUser(data: ResetUserPasswordInput!): Boolean!
   updatePasswordUser(data: UpdateUserPasswordInput!): Boolean!
   updateUser(data: UpdateUserInput!): Boolean!
   upload(file: Upload!): Boolean!
 }
 
+enum OrderDirection {
+  ASC
+  DESC
+}
+
 enum Permission {
+  HSTS_MVS_CREATE
+  HSTS_MVS_READ_ALL
+  HSTS_MVS_READ_OWN
+  REQUEST_READ_ALL
+  REQUEST_READ_OWN
   USER_CREATE
   USER_DELETE
   USER_READ
+  USER_RESET_PASSWORD
   USER_UPDATE
 }
 
 type Query {
-  findAllUsers: [UserModel!]!
+  findAllUsers(data: ListUsersInput!): UserListModel!
   findCurrentSession: SessionModel!
   findMe: UserModel!
   findSessions: [SessionModel!]!
+  findUserById(id: String!): UserModel!
   generateTotpSecret: TotpModel!
+}
+
+input ResetUserPasswordInput {
+  id: String!
+  password: String!
 }
 
 type SessionMetadaModel {
@@ -95,12 +122,21 @@ input UpdateUserInput {
 }
 
 input UpdateUserPasswordInput {
-  id: String!
+  currentPassword: String!
   password: String!
 }
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+type UserListModel {
+  currentPage: Int!
+  data: [UserModel!]!
+  hasNext: Boolean!
+  hasPrev: Boolean!
+  pages: Int!
+  total: Int!
+}
 
 type UserModel {
   createdAt: DateTime!

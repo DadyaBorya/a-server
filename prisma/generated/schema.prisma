@@ -13,6 +13,26 @@ enum Permission {
   USER_CREATE
   USER_UPDATE
   USER_DELETE
+  USER_RESET_PASSWORD
+
+  REQUEST_READ_OWN
+  REQUEST_READ_ALL
+
+  // ГСЦ МВС
+  HSTS_MVS_READ_OWN
+  HSTS_MVS_READ_ALL
+  HSTS_MVS_CREATE
+}
+
+enum Status {
+  PENDING
+  STARTED
+  END
+  ERROR
+}
+
+enum HstsMvsStage {
+  VALIDATE
 }
 
 model User {
@@ -30,6 +50,8 @@ model User {
 
   permissions Permission[]
 
+  processes Process[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -46,5 +68,46 @@ model StorageFile {
   bucket         String
   path           String
 
+  // MVS
+  driverLicenseProcesses ProcessHstsMvs[] @relation("DriverLicenseFile")
+  carInfoProcesses       ProcessHstsMvs[] @relation("CarInfoFile")
+  resultProcesses        ProcessHstsMvs[] @relation("ResultFile")
+
   @@map("storage_files")
+}
+
+model Process {
+  id String @id @default(uuid())
+
+  status Status @default(PENDING)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  owner String?
+
+  hstsMvs ProcessHstsMvs?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("processes")
+}
+
+model ProcessHstsMvs {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  driverLicenseFileId String      @map("driver_license_file_id")
+  driverLicenseFile   StorageFile @relation("DriverLicenseFile", fields: [driverLicenseFileId], references: [id])
+
+  carInfoFileId String      @map("car_info_file_id")
+  carInfoFile   StorageFile @relation("CarInfoFile", fields: [carInfoFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
+
+  stage        HstsMvsStage
+  errorMessage String?      @map("error_message")
+
+  @@map("process_hsts_mvs")
 }

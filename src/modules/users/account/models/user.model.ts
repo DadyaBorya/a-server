@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 
 import { User } from '@/prisma/generated'
 
@@ -27,10 +27,10 @@ export class UserModel implements User {
 	@Field(() => Boolean)
 	isBlocked: boolean
 
-	@Field(() => Date)
+	@Field(() => GraphQLISODateTime)
 	createdAt: Date
 
-	@Field(() => Date)
+	@Field(() => GraphQLISODateTime)
 	updatedAt: Date
 
 	password: string

@@ -1,3 +1,4 @@
+import { AccountService } from '@modules/users/account'
 import { Injectable } from '@nestjs/common'
 import { randomBytes } from 'crypto'
 import { encode } from 'hi-base32'
@@ -5,8 +6,6 @@ import * as QRCode from 'qrcode'
 
 import { User } from '@/prisma/generated'
 import { createTotp, validateTotp } from '@/src/shared/utils'
-
-import { AccountService } from '../account'
 
 import { TotpAlreadyEnabledException } from './exceptions'
 import { EnableTotpInput } from './inputs'

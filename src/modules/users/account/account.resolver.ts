@@ -1,3 +1,4 @@
+import { ParseUUIDPipe, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import {
 	GqlAuthorization,
@@ -8,12 +9,15 @@ import {
 import { Permission, User } from '@/prisma/generated'
 
 import { AccountService } from './account.service'
+import { GqlFindUserByIdGuard } from './guards'
 import {
 	CreateUserInput,
+	ListUsersInput,
+	ResetUserPasswordInput,
 	UpdateUserInput,
 	UpdateUserPasswordInput
 } from './inputs'
-import { UserModel } from './models'
+import { UserListModel, UserModel } from './models'
 
 @Resolver('Account')
 export class AccountResolver {
@@ -21,9 +25,16 @@ export class AccountResolver {
 
 	// Отрмання всіх користувачів
 	@GqlAuthorizedWithPermissions(Permission.USER_READ)
-	@Query(() => [UserModel], { name: 'findAllUsers' })
-	async findAll() {
-		return this.accountService.findAll()
+	@Query(() => UserListModel, { name: 'findAllUsers' })
+	async findAll(@Args('data') input: ListUsersInput) {
+		return this.accountService.findAll(input)
+	}
+
+	@UseGuards(GqlFindUserByIdGuard)
+	@GqlAuthorization()
+	@Query(() => UserModel, { name: 'findUserById' })
+	async findById(@Args('id', ParseUUIDPipe) id: string) {
+		return this.accountService.findById(id)
 	}
 
 	// Отримання поточного користувача
@@ -47,10 +58,20 @@ export class AccountResolver {
 		return this.accountService.update(input.id, input)
 	}
 
+	// Відновлення пароля користувача
+	@GqlAuthorizedWithPermissions(Permission.USER_RESET_PASSWORD)
+	@Mutation(() => Boolean, { name: 'resetPasswordUser' })
+	async updatePassword(@Args('data') input: ResetUserPasswordInput) {
+		return this.accountService.resetPassword(input)
+	}
+
 	// Зміна пароля користувача
-	@GqlAuthorizedWithPermissions(Permission.USER_UPDATE)
+	@GqlAuthorization()
 	@Mutation(() => Boolean, { name: 'updatePasswordUser' })
-	async updatePassword(@Args('data') input: UpdateUserPasswordInput) {
-		return this.accountService.updatePassword(input)
+	async resetPassword(
+		@GqlAuthorized('id') userId: string,
+		@Args('data') input: UpdateUserPasswordInput
+	) {
+		return this.accountService.updatePassword(userId, input)
 	}
 }

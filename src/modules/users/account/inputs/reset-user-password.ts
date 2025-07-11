@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql'
 import { IsNotEmpty, IsString, IsUUID, MinLength } from 'class-validator'
 
 @InputType()
-export class UpdateUserPasswordInput {
+export class ResetUserPasswordInput {
 	@Field()
 	@IsUUID()
 	id: string

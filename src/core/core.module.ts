@@ -1,7 +1,7 @@
-import { AccountModule } from '@modules/auth/account'
 import { SessionModule } from '@modules/auth/session'
 import { TotpModule } from '@modules/auth/totp'
 import { StorageModule } from '@modules/libs/storage'
+import { AccountModule } from '@modules/users/account'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'

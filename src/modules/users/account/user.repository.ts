@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { User } from '@prisma/generated'
+import { Prisma, User } from '@prisma/generated'
 
 import { PrismaService } from '@/src/core/prisma'
 
@@ -21,8 +21,13 @@ export class UserRepository {
 		return this.prisma.user.findUnique({ where: { username } })
 	}
 
-	async findMany(): Promise<User[]> {
-		return this.prisma.user.findMany()
+	async findMany(params?: Prisma.UserFindManyArgs): Promise<User[]> {
+		return this.prisma.user.findMany(params)
+	}
+
+	async count(params?: Prisma.UserFindManyArgs): Promise<number> {
+		const where = params?.where
+		return this.prisma.user.count({ where })
 	}
 
 	async updateUser(id: string, data: Partial<User>): Promise<User> {

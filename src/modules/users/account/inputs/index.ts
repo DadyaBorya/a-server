@@ -1,3 +1,5 @@
 export * from './create-user.input'
 export * from './update-user.input'
 export * from './update-user-password'
+export * from './reset-user-password'
+export * from './list-users.input'

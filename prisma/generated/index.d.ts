@@ -23,6 +23,16 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type StorageFile = $Result.DefaultSelection<Prisma.$StorageFilePayload>
+/**
+ * Model Process
+ * 
+ */
+export type Process = $Result.DefaultSelection<Prisma.$ProcessPayload>
+/**
+ * Model ProcessHstsMvs
+ * 
+ */
+export type ProcessHstsMvs = $Result.DefaultSelection<Prisma.$ProcessHstsMvsPayload>
 
 /**
  * Enums
@@ -32,16 +42,47 @@ export namespace $Enums {
   USER_READ: 'USER_READ',
   USER_CREATE: 'USER_CREATE',
   USER_UPDATE: 'USER_UPDATE',
-  USER_DELETE: 'USER_DELETE'
+  USER_DELETE: 'USER_DELETE',
+  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
+  REQUEST_READ_OWN: 'REQUEST_READ_OWN',
+  REQUEST_READ_ALL: 'REQUEST_READ_ALL',
+  HSTS_MVS_READ_OWN: 'HSTS_MVS_READ_OWN',
+  HSTS_MVS_READ_ALL: 'HSTS_MVS_READ_ALL',
+  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE'
 };
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
+
+
+export const Status: {
+  PENDING: 'PENDING',
+  STARTED: 'STARTED',
+  END: 'END',
+  ERROR: 'ERROR'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
+
+
+export const HstsMvsStage: {
+  VALIDATE: 'VALIDATE'
+};
+
+export type HstsMvsStage = (typeof HstsMvsStage)[keyof typeof HstsMvsStage]
 
 }
 
 export type Permission = $Enums.Permission
 
 export const Permission: typeof $Enums.Permission
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
+
+export type HstsMvsStage = $Enums.HstsMvsStage
+
+export const HstsMvsStage: typeof $Enums.HstsMvsStage
 
 /**
  * ##  Prisma Client ʲˢ
@@ -187,6 +228,26 @@ export class PrismaClient<
     * ```
     */
   get storageFile(): Prisma.StorageFileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.process`: Exposes CRUD operations for the **Process** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Processes
+    * const processes = await prisma.process.findMany()
+    * ```
+    */
+  get process(): Prisma.ProcessDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.processHstsMvs`: Exposes CRUD operations for the **ProcessHstsMvs** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProcessHstsMvs
+    * const processHstsMvs = await prisma.processHstsMvs.findMany()
+    * ```
+    */
+  get processHstsMvs(): Prisma.ProcessHstsMvsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -628,7 +689,9 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    StorageFile: 'StorageFile'
+    StorageFile: 'StorageFile',
+    Process: 'Process',
+    ProcessHstsMvs: 'ProcessHstsMvs'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -647,7 +710,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "storageFile"
+      modelProps: "user" | "storageFile" | "process" | "processHstsMvs"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -799,6 +862,154 @@ export namespace Prisma {
           }
         }
       }
+      Process: {
+        payload: Prisma.$ProcessPayload<ExtArgs>
+        fields: Prisma.ProcessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProcessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProcessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          findFirst: {
+            args: Prisma.ProcessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProcessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          findMany: {
+            args: Prisma.ProcessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>[]
+          }
+          create: {
+            args: Prisma.ProcessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          createMany: {
+            args: Prisma.ProcessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProcessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>[]
+          }
+          delete: {
+            args: Prisma.ProcessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          update: {
+            args: Prisma.ProcessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProcessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProcessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProcessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProcessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessPayload>
+          }
+          aggregate: {
+            args: Prisma.ProcessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProcess>
+          }
+          groupBy: {
+            args: Prisma.ProcessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProcessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProcessCountArgs<ExtArgs>
+            result: $Utils.Optional<ProcessCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProcessHstsMvs: {
+        payload: Prisma.$ProcessHstsMvsPayload<ExtArgs>
+        fields: Prisma.ProcessHstsMvsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProcessHstsMvsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProcessHstsMvsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          findFirst: {
+            args: Prisma.ProcessHstsMvsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProcessHstsMvsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          findMany: {
+            args: Prisma.ProcessHstsMvsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>[]
+          }
+          create: {
+            args: Prisma.ProcessHstsMvsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          createMany: {
+            args: Prisma.ProcessHstsMvsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProcessHstsMvsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>[]
+          }
+          delete: {
+            args: Prisma.ProcessHstsMvsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          update: {
+            args: Prisma.ProcessHstsMvsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProcessHstsMvsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProcessHstsMvsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProcessHstsMvsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProcessHstsMvsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessHstsMvsPayload>
+          }
+          aggregate: {
+            args: Prisma.ProcessHstsMvsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProcessHstsMvs>
+          }
+          groupBy: {
+            args: Prisma.ProcessHstsMvsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProcessHstsMvsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProcessHstsMvsCountArgs<ExtArgs>
+            result: $Utils.Optional<ProcessHstsMvsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -885,6 +1096,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     storageFile?: StorageFileOmit
+    process?: ProcessOmit
+    processHstsMvs?: ProcessHstsMvsOmit
   }
 
   /* Types for Logging */
@@ -973,6 +1186,85 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    processes: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    processes?: boolean | UserCountOutputTypeCountProcessesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessWhereInput
+  }
+
+
+  /**
+   * Count Type StorageFileCountOutputType
+   */
+
+  export type StorageFileCountOutputType = {
+    driverLicenseProcesses: number
+    carInfoProcesses: number
+    resultProcesses: number
+  }
+
+  export type StorageFileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    driverLicenseProcesses?: boolean | StorageFileCountOutputTypeCountDriverLicenseProcessesArgs
+    carInfoProcesses?: boolean | StorageFileCountOutputTypeCountCarInfoProcessesArgs
+    resultProcesses?: boolean | StorageFileCountOutputTypeCountResultProcessesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFileCountOutputType
+     */
+    select?: StorageFileCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountDriverLicenseProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessHstsMvsWhereInput
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountCarInfoProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessHstsMvsWhereInput
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountResultProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessHstsMvsWhereInput
+  }
 
 
   /**
@@ -1187,6 +1479,8 @@ export namespace Prisma {
     permissions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    processes?: boolean | User$processesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1232,10 +1526,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "displayName" | "isSuperUser" | "isBlocked" | "isTotpEnabled" | "totpSecret" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    processes?: boolean | User$processesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      processes: Prisma.$ProcessPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       username: string
@@ -1642,6 +1944,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    processes<T extends User$processesArgs<ExtArgs> = {}>(args?: Subset<T, User$processesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1699,6 +2002,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1717,6 +2024,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1734,6 +2045,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1783,6 +2098,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1831,6 +2150,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1873,6 +2196,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1921,6 +2248,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1988,6 +2319,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2014,6 +2349,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2034,6 +2373,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.processes
+   */
+  export type User$processesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    where?: ProcessWhereInput
+    orderBy?: ProcessOrderByWithRelationInput | ProcessOrderByWithRelationInput[]
+    cursor?: ProcessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessScalarFieldEnum | ProcessScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2045,6 +2408,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2262,6 +2629,10 @@ export namespace Prisma {
     size?: boolean
     bucket?: boolean
     path?: boolean
+    driverLicenseProcesses?: boolean | StorageFile$driverLicenseProcessesArgs<ExtArgs>
+    carInfoProcesses?: boolean | StorageFile$carInfoProcessesArgs<ExtArgs>
+    resultProcesses?: boolean | StorageFile$resultProcessesArgs<ExtArgs>
+    _count?: boolean | StorageFileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storageFile"]>
 
   export type StorageFileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2295,10 +2666,22 @@ export namespace Prisma {
   }
 
   export type StorageFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inputFilename" | "outputFilename" | "extention" | "size" | "bucket" | "path", ExtArgs["result"]["storageFile"]>
+  export type StorageFileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    driverLicenseProcesses?: boolean | StorageFile$driverLicenseProcessesArgs<ExtArgs>
+    carInfoProcesses?: boolean | StorageFile$carInfoProcessesArgs<ExtArgs>
+    resultProcesses?: boolean | StorageFile$resultProcessesArgs<ExtArgs>
+    _count?: boolean | StorageFileCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type StorageFileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $StorageFilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "StorageFile"
-    objects: {}
+    objects: {
+      driverLicenseProcesses: Prisma.$ProcessHstsMvsPayload<ExtArgs>[]
+      carInfoProcesses: Prisma.$ProcessHstsMvsPayload<ExtArgs>[]
+      resultProcesses: Prisma.$ProcessHstsMvsPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       inputFilename: string
@@ -2701,6 +3084,9 @@ export namespace Prisma {
    */
   export interface Prisma__StorageFileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    driverLicenseProcesses<T extends StorageFile$driverLicenseProcessesArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$driverLicenseProcessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    carInfoProcesses<T extends StorageFile$carInfoProcessesArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$carInfoProcessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    resultProcesses<T extends StorageFile$resultProcessesArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$resultProcessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2754,6 +3140,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * Filter, which StorageFile to fetch.
      */
     where: StorageFileWhereUniqueInput
@@ -2772,6 +3162,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * Filter, which StorageFile to fetch.
      */
     where: StorageFileWhereUniqueInput
@@ -2789,6 +3183,10 @@ export namespace Prisma {
      * Omit specific fields from the StorageFile
      */
     omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
     /**
      * Filter, which StorageFile to fetch.
      */
@@ -2838,6 +3236,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * Filter, which StorageFile to fetch.
      */
     where?: StorageFileWhereInput
@@ -2886,6 +3288,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * Filter, which StorageFiles to fetch.
      */
     where?: StorageFileWhereInput
@@ -2928,6 +3334,10 @@ export namespace Prisma {
      * Omit specific fields from the StorageFile
      */
     omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
     /**
      * The data needed to create a StorageFile.
      */
@@ -2976,6 +3386,10 @@ export namespace Prisma {
      * Omit specific fields from the StorageFile
      */
     omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
     /**
      * The data needed to update a StorageFile.
      */
@@ -3043,6 +3457,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * The filter to search for the StorageFile to update in case it exists.
      */
     where: StorageFileWhereUniqueInput
@@ -3069,6 +3487,10 @@ export namespace Prisma {
      */
     omit?: StorageFileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    /**
      * Filter which StorageFile to delete.
      */
     where: StorageFileWhereUniqueInput
@@ -3089,6 +3511,78 @@ export namespace Prisma {
   }
 
   /**
+   * StorageFile.driverLicenseProcesses
+   */
+  export type StorageFile$driverLicenseProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    where?: ProcessHstsMvsWhereInput
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile.carInfoProcesses
+   */
+  export type StorageFile$carInfoProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    where?: ProcessHstsMvsWhereInput
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile.resultProcesses
+   */
+  export type StorageFile$resultProcessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    where?: ProcessHstsMvsWhereInput
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
    * StorageFile without action
    */
   export type StorageFileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3100,6 +3594,2205 @@ export namespace Prisma {
      * Omit specific fields from the StorageFile
      */
     omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Process
+   */
+
+  export type AggregateProcess = {
+    _count: ProcessCountAggregateOutputType | null
+    _min: ProcessMinAggregateOutputType | null
+    _max: ProcessMaxAggregateOutputType | null
+  }
+
+  export type ProcessMinAggregateOutputType = {
+    id: string | null
+    status: $Enums.Status | null
+    userId: string | null
+    owner: string | null
+    createdAt: Date | null
+  }
+
+  export type ProcessMaxAggregateOutputType = {
+    id: string | null
+    status: $Enums.Status | null
+    userId: string | null
+    owner: string | null
+    createdAt: Date | null
+  }
+
+  export type ProcessCountAggregateOutputType = {
+    id: number
+    status: number
+    userId: number
+    owner: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ProcessMinAggregateInputType = {
+    id?: true
+    status?: true
+    userId?: true
+    owner?: true
+    createdAt?: true
+  }
+
+  export type ProcessMaxAggregateInputType = {
+    id?: true
+    status?: true
+    userId?: true
+    owner?: true
+    createdAt?: true
+  }
+
+  export type ProcessCountAggregateInputType = {
+    id?: true
+    status?: true
+    userId?: true
+    owner?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ProcessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Process to aggregate.
+     */
+    where?: ProcessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Processes to fetch.
+     */
+    orderBy?: ProcessOrderByWithRelationInput | ProcessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProcessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Processes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Processes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Processes
+    **/
+    _count?: true | ProcessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProcessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProcessMaxAggregateInputType
+  }
+
+  export type GetProcessAggregateType<T extends ProcessAggregateArgs> = {
+        [P in keyof T & keyof AggregateProcess]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProcess[P]>
+      : GetScalarType<T[P], AggregateProcess[P]>
+  }
+
+
+
+
+  export type ProcessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessWhereInput
+    orderBy?: ProcessOrderByWithAggregationInput | ProcessOrderByWithAggregationInput[]
+    by: ProcessScalarFieldEnum[] | ProcessScalarFieldEnum
+    having?: ProcessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProcessCountAggregateInputType | true
+    _min?: ProcessMinAggregateInputType
+    _max?: ProcessMaxAggregateInputType
+  }
+
+  export type ProcessGroupByOutputType = {
+    id: string
+    status: $Enums.Status
+    userId: string
+    owner: string | null
+    createdAt: Date
+    _count: ProcessCountAggregateOutputType | null
+    _min: ProcessMinAggregateOutputType | null
+    _max: ProcessMaxAggregateOutputType | null
+  }
+
+  type GetProcessGroupByPayload<T extends ProcessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProcessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProcessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProcessGroupByOutputType[P]>
+            : GetScalarType<T[P], ProcessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProcessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    userId?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
+  }, ExtArgs["result"]["process"]>
+
+  export type ProcessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    userId?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["process"]>
+
+  export type ProcessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    userId?: boolean
+    owner?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["process"]>
+
+  export type ProcessSelectScalar = {
+    id?: boolean
+    status?: boolean
+    userId?: boolean
+    owner?: boolean
+    createdAt?: boolean
+  }
+
+  export type ProcessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "userId" | "owner" | "createdAt", ExtArgs["result"]["process"]>
+  export type ProcessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
+  }
+  export type ProcessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProcessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ProcessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Process"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      hstsMvs: Prisma.$ProcessHstsMvsPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      status: $Enums.Status
+      userId: string
+      owner: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["process"]>
+    composites: {}
+  }
+
+  type ProcessGetPayload<S extends boolean | null | undefined | ProcessDefaultArgs> = $Result.GetResult<Prisma.$ProcessPayload, S>
+
+  type ProcessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProcessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProcessCountAggregateInputType | true
+    }
+
+  export interface ProcessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Process'], meta: { name: 'Process' } }
+    /**
+     * Find zero or one Process that matches the filter.
+     * @param {ProcessFindUniqueArgs} args - Arguments to find a Process
+     * @example
+     * // Get one Process
+     * const process = await prisma.process.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProcessFindUniqueArgs>(args: SelectSubset<T, ProcessFindUniqueArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Process that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProcessFindUniqueOrThrowArgs} args - Arguments to find a Process
+     * @example
+     * // Get one Process
+     * const process = await prisma.process.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProcessFindUniqueOrThrowArgs>(args: SelectSubset<T, ProcessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Process that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessFindFirstArgs} args - Arguments to find a Process
+     * @example
+     * // Get one Process
+     * const process = await prisma.process.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProcessFindFirstArgs>(args?: SelectSubset<T, ProcessFindFirstArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Process that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessFindFirstOrThrowArgs} args - Arguments to find a Process
+     * @example
+     * // Get one Process
+     * const process = await prisma.process.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProcessFindFirstOrThrowArgs>(args?: SelectSubset<T, ProcessFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Processes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Processes
+     * const processes = await prisma.process.findMany()
+     * 
+     * // Get first 10 Processes
+     * const processes = await prisma.process.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const processWithIdOnly = await prisma.process.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProcessFindManyArgs>(args?: SelectSubset<T, ProcessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Process.
+     * @param {ProcessCreateArgs} args - Arguments to create a Process.
+     * @example
+     * // Create one Process
+     * const Process = await prisma.process.create({
+     *   data: {
+     *     // ... data to create a Process
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProcessCreateArgs>(args: SelectSubset<T, ProcessCreateArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Processes.
+     * @param {ProcessCreateManyArgs} args - Arguments to create many Processes.
+     * @example
+     * // Create many Processes
+     * const process = await prisma.process.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProcessCreateManyArgs>(args?: SelectSubset<T, ProcessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Processes and returns the data saved in the database.
+     * @param {ProcessCreateManyAndReturnArgs} args - Arguments to create many Processes.
+     * @example
+     * // Create many Processes
+     * const process = await prisma.process.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Processes and only return the `id`
+     * const processWithIdOnly = await prisma.process.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProcessCreateManyAndReturnArgs>(args?: SelectSubset<T, ProcessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Process.
+     * @param {ProcessDeleteArgs} args - Arguments to delete one Process.
+     * @example
+     * // Delete one Process
+     * const Process = await prisma.process.delete({
+     *   where: {
+     *     // ... filter to delete one Process
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProcessDeleteArgs>(args: SelectSubset<T, ProcessDeleteArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Process.
+     * @param {ProcessUpdateArgs} args - Arguments to update one Process.
+     * @example
+     * // Update one Process
+     * const process = await prisma.process.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProcessUpdateArgs>(args: SelectSubset<T, ProcessUpdateArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Processes.
+     * @param {ProcessDeleteManyArgs} args - Arguments to filter Processes to delete.
+     * @example
+     * // Delete a few Processes
+     * const { count } = await prisma.process.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProcessDeleteManyArgs>(args?: SelectSubset<T, ProcessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Processes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Processes
+     * const process = await prisma.process.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProcessUpdateManyArgs>(args: SelectSubset<T, ProcessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Processes and returns the data updated in the database.
+     * @param {ProcessUpdateManyAndReturnArgs} args - Arguments to update many Processes.
+     * @example
+     * // Update many Processes
+     * const process = await prisma.process.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Processes and only return the `id`
+     * const processWithIdOnly = await prisma.process.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProcessUpdateManyAndReturnArgs>(args: SelectSubset<T, ProcessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Process.
+     * @param {ProcessUpsertArgs} args - Arguments to update or create a Process.
+     * @example
+     * // Update or create a Process
+     * const process = await prisma.process.upsert({
+     *   create: {
+     *     // ... data to create a Process
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Process we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProcessUpsertArgs>(args: SelectSubset<T, ProcessUpsertArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Processes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessCountArgs} args - Arguments to filter Processes to count.
+     * @example
+     * // Count the number of Processes
+     * const count = await prisma.process.count({
+     *   where: {
+     *     // ... the filter for the Processes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProcessCountArgs>(
+      args?: Subset<T, ProcessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProcessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Process.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProcessAggregateArgs>(args: Subset<T, ProcessAggregateArgs>): Prisma.PrismaPromise<GetProcessAggregateType<T>>
+
+    /**
+     * Group by Process.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProcessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProcessGroupByArgs['orderBy'] }
+        : { orderBy?: ProcessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProcessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProcessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Process model
+   */
+  readonly fields: ProcessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Process.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProcessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hstsMvs<T extends Process$hstsMvsArgs<ExtArgs> = {}>(args?: Subset<T, Process$hstsMvsArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Process model
+   */
+  interface ProcessFieldRefs {
+    readonly id: FieldRef<"Process", 'String'>
+    readonly status: FieldRef<"Process", 'Status'>
+    readonly userId: FieldRef<"Process", 'String'>
+    readonly owner: FieldRef<"Process", 'String'>
+    readonly createdAt: FieldRef<"Process", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Process findUnique
+   */
+  export type ProcessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter, which Process to fetch.
+     */
+    where: ProcessWhereUniqueInput
+  }
+
+  /**
+   * Process findUniqueOrThrow
+   */
+  export type ProcessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter, which Process to fetch.
+     */
+    where: ProcessWhereUniqueInput
+  }
+
+  /**
+   * Process findFirst
+   */
+  export type ProcessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter, which Process to fetch.
+     */
+    where?: ProcessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Processes to fetch.
+     */
+    orderBy?: ProcessOrderByWithRelationInput | ProcessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Processes.
+     */
+    cursor?: ProcessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Processes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Processes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Processes.
+     */
+    distinct?: ProcessScalarFieldEnum | ProcessScalarFieldEnum[]
+  }
+
+  /**
+   * Process findFirstOrThrow
+   */
+  export type ProcessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter, which Process to fetch.
+     */
+    where?: ProcessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Processes to fetch.
+     */
+    orderBy?: ProcessOrderByWithRelationInput | ProcessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Processes.
+     */
+    cursor?: ProcessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Processes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Processes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Processes.
+     */
+    distinct?: ProcessScalarFieldEnum | ProcessScalarFieldEnum[]
+  }
+
+  /**
+   * Process findMany
+   */
+  export type ProcessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter, which Processes to fetch.
+     */
+    where?: ProcessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Processes to fetch.
+     */
+    orderBy?: ProcessOrderByWithRelationInput | ProcessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Processes.
+     */
+    cursor?: ProcessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Processes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Processes.
+     */
+    skip?: number
+    distinct?: ProcessScalarFieldEnum | ProcessScalarFieldEnum[]
+  }
+
+  /**
+   * Process create
+   */
+  export type ProcessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Process.
+     */
+    data: XOR<ProcessCreateInput, ProcessUncheckedCreateInput>
+  }
+
+  /**
+   * Process createMany
+   */
+  export type ProcessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Processes.
+     */
+    data: ProcessCreateManyInput | ProcessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Process createManyAndReturn
+   */
+  export type ProcessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * The data used to create many Processes.
+     */
+    data: ProcessCreateManyInput | ProcessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Process update
+   */
+  export type ProcessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Process.
+     */
+    data: XOR<ProcessUpdateInput, ProcessUncheckedUpdateInput>
+    /**
+     * Choose, which Process to update.
+     */
+    where: ProcessWhereUniqueInput
+  }
+
+  /**
+   * Process updateMany
+   */
+  export type ProcessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Processes.
+     */
+    data: XOR<ProcessUpdateManyMutationInput, ProcessUncheckedUpdateManyInput>
+    /**
+     * Filter which Processes to update
+     */
+    where?: ProcessWhereInput
+    /**
+     * Limit how many Processes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Process updateManyAndReturn
+   */
+  export type ProcessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * The data used to update Processes.
+     */
+    data: XOR<ProcessUpdateManyMutationInput, ProcessUncheckedUpdateManyInput>
+    /**
+     * Filter which Processes to update
+     */
+    where?: ProcessWhereInput
+    /**
+     * Limit how many Processes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Process upsert
+   */
+  export type ProcessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Process to update in case it exists.
+     */
+    where: ProcessWhereUniqueInput
+    /**
+     * In case the Process found by the `where` argument doesn't exist, create a new Process with this data.
+     */
+    create: XOR<ProcessCreateInput, ProcessUncheckedCreateInput>
+    /**
+     * In case the Process was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProcessUpdateInput, ProcessUncheckedUpdateInput>
+  }
+
+  /**
+   * Process delete
+   */
+  export type ProcessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+    /**
+     * Filter which Process to delete.
+     */
+    where: ProcessWhereUniqueInput
+  }
+
+  /**
+   * Process deleteMany
+   */
+  export type ProcessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Processes to delete
+     */
+    where?: ProcessWhereInput
+    /**
+     * Limit how many Processes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Process.hstsMvs
+   */
+  export type Process$hstsMvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    where?: ProcessHstsMvsWhereInput
+  }
+
+  /**
+   * Process without action
+   */
+  export type ProcessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Process
+     */
+    select?: ProcessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Process
+     */
+    omit?: ProcessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ProcessHstsMvs
+   */
+
+  export type AggregateProcessHstsMvs = {
+    _count: ProcessHstsMvsCountAggregateOutputType | null
+    _min: ProcessHstsMvsMinAggregateOutputType | null
+    _max: ProcessHstsMvsMaxAggregateOutputType | null
+  }
+
+  export type ProcessHstsMvsMinAggregateOutputType = {
+    processId: string | null
+    driverLicenseFileId: string | null
+    carInfoFileId: string | null
+    resultFileId: string | null
+    stage: $Enums.HstsMvsStage | null
+    errorMessage: string | null
+  }
+
+  export type ProcessHstsMvsMaxAggregateOutputType = {
+    processId: string | null
+    driverLicenseFileId: string | null
+    carInfoFileId: string | null
+    resultFileId: string | null
+    stage: $Enums.HstsMvsStage | null
+    errorMessage: string | null
+  }
+
+  export type ProcessHstsMvsCountAggregateOutputType = {
+    processId: number
+    driverLicenseFileId: number
+    carInfoFileId: number
+    resultFileId: number
+    stage: number
+    errorMessage: number
+    _all: number
+  }
+
+
+  export type ProcessHstsMvsMinAggregateInputType = {
+    processId?: true
+    driverLicenseFileId?: true
+    carInfoFileId?: true
+    resultFileId?: true
+    stage?: true
+    errorMessage?: true
+  }
+
+  export type ProcessHstsMvsMaxAggregateInputType = {
+    processId?: true
+    driverLicenseFileId?: true
+    carInfoFileId?: true
+    resultFileId?: true
+    stage?: true
+    errorMessage?: true
+  }
+
+  export type ProcessHstsMvsCountAggregateInputType = {
+    processId?: true
+    driverLicenseFileId?: true
+    carInfoFileId?: true
+    resultFileId?: true
+    stage?: true
+    errorMessage?: true
+    _all?: true
+  }
+
+  export type ProcessHstsMvsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProcessHstsMvs to aggregate.
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessHstsMvs to fetch.
+     */
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessHstsMvs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessHstsMvs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProcessHstsMvs
+    **/
+    _count?: true | ProcessHstsMvsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProcessHstsMvsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProcessHstsMvsMaxAggregateInputType
+  }
+
+  export type GetProcessHstsMvsAggregateType<T extends ProcessHstsMvsAggregateArgs> = {
+        [P in keyof T & keyof AggregateProcessHstsMvs]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProcessHstsMvs[P]>
+      : GetScalarType<T[P], AggregateProcessHstsMvs[P]>
+  }
+
+
+
+
+  export type ProcessHstsMvsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessHstsMvsWhereInput
+    orderBy?: ProcessHstsMvsOrderByWithAggregationInput | ProcessHstsMvsOrderByWithAggregationInput[]
+    by: ProcessHstsMvsScalarFieldEnum[] | ProcessHstsMvsScalarFieldEnum
+    having?: ProcessHstsMvsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProcessHstsMvsCountAggregateInputType | true
+    _min?: ProcessHstsMvsMinAggregateInputType
+    _max?: ProcessHstsMvsMaxAggregateInputType
+  }
+
+  export type ProcessHstsMvsGroupByOutputType = {
+    processId: string
+    driverLicenseFileId: string
+    carInfoFileId: string
+    resultFileId: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage: string | null
+    _count: ProcessHstsMvsCountAggregateOutputType | null
+    _min: ProcessHstsMvsMinAggregateOutputType | null
+    _max: ProcessHstsMvsMaxAggregateOutputType | null
+  }
+
+  type GetProcessHstsMvsGroupByPayload<T extends ProcessHstsMvsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProcessHstsMvsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProcessHstsMvsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProcessHstsMvsGroupByOutputType[P]>
+            : GetScalarType<T[P], ProcessHstsMvsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProcessHstsMvsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    driverLicenseFileId?: boolean
+    carInfoFileId?: boolean
+    resultFileId?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processHstsMvs"]>
+
+  export type ProcessHstsMvsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    driverLicenseFileId?: boolean
+    carInfoFileId?: boolean
+    resultFileId?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processHstsMvs"]>
+
+  export type ProcessHstsMvsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    driverLicenseFileId?: boolean
+    carInfoFileId?: boolean
+    resultFileId?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processHstsMvs"]>
+
+  export type ProcessHstsMvsSelectScalar = {
+    processId?: boolean
+    driverLicenseFileId?: boolean
+    carInfoFileId?: boolean
+    resultFileId?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+  }
+
+  export type ProcessHstsMvsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"processId" | "driverLicenseFileId" | "carInfoFileId" | "resultFileId" | "stage" | "errorMessage", ExtArgs["result"]["processHstsMvs"]>
+  export type ProcessHstsMvsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }
+  export type ProcessHstsMvsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }
+  export type ProcessHstsMvsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
+  }
+
+  export type $ProcessHstsMvsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProcessHstsMvs"
+    objects: {
+      process: Prisma.$ProcessPayload<ExtArgs>
+      driverLicenseFile: Prisma.$StorageFilePayload<ExtArgs>
+      carInfoFile: Prisma.$StorageFilePayload<ExtArgs>
+      resultFile: Prisma.$StorageFilePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      processId: string
+      driverLicenseFileId: string
+      carInfoFileId: string
+      resultFileId: string | null
+      stage: $Enums.HstsMvsStage
+      errorMessage: string | null
+    }, ExtArgs["result"]["processHstsMvs"]>
+    composites: {}
+  }
+
+  type ProcessHstsMvsGetPayload<S extends boolean | null | undefined | ProcessHstsMvsDefaultArgs> = $Result.GetResult<Prisma.$ProcessHstsMvsPayload, S>
+
+  type ProcessHstsMvsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProcessHstsMvsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProcessHstsMvsCountAggregateInputType | true
+    }
+
+  export interface ProcessHstsMvsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProcessHstsMvs'], meta: { name: 'ProcessHstsMvs' } }
+    /**
+     * Find zero or one ProcessHstsMvs that matches the filter.
+     * @param {ProcessHstsMvsFindUniqueArgs} args - Arguments to find a ProcessHstsMvs
+     * @example
+     * // Get one ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProcessHstsMvsFindUniqueArgs>(args: SelectSubset<T, ProcessHstsMvsFindUniqueArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProcessHstsMvs that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProcessHstsMvsFindUniqueOrThrowArgs} args - Arguments to find a ProcessHstsMvs
+     * @example
+     * // Get one ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProcessHstsMvsFindUniqueOrThrowArgs>(args: SelectSubset<T, ProcessHstsMvsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProcessHstsMvs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsFindFirstArgs} args - Arguments to find a ProcessHstsMvs
+     * @example
+     * // Get one ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProcessHstsMvsFindFirstArgs>(args?: SelectSubset<T, ProcessHstsMvsFindFirstArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProcessHstsMvs that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsFindFirstOrThrowArgs} args - Arguments to find a ProcessHstsMvs
+     * @example
+     * // Get one ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProcessHstsMvsFindFirstOrThrowArgs>(args?: SelectSubset<T, ProcessHstsMvsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProcessHstsMvs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findMany()
+     * 
+     * // Get first 10 ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.findMany({ take: 10 })
+     * 
+     * // Only select the `processId`
+     * const processHstsMvsWithProcessIdOnly = await prisma.processHstsMvs.findMany({ select: { processId: true } })
+     * 
+     */
+    findMany<T extends ProcessHstsMvsFindManyArgs>(args?: SelectSubset<T, ProcessHstsMvsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProcessHstsMvs.
+     * @param {ProcessHstsMvsCreateArgs} args - Arguments to create a ProcessHstsMvs.
+     * @example
+     * // Create one ProcessHstsMvs
+     * const ProcessHstsMvs = await prisma.processHstsMvs.create({
+     *   data: {
+     *     // ... data to create a ProcessHstsMvs
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProcessHstsMvsCreateArgs>(args: SelectSubset<T, ProcessHstsMvsCreateArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProcessHstsMvs.
+     * @param {ProcessHstsMvsCreateManyArgs} args - Arguments to create many ProcessHstsMvs.
+     * @example
+     * // Create many ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProcessHstsMvsCreateManyArgs>(args?: SelectSubset<T, ProcessHstsMvsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProcessHstsMvs and returns the data saved in the database.
+     * @param {ProcessHstsMvsCreateManyAndReturnArgs} args - Arguments to create many ProcessHstsMvs.
+     * @example
+     * // Create many ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProcessHstsMvs and only return the `processId`
+     * const processHstsMvsWithProcessIdOnly = await prisma.processHstsMvs.createManyAndReturn({
+     *   select: { processId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProcessHstsMvsCreateManyAndReturnArgs>(args?: SelectSubset<T, ProcessHstsMvsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProcessHstsMvs.
+     * @param {ProcessHstsMvsDeleteArgs} args - Arguments to delete one ProcessHstsMvs.
+     * @example
+     * // Delete one ProcessHstsMvs
+     * const ProcessHstsMvs = await prisma.processHstsMvs.delete({
+     *   where: {
+     *     // ... filter to delete one ProcessHstsMvs
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProcessHstsMvsDeleteArgs>(args: SelectSubset<T, ProcessHstsMvsDeleteArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProcessHstsMvs.
+     * @param {ProcessHstsMvsUpdateArgs} args - Arguments to update one ProcessHstsMvs.
+     * @example
+     * // Update one ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProcessHstsMvsUpdateArgs>(args: SelectSubset<T, ProcessHstsMvsUpdateArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProcessHstsMvs.
+     * @param {ProcessHstsMvsDeleteManyArgs} args - Arguments to filter ProcessHstsMvs to delete.
+     * @example
+     * // Delete a few ProcessHstsMvs
+     * const { count } = await prisma.processHstsMvs.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProcessHstsMvsDeleteManyArgs>(args?: SelectSubset<T, ProcessHstsMvsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProcessHstsMvs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProcessHstsMvsUpdateManyArgs>(args: SelectSubset<T, ProcessHstsMvsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProcessHstsMvs and returns the data updated in the database.
+     * @param {ProcessHstsMvsUpdateManyAndReturnArgs} args - Arguments to update many ProcessHstsMvs.
+     * @example
+     * // Update many ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProcessHstsMvs and only return the `processId`
+     * const processHstsMvsWithProcessIdOnly = await prisma.processHstsMvs.updateManyAndReturn({
+     *   select: { processId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProcessHstsMvsUpdateManyAndReturnArgs>(args: SelectSubset<T, ProcessHstsMvsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProcessHstsMvs.
+     * @param {ProcessHstsMvsUpsertArgs} args - Arguments to update or create a ProcessHstsMvs.
+     * @example
+     * // Update or create a ProcessHstsMvs
+     * const processHstsMvs = await prisma.processHstsMvs.upsert({
+     *   create: {
+     *     // ... data to create a ProcessHstsMvs
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProcessHstsMvs we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProcessHstsMvsUpsertArgs>(args: SelectSubset<T, ProcessHstsMvsUpsertArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProcessHstsMvs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsCountArgs} args - Arguments to filter ProcessHstsMvs to count.
+     * @example
+     * // Count the number of ProcessHstsMvs
+     * const count = await prisma.processHstsMvs.count({
+     *   where: {
+     *     // ... the filter for the ProcessHstsMvs we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProcessHstsMvsCountArgs>(
+      args?: Subset<T, ProcessHstsMvsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProcessHstsMvsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProcessHstsMvs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProcessHstsMvsAggregateArgs>(args: Subset<T, ProcessHstsMvsAggregateArgs>): Prisma.PrismaPromise<GetProcessHstsMvsAggregateType<T>>
+
+    /**
+     * Group by ProcessHstsMvs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessHstsMvsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProcessHstsMvsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProcessHstsMvsGroupByArgs['orderBy'] }
+        : { orderBy?: ProcessHstsMvsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProcessHstsMvsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProcessHstsMvsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProcessHstsMvs model
+   */
+  readonly fields: ProcessHstsMvsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProcessHstsMvs.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProcessHstsMvsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    process<T extends ProcessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProcessDefaultArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    driverLicenseFile<T extends StorageFileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StorageFileDefaultArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    carInfoFile<T extends StorageFileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StorageFileDefaultArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    resultFile<T extends ProcessHstsMvs$resultFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessHstsMvs$resultFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProcessHstsMvs model
+   */
+  interface ProcessHstsMvsFieldRefs {
+    readonly processId: FieldRef<"ProcessHstsMvs", 'String'>
+    readonly driverLicenseFileId: FieldRef<"ProcessHstsMvs", 'String'>
+    readonly carInfoFileId: FieldRef<"ProcessHstsMvs", 'String'>
+    readonly resultFileId: FieldRef<"ProcessHstsMvs", 'String'>
+    readonly stage: FieldRef<"ProcessHstsMvs", 'HstsMvsStage'>
+    readonly errorMessage: FieldRef<"ProcessHstsMvs", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProcessHstsMvs findUnique
+   */
+  export type ProcessHstsMvsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessHstsMvs to fetch.
+     */
+    where: ProcessHstsMvsWhereUniqueInput
+  }
+
+  /**
+   * ProcessHstsMvs findUniqueOrThrow
+   */
+  export type ProcessHstsMvsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessHstsMvs to fetch.
+     */
+    where: ProcessHstsMvsWhereUniqueInput
+  }
+
+  /**
+   * ProcessHstsMvs findFirst
+   */
+  export type ProcessHstsMvsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessHstsMvs to fetch.
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessHstsMvs to fetch.
+     */
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProcessHstsMvs.
+     */
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessHstsMvs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessHstsMvs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProcessHstsMvs.
+     */
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessHstsMvs findFirstOrThrow
+   */
+  export type ProcessHstsMvsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessHstsMvs to fetch.
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessHstsMvs to fetch.
+     */
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProcessHstsMvs.
+     */
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessHstsMvs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessHstsMvs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProcessHstsMvs.
+     */
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessHstsMvs findMany
+   */
+  export type ProcessHstsMvsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessHstsMvs to fetch.
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessHstsMvs to fetch.
+     */
+    orderBy?: ProcessHstsMvsOrderByWithRelationInput | ProcessHstsMvsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProcessHstsMvs.
+     */
+    cursor?: ProcessHstsMvsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessHstsMvs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessHstsMvs.
+     */
+    skip?: number
+    distinct?: ProcessHstsMvsScalarFieldEnum | ProcessHstsMvsScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessHstsMvs create
+   */
+  export type ProcessHstsMvsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProcessHstsMvs.
+     */
+    data: XOR<ProcessHstsMvsCreateInput, ProcessHstsMvsUncheckedCreateInput>
+  }
+
+  /**
+   * ProcessHstsMvs createMany
+   */
+  export type ProcessHstsMvsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProcessHstsMvs.
+     */
+    data: ProcessHstsMvsCreateManyInput | ProcessHstsMvsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProcessHstsMvs createManyAndReturn
+   */
+  export type ProcessHstsMvsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProcessHstsMvs.
+     */
+    data: ProcessHstsMvsCreateManyInput | ProcessHstsMvsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProcessHstsMvs update
+   */
+  export type ProcessHstsMvsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProcessHstsMvs.
+     */
+    data: XOR<ProcessHstsMvsUpdateInput, ProcessHstsMvsUncheckedUpdateInput>
+    /**
+     * Choose, which ProcessHstsMvs to update.
+     */
+    where: ProcessHstsMvsWhereUniqueInput
+  }
+
+  /**
+   * ProcessHstsMvs updateMany
+   */
+  export type ProcessHstsMvsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProcessHstsMvs.
+     */
+    data: XOR<ProcessHstsMvsUpdateManyMutationInput, ProcessHstsMvsUncheckedUpdateManyInput>
+    /**
+     * Filter which ProcessHstsMvs to update
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * Limit how many ProcessHstsMvs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProcessHstsMvs updateManyAndReturn
+   */
+  export type ProcessHstsMvsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * The data used to update ProcessHstsMvs.
+     */
+    data: XOR<ProcessHstsMvsUpdateManyMutationInput, ProcessHstsMvsUncheckedUpdateManyInput>
+    /**
+     * Filter which ProcessHstsMvs to update
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * Limit how many ProcessHstsMvs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProcessHstsMvs upsert
+   */
+  export type ProcessHstsMvsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProcessHstsMvs to update in case it exists.
+     */
+    where: ProcessHstsMvsWhereUniqueInput
+    /**
+     * In case the ProcessHstsMvs found by the `where` argument doesn't exist, create a new ProcessHstsMvs with this data.
+     */
+    create: XOR<ProcessHstsMvsCreateInput, ProcessHstsMvsUncheckedCreateInput>
+    /**
+     * In case the ProcessHstsMvs was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProcessHstsMvsUpdateInput, ProcessHstsMvsUncheckedUpdateInput>
+  }
+
+  /**
+   * ProcessHstsMvs delete
+   */
+  export type ProcessHstsMvsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
+    /**
+     * Filter which ProcessHstsMvs to delete.
+     */
+    where: ProcessHstsMvsWhereUniqueInput
+  }
+
+  /**
+   * ProcessHstsMvs deleteMany
+   */
+  export type ProcessHstsMvsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProcessHstsMvs to delete
+     */
+    where?: ProcessHstsMvsWhereInput
+    /**
+     * Limit how many ProcessHstsMvs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProcessHstsMvs.resultFile
+   */
+  export type ProcessHstsMvs$resultFileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    where?: StorageFileWhereInput
+  }
+
+  /**
+   * ProcessHstsMvs without action
+   */
+  export type ProcessHstsMvsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessHstsMvs
+     */
+    select?: ProcessHstsMvsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessHstsMvs
+     */
+    omit?: ProcessHstsMvsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessHstsMvsInclude<ExtArgs> | null
   }
 
 
@@ -3145,6 +5838,29 @@ export namespace Prisma {
   };
 
   export type StorageFileScalarFieldEnum = (typeof StorageFileScalarFieldEnum)[keyof typeof StorageFileScalarFieldEnum]
+
+
+  export const ProcessScalarFieldEnum: {
+    id: 'id',
+    status: 'status',
+    userId: 'userId',
+    owner: 'owner',
+    createdAt: 'createdAt'
+  };
+
+  export type ProcessScalarFieldEnum = (typeof ProcessScalarFieldEnum)[keyof typeof ProcessScalarFieldEnum]
+
+
+  export const ProcessHstsMvsScalarFieldEnum: {
+    processId: 'processId',
+    driverLicenseFileId: 'driverLicenseFileId',
+    carInfoFileId: 'carInfoFileId',
+    resultFileId: 'resultFileId',
+    stage: 'stage',
+    errorMessage: 'errorMessage'
+  };
+
+  export type ProcessHstsMvsScalarFieldEnum = (typeof ProcessHstsMvsScalarFieldEnum)[keyof typeof ProcessHstsMvsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3240,6 +5956,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'HstsMvsStage'
+   */
+  export type EnumHstsMvsStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HstsMvsStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'HstsMvsStage[]'
+   */
+  export type ListEnumHstsMvsStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HstsMvsStage[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3271,6 +6015,7 @@ export namespace Prisma {
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    processes?: ProcessListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3285,6 +6030,7 @@ export namespace Prisma {
     permissions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    processes?: ProcessOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3302,6 +6048,7 @@ export namespace Prisma {
     permissions?: EnumPermissionNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    processes?: ProcessListRelationFilter
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -3349,6 +6096,9 @@ export namespace Prisma {
     size?: IntFilter<"StorageFile"> | number
     bucket?: StringFilter<"StorageFile"> | string
     path?: StringFilter<"StorageFile"> | string
+    driverLicenseProcesses?: ProcessHstsMvsListRelationFilter
+    carInfoProcesses?: ProcessHstsMvsListRelationFilter
+    resultProcesses?: ProcessHstsMvsListRelationFilter
   }
 
   export type StorageFileOrderByWithRelationInput = {
@@ -3359,6 +6109,9 @@ export namespace Prisma {
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
+    driverLicenseProcesses?: ProcessHstsMvsOrderByRelationAggregateInput
+    carInfoProcesses?: ProcessHstsMvsOrderByRelationAggregateInput
+    resultProcesses?: ProcessHstsMvsOrderByRelationAggregateInput
   }
 
   export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -3372,6 +6125,9 @@ export namespace Prisma {
     size?: IntFilter<"StorageFile"> | number
     bucket?: StringFilter<"StorageFile"> | string
     path?: StringFilter<"StorageFile"> | string
+    driverLicenseProcesses?: ProcessHstsMvsListRelationFilter
+    carInfoProcesses?: ProcessHstsMvsListRelationFilter
+    resultProcesses?: ProcessHstsMvsListRelationFilter
   }, "id">
 
   export type StorageFileOrderByWithAggregationInput = {
@@ -3402,6 +6158,133 @@ export namespace Prisma {
     path?: StringWithAggregatesFilter<"StorageFile"> | string
   }
 
+  export type ProcessWhereInput = {
+    AND?: ProcessWhereInput | ProcessWhereInput[]
+    OR?: ProcessWhereInput[]
+    NOT?: ProcessWhereInput | ProcessWhereInput[]
+    id?: StringFilter<"Process"> | string
+    status?: EnumStatusFilter<"Process"> | $Enums.Status
+    userId?: StringFilter<"Process"> | string
+    owner?: StringNullableFilter<"Process"> | string | null
+    createdAt?: DateTimeFilter<"Process"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
+  }
+
+  export type ProcessOrderByWithRelationInput = {
+    id?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    owner?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    hstsMvs?: ProcessHstsMvsOrderByWithRelationInput
+  }
+
+  export type ProcessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProcessWhereInput | ProcessWhereInput[]
+    OR?: ProcessWhereInput[]
+    NOT?: ProcessWhereInput | ProcessWhereInput[]
+    status?: EnumStatusFilter<"Process"> | $Enums.Status
+    userId?: StringFilter<"Process"> | string
+    owner?: StringNullableFilter<"Process"> | string | null
+    createdAt?: DateTimeFilter<"Process"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
+  }, "id">
+
+  export type ProcessOrderByWithAggregationInput = {
+    id?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    owner?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ProcessCountOrderByAggregateInput
+    _max?: ProcessMaxOrderByAggregateInput
+    _min?: ProcessMinOrderByAggregateInput
+  }
+
+  export type ProcessScalarWhereWithAggregatesInput = {
+    AND?: ProcessScalarWhereWithAggregatesInput | ProcessScalarWhereWithAggregatesInput[]
+    OR?: ProcessScalarWhereWithAggregatesInput[]
+    NOT?: ProcessScalarWhereWithAggregatesInput | ProcessScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Process"> | string
+    status?: EnumStatusWithAggregatesFilter<"Process"> | $Enums.Status
+    userId?: StringWithAggregatesFilter<"Process"> | string
+    owner?: StringNullableWithAggregatesFilter<"Process"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Process"> | Date | string
+  }
+
+  export type ProcessHstsMvsWhereInput = {
+    AND?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
+    OR?: ProcessHstsMvsWhereInput[]
+    NOT?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
+    processId?: StringFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
+    resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+    stage?: EnumHstsMvsStageFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
+    errorMessage?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+    process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
+    driverLicenseFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    carInfoFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+  }
+
+  export type ProcessHstsMvsOrderByWithRelationInput = {
+    processId?: SortOrder
+    driverLicenseFileId?: SortOrder
+    carInfoFileId?: SortOrder
+    resultFileId?: SortOrderInput | SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    process?: ProcessOrderByWithRelationInput
+    driverLicenseFile?: StorageFileOrderByWithRelationInput
+    carInfoFile?: StorageFileOrderByWithRelationInput
+    resultFile?: StorageFileOrderByWithRelationInput
+  }
+
+  export type ProcessHstsMvsWhereUniqueInput = Prisma.AtLeast<{
+    processId?: string
+    AND?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
+    OR?: ProcessHstsMvsWhereInput[]
+    NOT?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
+    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
+    resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+    stage?: EnumHstsMvsStageFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
+    errorMessage?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+    process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
+    driverLicenseFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    carInfoFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+  }, "processId">
+
+  export type ProcessHstsMvsOrderByWithAggregationInput = {
+    processId?: SortOrder
+    driverLicenseFileId?: SortOrder
+    carInfoFileId?: SortOrder
+    resultFileId?: SortOrderInput | SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    _count?: ProcessHstsMvsCountOrderByAggregateInput
+    _max?: ProcessHstsMvsMaxOrderByAggregateInput
+    _min?: ProcessHstsMvsMinOrderByAggregateInput
+  }
+
+  export type ProcessHstsMvsScalarWhereWithAggregatesInput = {
+    AND?: ProcessHstsMvsScalarWhereWithAggregatesInput | ProcessHstsMvsScalarWhereWithAggregatesInput[]
+    OR?: ProcessHstsMvsScalarWhereWithAggregatesInput[]
+    NOT?: ProcessHstsMvsScalarWhereWithAggregatesInput | ProcessHstsMvsScalarWhereWithAggregatesInput[]
+    processId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
+    carInfoFileId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
+    resultFileId?: StringNullableWithAggregatesFilter<"ProcessHstsMvs"> | string | null
+    stage?: EnumHstsMvsStageWithAggregatesFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
+    errorMessage?: StringNullableWithAggregatesFilter<"ProcessHstsMvs"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -3414,6 +6297,7 @@ export namespace Prisma {
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    processes?: ProcessCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3428,6 +6312,7 @@ export namespace Prisma {
     permissions?: UserCreatepermissionsInput | $Enums.Permission[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    processes?: ProcessUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3442,6 +6327,7 @@ export namespace Prisma {
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processes?: ProcessUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3456,6 +6342,7 @@ export namespace Prisma {
     permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processes?: ProcessUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3508,6 +6395,9 @@ export namespace Prisma {
     size: number
     bucket: string
     path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+    resultProcesses?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateInput = {
@@ -3518,6 +6408,9 @@ export namespace Prisma {
     size: number
     bucket: string
     path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+    resultProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUpdateInput = {
@@ -3528,6 +6421,9 @@ export namespace Prisma {
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+    resultProcesses?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateInput = {
@@ -3538,6 +6434,9 @@ export namespace Prisma {
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+    resultProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileCreateManyInput = {
@@ -3568,6 +6467,124 @@ export namespace Prisma {
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProcessCreateInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutProcessesInput
+    hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessUncheckedCreateInput = {
+    id?: string
+    status?: $Enums.Status
+    userId: string
+    owner?: string | null
+    createdAt?: Date | string
+    hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProcessesNestedInput
+    hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
+  }
+
+  export type ProcessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    userId?: StringFieldUpdateOperationsInput | string
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
+  }
+
+  export type ProcessCreateManyInput = {
+    id?: string
+    status?: $Enums.Status
+    userId: string
+    owner?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ProcessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProcessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    userId?: StringFieldUpdateOperationsInput | string
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProcessHstsMvsCreateInput = {
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutHstsMvsInput
+    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateInput = {
+    processId: string
+    driverLicenseFileId: string
+    carInfoFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsUpdateInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
+    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsCreateManyInput = {
+    processId: string
+    driverLicenseFileId: string
+    carInfoFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsUpdateManyMutationInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3624,9 +6641,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type ProcessListRelationFilter = {
+    every?: ProcessWhereInput
+    some?: ProcessWhereInput
+    none?: ProcessWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type ProcessOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3738,6 +6765,16 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type ProcessHstsMvsListRelationFilter = {
+    every?: ProcessHstsMvsWhereInput
+    some?: ProcessHstsMvsWhereInput
+    none?: ProcessHstsMvsWhereInput
+  }
+
+  export type ProcessHstsMvsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type StorageFileCountOrderByAggregateInput = {
     id?: SortOrder
     inputFilename?: SortOrder
@@ -3792,8 +6829,132 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type ProcessHstsMvsNullableScalarRelationFilter = {
+    is?: ProcessHstsMvsWhereInput | null
+    isNot?: ProcessHstsMvsWhereInput | null
+  }
+
+  export type ProcessCountOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ProcessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ProcessMinOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    owner?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type EnumHstsMvsStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.HstsMvsStage | EnumHstsMvsStageFieldRefInput<$PrismaModel>
+    in?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumHstsMvsStageFilter<$PrismaModel> | $Enums.HstsMvsStage
+  }
+
+  export type ProcessScalarRelationFilter = {
+    is?: ProcessWhereInput
+    isNot?: ProcessWhereInput
+  }
+
+  export type StorageFileScalarRelationFilter = {
+    is?: StorageFileWhereInput
+    isNot?: StorageFileWhereInput
+  }
+
+  export type StorageFileNullableScalarRelationFilter = {
+    is?: StorageFileWhereInput | null
+    isNot?: StorageFileWhereInput | null
+  }
+
+  export type ProcessHstsMvsCountOrderByAggregateInput = {
+    processId?: SortOrder
+    driverLicenseFileId?: SortOrder
+    carInfoFileId?: SortOrder
+    resultFileId?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type ProcessHstsMvsMaxOrderByAggregateInput = {
+    processId?: SortOrder
+    driverLicenseFileId?: SortOrder
+    carInfoFileId?: SortOrder
+    resultFileId?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type ProcessHstsMvsMinOrderByAggregateInput = {
+    processId?: SortOrder
+    driverLicenseFileId?: SortOrder
+    carInfoFileId?: SortOrder
+    resultFileId?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type EnumHstsMvsStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HstsMvsStage | EnumHstsMvsStageFieldRefInput<$PrismaModel>
+    in?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumHstsMvsStageWithAggregatesFilter<$PrismaModel> | $Enums.HstsMvsStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHstsMvsStageFilter<$PrismaModel>
+    _max?: NestedEnumHstsMvsStageFilter<$PrismaModel>
+  }
+
   export type UserCreatepermissionsInput = {
     set: $Enums.Permission[]
+  }
+
+  export type ProcessCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput> | ProcessCreateWithoutUserInput[] | ProcessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProcessCreateOrConnectWithoutUserInput | ProcessCreateOrConnectWithoutUserInput[]
+    createMany?: ProcessCreateManyUserInputEnvelope
+    connect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+  }
+
+  export type ProcessUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput> | ProcessCreateWithoutUserInput[] | ProcessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProcessCreateOrConnectWithoutUserInput | ProcessCreateOrConnectWithoutUserInput[]
+    createMany?: ProcessCreateManyUserInputEnvelope
+    connect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3817,12 +6978,278 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type ProcessUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput> | ProcessCreateWithoutUserInput[] | ProcessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProcessCreateOrConnectWithoutUserInput | ProcessCreateOrConnectWithoutUserInput[]
+    upsert?: ProcessUpsertWithWhereUniqueWithoutUserInput | ProcessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProcessCreateManyUserInputEnvelope
+    set?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    disconnect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    delete?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    connect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    update?: ProcessUpdateWithWhereUniqueWithoutUserInput | ProcessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProcessUpdateManyWithWhereWithoutUserInput | ProcessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProcessScalarWhereInput | ProcessScalarWhereInput[]
+  }
+
+  export type ProcessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput> | ProcessCreateWithoutUserInput[] | ProcessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProcessCreateOrConnectWithoutUserInput | ProcessCreateOrConnectWithoutUserInput[]
+    upsert?: ProcessUpsertWithWhereUniqueWithoutUserInput | ProcessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProcessCreateManyUserInputEnvelope
+    set?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    disconnect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    delete?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    connect?: ProcessWhereUniqueInput | ProcessWhereUniqueInput[]
+    update?: ProcessUpdateWithWhereUniqueWithoutUserInput | ProcessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProcessUpdateManyWithWhereWithoutUserInput | ProcessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProcessScalarWhereInput | ProcessScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
+    createMany?: ProcessHstsMvsCreateManyDriverLicenseFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
+  export type ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput> | ProcessHstsMvsCreateWithoutCarInfoFileInput[] | ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput | ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput[]
+    createMany?: ProcessHstsMvsCreateManyCarInfoFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
+  export type ProcessHstsMvsCreateNestedManyWithoutResultFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput> | ProcessHstsMvsCreateWithoutResultFileInput[] | ProcessHstsMvsUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutResultFileInput | ProcessHstsMvsCreateOrConnectWithoutResultFileInput[]
+    createMany?: ProcessHstsMvsCreateManyResultFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
+    createMany?: ProcessHstsMvsCreateManyDriverLicenseFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput> | ProcessHstsMvsCreateWithoutCarInfoFileInput[] | ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput | ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput[]
+    createMany?: ProcessHstsMvsCreateManyCarInfoFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput> | ProcessHstsMvsCreateWithoutResultFileInput[] | ProcessHstsMvsUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutResultFileInput | ProcessHstsMvsCreateOrConnectWithoutResultFileInput[]
+    createMany?: ProcessHstsMvsCreateManyResultFileInputEnvelope
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput[]
+    createMany?: ProcessHstsMvsCreateManyDriverLicenseFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutDriverLicenseFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutDriverLicenseFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutDriverLicenseFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutDriverLicenseFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput> | ProcessHstsMvsCreateWithoutCarInfoFileInput[] | ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput | ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutCarInfoFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutCarInfoFileInput[]
+    createMany?: ProcessHstsMvsCreateManyCarInfoFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutCarInfoFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutCarInfoFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutCarInfoFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutCarInfoFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsUpdateManyWithoutResultFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput> | ProcessHstsMvsCreateWithoutResultFileInput[] | ProcessHstsMvsUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutResultFileInput | ProcessHstsMvsCreateOrConnectWithoutResultFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutResultFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutResultFileInput[]
+    createMany?: ProcessHstsMvsCreateManyResultFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutResultFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutResultFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutResultFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutResultFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput[]
+    createMany?: ProcessHstsMvsCreateManyDriverLicenseFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutDriverLicenseFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutDriverLicenseFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutDriverLicenseFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutDriverLicenseFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput> | ProcessHstsMvsCreateWithoutCarInfoFileInput[] | ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput | ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutCarInfoFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutCarInfoFileInput[]
+    createMany?: ProcessHstsMvsCreateManyCarInfoFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutCarInfoFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutCarInfoFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutCarInfoFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutCarInfoFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput> | ProcessHstsMvsCreateWithoutResultFileInput[] | ProcessHstsMvsUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutResultFileInput | ProcessHstsMvsCreateOrConnectWithoutResultFileInput[]
+    upsert?: ProcessHstsMvsUpsertWithWhereUniqueWithoutResultFileInput | ProcessHstsMvsUpsertWithWhereUniqueWithoutResultFileInput[]
+    createMany?: ProcessHstsMvsCreateManyResultFileInputEnvelope
+    set?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    disconnect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    delete?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    connect?: ProcessHstsMvsWhereUniqueInput | ProcessHstsMvsWhereUniqueInput[]
+    update?: ProcessHstsMvsUpdateWithWhereUniqueWithoutResultFileInput | ProcessHstsMvsUpdateWithWhereUniqueWithoutResultFileInput[]
+    updateMany?: ProcessHstsMvsUpdateManyWithWhereWithoutResultFileInput | ProcessHstsMvsUpdateManyWithWhereWithoutResultFileInput[]
+    deleteMany?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutProcessesInput = {
+    create?: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProcessesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProcessHstsMvsCreateNestedOneWithoutProcessInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
+    connect?: ProcessHstsMvsWhereUniqueInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
+    connect?: ProcessHstsMvsWhereUniqueInput
+  }
+
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
+  }
+
+  export type UserUpdateOneRequiredWithoutProcessesNestedInput = {
+    create?: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProcessesInput
+    upsert?: UserUpsertWithoutProcessesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProcessesInput, UserUpdateWithoutProcessesInput>, UserUncheckedUpdateWithoutProcessesInput>
+  }
+
+  export type ProcessHstsMvsUpdateOneWithoutProcessNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
+    upsert?: ProcessHstsMvsUpsertWithoutProcessInput
+    disconnect?: ProcessHstsMvsWhereInput | boolean
+    delete?: ProcessHstsMvsWhereInput | boolean
+    connect?: ProcessHstsMvsWhereUniqueInput
+    update?: XOR<XOR<ProcessHstsMvsUpdateToOneWithWhereWithoutProcessInput, ProcessHstsMvsUpdateWithoutProcessInput>, ProcessHstsMvsUncheckedUpdateWithoutProcessInput>
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput = {
+    create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
+    upsert?: ProcessHstsMvsUpsertWithoutProcessInput
+    disconnect?: ProcessHstsMvsWhereInput | boolean
+    delete?: ProcessHstsMvsWhereInput | boolean
+    connect?: ProcessHstsMvsWhereUniqueInput
+    update?: XOR<XOR<ProcessHstsMvsUpdateToOneWithWhereWithoutProcessInput, ProcessHstsMvsUpdateWithoutProcessInput>, ProcessHstsMvsUncheckedUpdateWithoutProcessInput>
+  }
+
+  export type ProcessCreateNestedOneWithoutHstsMvsInput = {
+    create?: XOR<ProcessCreateWithoutHstsMvsInput, ProcessUncheckedCreateWithoutHstsMvsInput>
+    connectOrCreate?: ProcessCreateOrConnectWithoutHstsMvsInput
+    connect?: ProcessWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput = {
+    create?: XOR<StorageFileCreateWithoutDriverLicenseProcessesInput, StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutDriverLicenseProcessesInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutCarInfoProcessesInput = {
+    create?: XOR<StorageFileCreateWithoutCarInfoProcessesInput, StorageFileUncheckedCreateWithoutCarInfoProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutCarInfoProcessesInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutResultProcessesInput = {
+    create?: XOR<StorageFileCreateWithoutResultProcessesInput, StorageFileUncheckedCreateWithoutResultProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutResultProcessesInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type EnumHstsMvsStageFieldUpdateOperationsInput = {
+    set?: $Enums.HstsMvsStage
+  }
+
+  export type ProcessUpdateOneRequiredWithoutHstsMvsNestedInput = {
+    create?: XOR<ProcessCreateWithoutHstsMvsInput, ProcessUncheckedCreateWithoutHstsMvsInput>
+    connectOrCreate?: ProcessCreateOrConnectWithoutHstsMvsInput
+    upsert?: ProcessUpsertWithoutHstsMvsInput
+    connect?: ProcessWhereUniqueInput
+    update?: XOR<XOR<ProcessUpdateToOneWithWhereWithoutHstsMvsInput, ProcessUpdateWithoutHstsMvsInput>, ProcessUncheckedUpdateWithoutHstsMvsInput>
+  }
+
+  export type StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput = {
+    create?: XOR<StorageFileCreateWithoutDriverLicenseProcessesInput, StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutDriverLicenseProcessesInput
+    upsert?: StorageFileUpsertWithoutDriverLicenseProcessesInput
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutDriverLicenseProcessesInput, StorageFileUpdateWithoutDriverLicenseProcessesInput>, StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput>
+  }
+
+  export type StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput = {
+    create?: XOR<StorageFileCreateWithoutCarInfoProcessesInput, StorageFileUncheckedCreateWithoutCarInfoProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutCarInfoProcessesInput
+    upsert?: StorageFileUpsertWithoutCarInfoProcessesInput
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutCarInfoProcessesInput, StorageFileUpdateWithoutCarInfoProcessesInput>, StorageFileUncheckedUpdateWithoutCarInfoProcessesInput>
+  }
+
+  export type StorageFileUpdateOneWithoutResultProcessesNestedInput = {
+    create?: XOR<StorageFileCreateWithoutResultProcessesInput, StorageFileUncheckedCreateWithoutResultProcessesInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutResultProcessesInput
+    upsert?: StorageFileUpsertWithoutResultProcessesInput
+    disconnect?: StorageFileWhereInput | boolean
+    delete?: StorageFileWhereInput | boolean
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutResultProcessesInput, StorageFileUpdateWithoutResultProcessesInput>, StorageFileUncheckedUpdateWithoutResultProcessesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3972,6 +7399,717 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumHstsMvsStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.HstsMvsStage | EnumHstsMvsStageFieldRefInput<$PrismaModel>
+    in?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumHstsMvsStageFilter<$PrismaModel> | $Enums.HstsMvsStage
+  }
+
+  export type NestedEnumHstsMvsStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HstsMvsStage | EnumHstsMvsStageFieldRefInput<$PrismaModel>
+    in?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HstsMvsStage[] | ListEnumHstsMvsStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumHstsMvsStageWithAggregatesFilter<$PrismaModel> | $Enums.HstsMvsStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHstsMvsStageFilter<$PrismaModel>
+    _max?: NestedEnumHstsMvsStageFilter<$PrismaModel>
+  }
+
+  export type ProcessCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    createdAt?: Date | string
+    hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessUncheckedCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    createdAt?: Date | string
+    hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessCreateOrConnectWithoutUserInput = {
+    where: ProcessWhereUniqueInput
+    create: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProcessCreateManyUserInputEnvelope = {
+    data: ProcessCreateManyUserInput | ProcessCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessUpsertWithWhereUniqueWithoutUserInput = {
+    where: ProcessWhereUniqueInput
+    update: XOR<ProcessUpdateWithoutUserInput, ProcessUncheckedUpdateWithoutUserInput>
+    create: XOR<ProcessCreateWithoutUserInput, ProcessUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProcessUpdateWithWhereUniqueWithoutUserInput = {
+    where: ProcessWhereUniqueInput
+    data: XOR<ProcessUpdateWithoutUserInput, ProcessUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProcessUpdateManyWithWhereWithoutUserInput = {
+    where: ProcessScalarWhereInput
+    data: XOR<ProcessUpdateManyMutationInput, ProcessUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ProcessScalarWhereInput = {
+    AND?: ProcessScalarWhereInput | ProcessScalarWhereInput[]
+    OR?: ProcessScalarWhereInput[]
+    NOT?: ProcessScalarWhereInput | ProcessScalarWhereInput[]
+    id?: StringFilter<"Process"> | string
+    status?: EnumStatusFilter<"Process"> | $Enums.Status
+    userId?: StringFilter<"Process"> | string
+    owner?: StringNullableFilter<"Process"> | string | null
+    createdAt?: DateTimeFilter<"Process"> | Date | string
+  }
+
+  export type ProcessHstsMvsCreateWithoutDriverLicenseFileInput = {
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutHstsMvsInput
+    carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput = {
+    processId: string
+    carInfoFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    create: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput>
+  }
+
+  export type ProcessHstsMvsCreateManyDriverLicenseFileInputEnvelope = {
+    data: ProcessHstsMvsCreateManyDriverLicenseFileInput | ProcessHstsMvsCreateManyDriverLicenseFileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessHstsMvsCreateWithoutCarInfoFileInput = {
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutHstsMvsInput
+    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput = {
+    processId: string
+    driverLicenseFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateOrConnectWithoutCarInfoFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    create: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput>
+  }
+
+  export type ProcessHstsMvsCreateManyCarInfoFileInputEnvelope = {
+    data: ProcessHstsMvsCreateManyCarInfoFileInput | ProcessHstsMvsCreateManyCarInfoFileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessHstsMvsCreateWithoutResultFileInput = {
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutHstsMvsInput
+    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateWithoutResultFileInput = {
+    processId: string
+    driverLicenseFileId: string
+    carInfoFileId: string
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateOrConnectWithoutResultFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    create: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput>
+  }
+
+  export type ProcessHstsMvsCreateManyResultFileInputEnvelope = {
+    data: ProcessHstsMvsCreateManyResultFileInput | ProcessHstsMvsCreateManyResultFileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    update: XOR<ProcessHstsMvsUpdateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedUpdateWithoutDriverLicenseFileInput>
+    create: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateWithWhereUniqueWithoutDriverLicenseFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    data: XOR<ProcessHstsMvsUpdateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedUpdateWithoutDriverLicenseFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateManyWithWhereWithoutDriverLicenseFileInput = {
+    where: ProcessHstsMvsScalarWhereInput
+    data: XOR<ProcessHstsMvsUpdateManyMutationInput, ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileInput>
+  }
+
+  export type ProcessHstsMvsScalarWhereInput = {
+    AND?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+    OR?: ProcessHstsMvsScalarWhereInput[]
+    NOT?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
+    processId?: StringFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
+    resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+    stage?: EnumHstsMvsStageFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
+    errorMessage?: StringNullableFilter<"ProcessHstsMvs"> | string | null
+  }
+
+  export type ProcessHstsMvsUpsertWithWhereUniqueWithoutCarInfoFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    update: XOR<ProcessHstsMvsUpdateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedUpdateWithoutCarInfoFileInput>
+    create: XOR<ProcessHstsMvsCreateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateWithWhereUniqueWithoutCarInfoFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    data: XOR<ProcessHstsMvsUpdateWithoutCarInfoFileInput, ProcessHstsMvsUncheckedUpdateWithoutCarInfoFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateManyWithWhereWithoutCarInfoFileInput = {
+    where: ProcessHstsMvsScalarWhereInput
+    data: XOR<ProcessHstsMvsUpdateManyMutationInput, ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileInput>
+  }
+
+  export type ProcessHstsMvsUpsertWithWhereUniqueWithoutResultFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    update: XOR<ProcessHstsMvsUpdateWithoutResultFileInput, ProcessHstsMvsUncheckedUpdateWithoutResultFileInput>
+    create: XOR<ProcessHstsMvsCreateWithoutResultFileInput, ProcessHstsMvsUncheckedCreateWithoutResultFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateWithWhereUniqueWithoutResultFileInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    data: XOR<ProcessHstsMvsUpdateWithoutResultFileInput, ProcessHstsMvsUncheckedUpdateWithoutResultFileInput>
+  }
+
+  export type ProcessHstsMvsUpdateManyWithWhereWithoutResultFileInput = {
+    where: ProcessHstsMvsScalarWhereInput
+    data: XOR<ProcessHstsMvsUpdateManyMutationInput, ProcessHstsMvsUncheckedUpdateManyWithoutResultFileInput>
+  }
+
+  export type UserCreateWithoutProcessesInput = {
+    id?: string
+    username: string
+    password: string
+    displayName: string
+    isSuperUser?: boolean
+    isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
+    permissions?: UserCreatepermissionsInput | $Enums.Permission[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutProcessesInput = {
+    id?: string
+    username: string
+    password: string
+    displayName: string
+    isSuperUser?: boolean
+    isBlocked?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
+    permissions?: UserCreatepermissionsInput | $Enums.Permission[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutProcessesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
+  }
+
+  export type ProcessHstsMvsCreateWithoutProcessInput = {
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
+  }
+
+  export type ProcessHstsMvsUncheckedCreateWithoutProcessInput = {
+    driverLicenseFileId: string
+    carInfoFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateOrConnectWithoutProcessInput = {
+    where: ProcessHstsMvsWhereUniqueInput
+    create: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+  }
+
+  export type UserUpsertWithoutProcessesInput = {
+    update: XOR<UserUpdateWithoutProcessesInput, UserUncheckedUpdateWithoutProcessesInput>
+    create: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProcessesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProcessesInput, UserUncheckedUpdateWithoutProcessesInput>
+  }
+
+  export type UserUpdateWithoutProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    isSuperUser?: BoolFieldUpdateOperationsInput | boolean
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    isSuperUser?: BoolFieldUpdateOperationsInput | boolean
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: UserUpdatepermissionsInput | $Enums.Permission[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProcessHstsMvsUpsertWithoutProcessInput = {
+    update: XOR<ProcessHstsMvsUpdateWithoutProcessInput, ProcessHstsMvsUncheckedUpdateWithoutProcessInput>
+    create: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
+    where?: ProcessHstsMvsWhereInput
+  }
+
+  export type ProcessHstsMvsUpdateToOneWithWhereWithoutProcessInput = {
+    where?: ProcessHstsMvsWhereInput
+    data: XOR<ProcessHstsMvsUpdateWithoutProcessInput, ProcessHstsMvsUncheckedUpdateWithoutProcessInput>
+  }
+
+  export type ProcessHstsMvsUpdateWithoutProcessInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateWithoutProcessInput = {
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessCreateWithoutHstsMvsInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutProcessesInput
+  }
+
+  export type ProcessUncheckedCreateWithoutHstsMvsInput = {
+    id?: string
+    status?: $Enums.Status
+    userId: string
+    owner?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ProcessCreateOrConnectWithoutHstsMvsInput = {
+    where: ProcessWhereUniqueInput
+    create: XOR<ProcessCreateWithoutHstsMvsInput, ProcessUncheckedCreateWithoutHstsMvsInput>
+  }
+
+  export type StorageFileCreateWithoutDriverLicenseProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+    resultProcesses?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+    resultProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutDriverLicenseProcessesInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutDriverLicenseProcessesInput, StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput>
+  }
+
+  export type StorageFileCreateWithoutCarInfoProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    resultProcesses?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutCarInfoProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    resultProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutCarInfoProcessesInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutCarInfoProcessesInput, StorageFileUncheckedCreateWithoutCarInfoProcessesInput>
+  }
+
+  export type StorageFileCreateWithoutResultProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutResultProcessesInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extention: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutResultProcessesInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutResultProcessesInput, StorageFileUncheckedCreateWithoutResultProcessesInput>
+  }
+
+  export type ProcessUpsertWithoutHstsMvsInput = {
+    update: XOR<ProcessUpdateWithoutHstsMvsInput, ProcessUncheckedUpdateWithoutHstsMvsInput>
+    create: XOR<ProcessCreateWithoutHstsMvsInput, ProcessUncheckedCreateWithoutHstsMvsInput>
+    where?: ProcessWhereInput
+  }
+
+  export type ProcessUpdateToOneWithWhereWithoutHstsMvsInput = {
+    where?: ProcessWhereInput
+    data: XOR<ProcessUpdateWithoutHstsMvsInput, ProcessUncheckedUpdateWithoutHstsMvsInput>
+  }
+
+  export type ProcessUpdateWithoutHstsMvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProcessesNestedInput
+  }
+
+  export type ProcessUncheckedUpdateWithoutHstsMvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    userId?: StringFieldUpdateOperationsInput | string
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StorageFileUpsertWithoutDriverLicenseProcessesInput = {
+    update: XOR<StorageFileUpdateWithoutDriverLicenseProcessesInput, StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput>
+    create: XOR<StorageFileCreateWithoutDriverLicenseProcessesInput, StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutDriverLicenseProcessesInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutDriverLicenseProcessesInput, StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput>
+  }
+
+  export type StorageFileUpdateWithoutDriverLicenseProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+    resultProcesses?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+    resultProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUpsertWithoutCarInfoProcessesInput = {
+    update: XOR<StorageFileUpdateWithoutCarInfoProcessesInput, StorageFileUncheckedUpdateWithoutCarInfoProcessesInput>
+    create: XOR<StorageFileCreateWithoutCarInfoProcessesInput, StorageFileUncheckedCreateWithoutCarInfoProcessesInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutCarInfoProcessesInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutCarInfoProcessesInput, StorageFileUncheckedUpdateWithoutCarInfoProcessesInput>
+  }
+
+  export type StorageFileUpdateWithoutCarInfoProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    resultProcesses?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutCarInfoProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    resultProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUpsertWithoutResultProcessesInput = {
+    update: XOR<StorageFileUpdateWithoutResultProcessesInput, StorageFileUncheckedUpdateWithoutResultProcessesInput>
+    create: XOR<StorageFileCreateWithoutResultProcessesInput, StorageFileUncheckedCreateWithoutResultProcessesInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutResultProcessesInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutResultProcessesInput, StorageFileUncheckedUpdateWithoutResultProcessesInput>
+  }
+
+  export type StorageFileUpdateWithoutResultProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutResultProcessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extention?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+  }
+
+  export type ProcessCreateManyUserInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ProcessUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
+  }
+
+  export type ProcessUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
+  }
+
+  export type ProcessUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProcessHstsMvsCreateManyDriverLicenseFileInput = {
+    processId: string
+    carInfoFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateManyCarInfoFileInput = {
+    processId: string
+    driverLicenseFileId: string
+    resultFileId?: string | null
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsCreateManyResultFileInput = {
+    processId: string
+    driverLicenseFileId: string
+    carInfoFileId: string
+    stage: $Enums.HstsMvsStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessHstsMvsUpdateWithoutDriverLicenseFileInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
+    carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateWithoutDriverLicenseFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUpdateWithoutCarInfoFileInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
+    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateWithoutCarInfoFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUpdateWithoutResultFileInput = {
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
+    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateWithoutResultFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessHstsMvsUncheckedUpdateManyWithoutResultFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    carInfoFileId?: StringFieldUpdateOperationsInput | string
+    stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

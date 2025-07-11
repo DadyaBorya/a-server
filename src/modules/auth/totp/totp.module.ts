@@ -1,6 +1,5 @@
+import { AccountModule } from '@modules/users/account'
 import { Module } from '@nestjs/common'
-
-import { AccountModule, AccountService } from '../account'
 
 import { TotpResolver } from './totp.resolver'
 import { TotpService } from './totp.service'
