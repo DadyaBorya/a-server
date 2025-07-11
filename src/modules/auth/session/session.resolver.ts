@@ -22,6 +22,13 @@ export class SessionResolver {
 		)
 	}
 
+	// Знайти всі сесії користувача який робе запит
+	@GqlAuthorization()
+	@Query(() => [SessionModel], { name: 'findSessionsById' })
+	async findSessionsById(@Args('id') id: string) {
+		return this.sessionService.findSessions(id)
+	}
+
 	// Знайти поточну сесію користувача який робе запит
 	@GqlAuthorization()
 	@Query(() => SessionModel, { name: 'findCurrentSession' })

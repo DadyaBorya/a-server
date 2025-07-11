@@ -85,6 +85,7 @@ type Query {
   findCurrentSession: SessionModel!
   findMe: UserModel!
   findSessions: [SessionModel!]!
+  findSessionsById(id: String!): [SessionModel!]!
   findUserById(id: String!): UserModel!
   generateTotpSecret: TotpModel!
 }

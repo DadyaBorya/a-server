@@ -35,7 +35,7 @@ export class SessionService {
 		this.sessionName = this.configService.getOrThrow<string>('SESSION_NAME')
 	}
 
-	public async findSessions(userId: string, requestSessionId: string) {
+	public async findSessions(userId: string, requestSessionId?: string) {
 		const keys = await this.redisService.keys(`${this.sessionFolder}*`)
 
 		const userSessions = []
