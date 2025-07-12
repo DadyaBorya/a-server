@@ -31,7 +31,12 @@ enum Status {
   ERROR
 }
 
+enum ProcessType {
+  HSTS_MVS
+}
+
 enum HstsMvsStage {
+  NOT_STARTED
   VALIDATE
 }
 
@@ -86,6 +91,8 @@ model Process {
 
   owner String?
 
+  type ProcessType
+
   hstsMvs ProcessHstsMvs?
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -106,7 +113,7 @@ model ProcessHstsMvs {
   resultFileId String?      @map("result_file_id")
   resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
 
-  stage        HstsMvsStage
+  stage        HstsMvsStage @default(NOT_STARTED)
   errorMessage String?      @map("error_message")
 
   @@map("process_hsts_mvs")

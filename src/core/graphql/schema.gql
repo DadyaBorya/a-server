@@ -50,6 +50,7 @@ input LoginInput {
 
 type Mutation {
   clearSessionCookie: Boolean!
+  createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload!): String!
   createUser(data: CreateUserInput!): Boolean!
   disabledTotp(userId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!
@@ -59,7 +60,6 @@ type Mutation {
   resetPasswordUser(data: ResetUserPasswordInput!): Boolean!
   updatePasswordUser(data: UpdateUserPasswordInput!): Boolean!
   updateUser(data: UpdateUserInput!): Boolean!
-  upload(file: Upload!): Boolean!
 }
 
 enum OrderDirection {

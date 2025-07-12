@@ -64,7 +64,15 @@ export const Status: {
 export type Status = (typeof Status)[keyof typeof Status]
 
 
+export const ProcessType: {
+  HSTS_MVS: 'HSTS_MVS'
+};
+
+export type ProcessType = (typeof ProcessType)[keyof typeof ProcessType]
+
+
 export const HstsMvsStage: {
+  NOT_STARTED: 'NOT_STARTED',
   VALIDATE: 'VALIDATE'
 };
 
@@ -79,6 +87,10 @@ export const Permission: typeof $Enums.Permission
 export type Status = $Enums.Status
 
 export const Status: typeof $Enums.Status
+
+export type ProcessType = $Enums.ProcessType
+
+export const ProcessType: typeof $Enums.ProcessType
 
 export type HstsMvsStage = $Enums.HstsMvsStage
 
@@ -3616,6 +3628,7 @@ export namespace Prisma {
     status: $Enums.Status | null
     userId: string | null
     owner: string | null
+    type: $Enums.ProcessType | null
     createdAt: Date | null
   }
 
@@ -3624,6 +3637,7 @@ export namespace Prisma {
     status: $Enums.Status | null
     userId: string | null
     owner: string | null
+    type: $Enums.ProcessType | null
     createdAt: Date | null
   }
 
@@ -3632,6 +3646,7 @@ export namespace Prisma {
     status: number
     userId: number
     owner: number
+    type: number
     createdAt: number
     _all: number
   }
@@ -3642,6 +3657,7 @@ export namespace Prisma {
     status?: true
     userId?: true
     owner?: true
+    type?: true
     createdAt?: true
   }
 
@@ -3650,6 +3666,7 @@ export namespace Prisma {
     status?: true
     userId?: true
     owner?: true
+    type?: true
     createdAt?: true
   }
 
@@ -3658,6 +3675,7 @@ export namespace Prisma {
     status?: true
     userId?: true
     owner?: true
+    type?: true
     createdAt?: true
     _all?: true
   }
@@ -3739,6 +3757,7 @@ export namespace Prisma {
     status: $Enums.Status
     userId: string
     owner: string | null
+    type: $Enums.ProcessType
     createdAt: Date
     _count: ProcessCountAggregateOutputType | null
     _min: ProcessMinAggregateOutputType | null
@@ -3764,6 +3783,7 @@ export namespace Prisma {
     status?: boolean
     userId?: boolean
     owner?: boolean
+    type?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
@@ -3774,6 +3794,7 @@ export namespace Prisma {
     status?: boolean
     userId?: boolean
     owner?: boolean
+    type?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
@@ -3783,6 +3804,7 @@ export namespace Prisma {
     status?: boolean
     userId?: boolean
     owner?: boolean
+    type?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
@@ -3792,10 +3814,11 @@ export namespace Prisma {
     status?: boolean
     userId?: boolean
     owner?: boolean
+    type?: boolean
     createdAt?: boolean
   }
 
-  export type ProcessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "userId" | "owner" | "createdAt", ExtArgs["result"]["process"]>
+  export type ProcessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "userId" | "owner" | "type" | "createdAt", ExtArgs["result"]["process"]>
   export type ProcessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
@@ -3818,6 +3841,7 @@ export namespace Prisma {
       status: $Enums.Status
       userId: string
       owner: string | null
+      type: $Enums.ProcessType
       createdAt: Date
     }, ExtArgs["result"]["process"]>
     composites: {}
@@ -4248,6 +4272,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Process", 'Status'>
     readonly userId: FieldRef<"Process", 'String'>
     readonly owner: FieldRef<"Process", 'String'>
+    readonly type: FieldRef<"Process", 'ProcessType'>
     readonly createdAt: FieldRef<"Process", 'DateTime'>
   }
     
@@ -5845,6 +5870,7 @@ export namespace Prisma {
     status: 'status',
     userId: 'userId',
     owner: 'owner',
+    type: 'type',
     createdAt: 'createdAt'
   };
 
@@ -5966,6 +5992,20 @@ export namespace Prisma {
    * Reference to a field of type 'Status[]'
    */
   export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProcessType'
+   */
+  export type EnumProcessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProcessType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProcessType[]'
+   */
+  export type ListEnumProcessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProcessType[]'>
     
 
 
@@ -6166,6 +6206,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"Process"> | $Enums.Status
     userId?: StringFilter<"Process"> | string
     owner?: StringNullableFilter<"Process"> | string | null
+    type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
@@ -6176,6 +6217,7 @@ export namespace Prisma {
     status?: SortOrder
     userId?: SortOrder
     owner?: SortOrderInput | SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     hstsMvs?: ProcessHstsMvsOrderByWithRelationInput
@@ -6189,6 +6231,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"Process"> | $Enums.Status
     userId?: StringFilter<"Process"> | string
     owner?: StringNullableFilter<"Process"> | string | null
+    type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
@@ -6199,6 +6242,7 @@ export namespace Prisma {
     status?: SortOrder
     userId?: SortOrder
     owner?: SortOrderInput | SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     _count?: ProcessCountOrderByAggregateInput
     _max?: ProcessMaxOrderByAggregateInput
@@ -6213,6 +6257,7 @@ export namespace Prisma {
     status?: EnumStatusWithAggregatesFilter<"Process"> | $Enums.Status
     userId?: StringWithAggregatesFilter<"Process"> | string
     owner?: StringNullableWithAggregatesFilter<"Process"> | string | null
+    type?: EnumProcessTypeWithAggregatesFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeWithAggregatesFilter<"Process"> | Date | string
   }
 
@@ -6473,6 +6518,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.Status
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProcessesInput
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
@@ -6483,6 +6529,7 @@ export namespace Prisma {
     status?: $Enums.Status
     userId: string
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
   }
@@ -6491,6 +6538,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
@@ -6501,6 +6549,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     userId?: StringFieldUpdateOperationsInput | string
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
   }
@@ -6510,6 +6559,7 @@ export namespace Prisma {
     status?: $Enums.Status
     userId: string
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
   }
 
@@ -6517,6 +6567,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6525,11 +6576,12 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     userId?: StringFieldUpdateOperationsInput | string
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProcessHstsMvsCreateInput = {
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
     driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
@@ -6542,7 +6594,7 @@ export namespace Prisma {
     driverLicenseFileId: string
     carInfoFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -6569,7 +6621,7 @@ export namespace Prisma {
     driverLicenseFileId: string
     carInfoFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -6836,6 +6888,13 @@ export namespace Prisma {
     not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
   }
 
+  export type EnumProcessTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6851,6 +6910,7 @@ export namespace Prisma {
     status?: SortOrder
     userId?: SortOrder
     owner?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6859,6 +6919,7 @@ export namespace Prisma {
     status?: SortOrder
     userId?: SortOrder
     owner?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6867,6 +6928,7 @@ export namespace Prisma {
     status?: SortOrder
     userId?: SortOrder
     owner?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6878,6 +6940,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusFilter<$PrismaModel>
     _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type EnumProcessTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProcessType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProcessTypeFilter<$PrismaModel>
+    _max?: NestedEnumProcessTypeFilter<$PrismaModel>
   }
 
   export type EnumHstsMvsStageFilter<$PrismaModel = never> = {
@@ -7162,6 +7234,10 @@ export namespace Prisma {
     set?: $Enums.Status
   }
 
+  export type EnumProcessTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProcessType
+  }
+
   export type UserUpdateOneRequiredWithoutProcessesNestedInput = {
     create?: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
     connectOrCreate?: UserCreateOrConnectWithoutProcessesInput
@@ -7408,6 +7484,13 @@ export namespace Prisma {
     not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
   }
 
+  export type NestedEnumProcessTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
+  }
+
   export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
@@ -7416,6 +7499,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusFilter<$PrismaModel>
     _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProcessType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProcessTypeFilter<$PrismaModel>
+    _max?: NestedEnumProcessTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumHstsMvsStageFilter<$PrismaModel = never> = {
@@ -7439,6 +7532,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.Status
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
   }
@@ -7447,6 +7541,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.Status
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
   }
@@ -7485,11 +7580,12 @@ export namespace Prisma {
     status?: EnumStatusFilter<"Process"> | $Enums.Status
     userId?: StringFilter<"Process"> | string
     owner?: StringNullableFilter<"Process"> | string | null
+    type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
   }
 
   export type ProcessHstsMvsCreateWithoutDriverLicenseFileInput = {
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
     carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
@@ -7500,7 +7596,7 @@ export namespace Prisma {
     processId: string
     carInfoFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -7515,7 +7611,7 @@ export namespace Prisma {
   }
 
   export type ProcessHstsMvsCreateWithoutCarInfoFileInput = {
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
     driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
@@ -7526,7 +7622,7 @@ export namespace Prisma {
     processId: string
     driverLicenseFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -7541,7 +7637,7 @@ export namespace Prisma {
   }
 
   export type ProcessHstsMvsCreateWithoutResultFileInput = {
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
     driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
@@ -7552,7 +7648,7 @@ export namespace Prisma {
     processId: string
     driverLicenseFileId: string
     carInfoFileId: string
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -7660,7 +7756,7 @@ export namespace Prisma {
   }
 
   export type ProcessHstsMvsCreateWithoutProcessInput = {
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
     carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
@@ -7671,7 +7767,7 @@ export namespace Prisma {
     driverLicenseFileId: string
     carInfoFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -7750,6 +7846,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.Status
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProcessesInput
   }
@@ -7759,6 +7856,7 @@ export namespace Prisma {
     status?: $Enums.Status
     userId: string
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
   }
 
@@ -7869,6 +7967,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
   }
@@ -7878,6 +7977,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     userId?: StringFieldUpdateOperationsInput | string
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7990,6 +8090,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.Status
     owner?: string | null
+    type: $Enums.ProcessType
     createdAt?: Date | string
   }
 
@@ -7997,6 +8098,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
   }
@@ -8005,6 +8107,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
   }
@@ -8013,6 +8116,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -8020,7 +8124,7 @@ export namespace Prisma {
     processId: string
     carInfoFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -8028,7 +8132,7 @@ export namespace Prisma {
     processId: string
     driverLicenseFileId: string
     resultFileId?: string | null
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 
@@ -8036,7 +8140,7 @@ export namespace Prisma {
     processId: string
     driverLicenseFileId: string
     carInfoFileId: string
-    stage: $Enums.HstsMvsStage
+    stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
   }
 

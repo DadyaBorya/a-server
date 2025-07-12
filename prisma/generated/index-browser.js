@@ -149,6 +149,7 @@ exports.Prisma.ProcessScalarFieldEnum = {
   status: 'status',
   userId: 'userId',
   owner: 'owner',
+  type: 'type',
   createdAt: 'createdAt'
 };
 
@@ -195,7 +196,12 @@ exports.Status = exports.$Enums.Status = {
   ERROR: 'ERROR'
 };
 
+exports.ProcessType = exports.$Enums.ProcessType = {
+  HSTS_MVS: 'HSTS_MVS'
+};
+
 exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
+  NOT_STARTED: 'NOT_STARTED',
   VALIDATE: 'VALIDATE'
 };
 

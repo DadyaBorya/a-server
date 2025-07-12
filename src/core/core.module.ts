@@ -1,6 +1,7 @@
 import { SessionModule } from '@modules/auth/session'
 import { TotpModule } from '@modules/auth/totp'
 import { StorageModule } from '@modules/libs/storage'
+import { HstsMvsProcessModule } from '@modules/process/hsts-mvs-process'
 import { AccountModule } from '@modules/users/account'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
@@ -26,7 +27,8 @@ import { RedisModule } from './redis'
 		AccountModule,
 		SessionModule,
 		TotpModule,
-		StorageModule
+		StorageModule,
+		HstsMvsProcessModule
 	]
 })
 export class CoreModule {}
