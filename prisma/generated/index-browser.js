@@ -138,7 +138,7 @@ exports.Prisma.StorageFileScalarFieldEnum = {
   id: 'id',
   inputFilename: 'inputFilename',
   outputFilename: 'outputFilename',
-  extention: 'extention',
+  extension: 'extension',
   size: 'size',
   bucket: 'bucket',
   path: 'path'

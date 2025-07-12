@@ -2439,7 +2439,7 @@ export namespace Prisma {
     id: string | null
     inputFilename: string | null
     outputFilename: string | null
-    extention: string | null
+    extension: string | null
     size: number | null
     bucket: string | null
     path: string | null
@@ -2449,7 +2449,7 @@ export namespace Prisma {
     id: string | null
     inputFilename: string | null
     outputFilename: string | null
-    extention: string | null
+    extension: string | null
     size: number | null
     bucket: string | null
     path: string | null
@@ -2459,7 +2459,7 @@ export namespace Prisma {
     id: number
     inputFilename: number
     outputFilename: number
-    extention: number
+    extension: number
     size: number
     bucket: number
     path: number
@@ -2479,7 +2479,7 @@ export namespace Prisma {
     id?: true
     inputFilename?: true
     outputFilename?: true
-    extention?: true
+    extension?: true
     size?: true
     bucket?: true
     path?: true
@@ -2489,7 +2489,7 @@ export namespace Prisma {
     id?: true
     inputFilename?: true
     outputFilename?: true
-    extention?: true
+    extension?: true
     size?: true
     bucket?: true
     path?: true
@@ -2499,7 +2499,7 @@ export namespace Prisma {
     id?: true
     inputFilename?: true
     outputFilename?: true
-    extention?: true
+    extension?: true
     size?: true
     bucket?: true
     path?: true
@@ -2596,7 +2596,7 @@ export namespace Prisma {
     id: string
     inputFilename: string
     outputFilename: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -2625,7 +2625,7 @@ export namespace Prisma {
     id?: boolean
     inputFilename?: boolean
     outputFilename?: boolean
-    extention?: boolean
+    extension?: boolean
     size?: boolean
     bucket?: boolean
     path?: boolean
@@ -2639,7 +2639,7 @@ export namespace Prisma {
     id?: boolean
     inputFilename?: boolean
     outputFilename?: boolean
-    extention?: boolean
+    extension?: boolean
     size?: boolean
     bucket?: boolean
     path?: boolean
@@ -2649,7 +2649,7 @@ export namespace Prisma {
     id?: boolean
     inputFilename?: boolean
     outputFilename?: boolean
-    extention?: boolean
+    extension?: boolean
     size?: boolean
     bucket?: boolean
     path?: boolean
@@ -2659,13 +2659,13 @@ export namespace Prisma {
     id?: boolean
     inputFilename?: boolean
     outputFilename?: boolean
-    extention?: boolean
+    extension?: boolean
     size?: boolean
     bucket?: boolean
     path?: boolean
   }
 
-  export type StorageFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inputFilename" | "outputFilename" | "extention" | "size" | "bucket" | "path", ExtArgs["result"]["storageFile"]>
+  export type StorageFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inputFilename" | "outputFilename" | "extension" | "size" | "bucket" | "path", ExtArgs["result"]["storageFile"]>
   export type StorageFileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     driverLicenseProcesses?: boolean | StorageFile$driverLicenseProcessesArgs<ExtArgs>
     carInfoProcesses?: boolean | StorageFile$carInfoProcessesArgs<ExtArgs>
@@ -2686,7 +2686,7 @@ export namespace Prisma {
       id: string
       inputFilename: string
       outputFilename: string | null
-      extention: string
+      extension: string
       size: number
       bucket: string
       path: string
@@ -3119,7 +3119,7 @@ export namespace Prisma {
     readonly id: FieldRef<"StorageFile", 'String'>
     readonly inputFilename: FieldRef<"StorageFile", 'String'>
     readonly outputFilename: FieldRef<"StorageFile", 'String'>
-    readonly extention: FieldRef<"StorageFile", 'String'>
+    readonly extension: FieldRef<"StorageFile", 'String'>
     readonly size: FieldRef<"StorageFile", 'Int'>
     readonly bucket: FieldRef<"StorageFile", 'String'>
     readonly path: FieldRef<"StorageFile", 'String'>
@@ -5831,7 +5831,7 @@ export namespace Prisma {
     id: 'id',
     inputFilename: 'inputFilename',
     outputFilename: 'outputFilename',
-    extention: 'extention',
+    extension: 'extension',
     size: 'size',
     bucket: 'bucket',
     path: 'path'
@@ -6092,7 +6092,7 @@ export namespace Prisma {
     id?: StringFilter<"StorageFile"> | string
     inputFilename?: StringFilter<"StorageFile"> | string
     outputFilename?: StringNullableFilter<"StorageFile"> | string | null
-    extention?: StringFilter<"StorageFile"> | string
+    extension?: StringFilter<"StorageFile"> | string
     size?: IntFilter<"StorageFile"> | number
     bucket?: StringFilter<"StorageFile"> | string
     path?: StringFilter<"StorageFile"> | string
@@ -6105,7 +6105,7 @@ export namespace Prisma {
     id?: SortOrder
     inputFilename?: SortOrder
     outputFilename?: SortOrderInput | SortOrder
-    extention?: SortOrder
+    extension?: SortOrder
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
@@ -6121,7 +6121,7 @@ export namespace Prisma {
     NOT?: StorageFileWhereInput | StorageFileWhereInput[]
     inputFilename?: StringFilter<"StorageFile"> | string
     outputFilename?: StringNullableFilter<"StorageFile"> | string | null
-    extention?: StringFilter<"StorageFile"> | string
+    extension?: StringFilter<"StorageFile"> | string
     size?: IntFilter<"StorageFile"> | number
     bucket?: StringFilter<"StorageFile"> | string
     path?: StringFilter<"StorageFile"> | string
@@ -6134,7 +6134,7 @@ export namespace Prisma {
     id?: SortOrder
     inputFilename?: SortOrder
     outputFilename?: SortOrderInput | SortOrder
-    extention?: SortOrder
+    extension?: SortOrder
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
@@ -6152,7 +6152,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"StorageFile"> | string
     inputFilename?: StringWithAggregatesFilter<"StorageFile"> | string
     outputFilename?: StringNullableWithAggregatesFilter<"StorageFile"> | string | null
-    extention?: StringWithAggregatesFilter<"StorageFile"> | string
+    extension?: StringWithAggregatesFilter<"StorageFile"> | string
     size?: IntWithAggregatesFilter<"StorageFile"> | number
     bucket?: StringWithAggregatesFilter<"StorageFile"> | string
     path?: StringWithAggregatesFilter<"StorageFile"> | string
@@ -6391,7 +6391,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -6404,7 +6404,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -6417,7 +6417,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -6430,7 +6430,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -6443,7 +6443,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -6453,7 +6453,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -6463,7 +6463,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -6779,7 +6779,7 @@ export namespace Prisma {
     id?: SortOrder
     inputFilename?: SortOrder
     outputFilename?: SortOrder
-    extention?: SortOrder
+    extension?: SortOrder
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
@@ -6793,7 +6793,7 @@ export namespace Prisma {
     id?: SortOrder
     inputFilename?: SortOrder
     outputFilename?: SortOrder
-    extention?: SortOrder
+    extension?: SortOrder
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
@@ -6803,7 +6803,7 @@ export namespace Prisma {
     id?: SortOrder
     inputFilename?: SortOrder
     outputFilename?: SortOrder
-    extention?: SortOrder
+    extension?: SortOrder
     size?: SortOrder
     bucket?: SortOrder
     path?: SortOrder
@@ -7771,7 +7771,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7783,7 +7783,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7800,7 +7800,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7812,7 +7812,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7829,7 +7829,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7841,7 +7841,7 @@ export namespace Prisma {
     id?: string
     inputFilename: string
     outputFilename?: string | null
-    extention: string
+    extension: string
     size: number
     bucket: string
     path: string
@@ -7896,7 +7896,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -7908,7 +7908,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -7931,7 +7931,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -7943,7 +7943,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -7966,7 +7966,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string
@@ -7978,7 +7978,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     inputFilename?: StringFieldUpdateOperationsInput | string
     outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
-    extention?: StringFieldUpdateOperationsInput | string
+    extension?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     bucket?: StringFieldUpdateOperationsInput | string
     path?: StringFieldUpdateOperationsInput | string

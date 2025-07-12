@@ -63,7 +63,7 @@ model StorageFile {
 
   inputFilename  String  @map("input_filename")
   outputFilename String? @map("output_filename")
-  extention      String
+  extension      String
   size           Int
   bucket         String
   path           String
