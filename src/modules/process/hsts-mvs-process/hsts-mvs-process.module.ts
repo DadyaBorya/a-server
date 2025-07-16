@@ -3,6 +3,7 @@ import { BullModule } from '@nestjs/bullmq'
 import { Module } from '@nestjs/common'
 import { HSTS_MVS_PROCESS_QUEUE } from '@shared/constants'
 
+import { OllamaModule } from '../../libs/ollama'
 import { ProcessCoreModule } from '../process-core'
 
 import { HstsMvsDocxGenerator } from './docx'
@@ -23,7 +24,8 @@ import { VALIDATORS } from './validators'
 		StorageModule,
 		BullModule.registerQueue({
 			name: HSTS_MVS_PROCESS_QUEUE
-		})
+		}),
+		OllamaModule
 	],
 	providers: [
 		HstsMvsProcessConsumer,

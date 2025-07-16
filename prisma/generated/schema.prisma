@@ -39,6 +39,8 @@ enum HstsMvsStage {
   PARSE_CAR_INFO
   VALIDATE_CAR_INFO
   MODIFY_DATA
+  NORMALIZE_DRIVER_LICENCE_ISSUED_BY
+  NORMALIZE_REGISTRATION_PLACE
   GENERATE_RESULT_DATA
   FINISHED
 }
@@ -115,6 +117,8 @@ model ProcessHstsMvs {
 
   resultFileId String?      @map("result_file_id")
   resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
 
   stage        HstsMvsStage @default(NOT_STARTED)
   errorMessage String?      @map("error_message")

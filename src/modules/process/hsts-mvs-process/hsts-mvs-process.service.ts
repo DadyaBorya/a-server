@@ -28,7 +28,8 @@ export class HstsMvsProcessService {
 	async createRequest(
 		driverLicenseFile: FileUpload,
 		carInfoFile: FileUpload,
-		userId: string
+		userId: string,
+		isAi?: boolean
 	) {
 		const request = await this.processService.createRequest(
 			userId,
@@ -49,7 +50,8 @@ export class HstsMvsProcessService {
 			await this.hstsMvsRepository.create({
 				processId: request.id,
 				driverLicenseFileId: uploadedDriverLicense.id,
-				carInfoFileId: uploadedCarInfo.id
+				carInfoFileId: uploadedCarInfo.id,
+				isAi
 			})
 
 			await this.processQueue.add(HSTS_MVS_CONSUMER_PROCESS_NAME, {

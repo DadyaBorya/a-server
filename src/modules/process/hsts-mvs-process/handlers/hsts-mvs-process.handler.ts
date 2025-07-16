@@ -45,7 +45,8 @@ export class HstsMvsProcessHandler {
 			const modifiedData = await this.modifier.modify(
 				processId,
 				driverLicenceData,
-				carInfoData
+				carInfoData,
+				hstsMvsProcess.isAi
 			)
 
 			const { lastName, firstName, patronymic } = driverLicenceData

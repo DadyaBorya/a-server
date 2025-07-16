@@ -1,5 +1,6 @@
 import { SessionModule } from '@modules/auth/session'
 import { TotpModule } from '@modules/auth/totp'
+import { OllamaModule } from '@modules/libs/ollama'
 import { StorageModule } from '@modules/libs/storage'
 import { HstsMvsProcessModule } from '@modules/process/hsts-mvs-process'
 import { AccountModule } from '@modules/users/account'
@@ -35,7 +36,8 @@ import { RedisModule } from './redis'
 		SessionModule,
 		TotpModule,
 		StorageModule,
-		HstsMvsProcessModule
+		HstsMvsProcessModule,
+		OllamaModule
 	],
 	exports: [BullModule]
 })

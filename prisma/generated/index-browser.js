@@ -158,6 +158,7 @@ exports.Prisma.ProcessHstsMvsScalarFieldEnum = {
   driverLicenseFileId: 'driverLicenseFileId',
   carInfoFileId: 'carInfoFileId',
   resultFileId: 'resultFileId',
+  isAi: 'isAi',
   stage: 'stage',
   errorMessage: 'errorMessage'
 };
@@ -205,6 +206,8 @@ exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
   PARSE_CAR_INFO: 'PARSE_CAR_INFO',
   VALIDATE_CAR_INFO: 'VALIDATE_CAR_INFO',
   MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_DRIVER_LICENCE_ISSUED_BY: 'NORMALIZE_DRIVER_LICENCE_ISSUED_BY',
+  NORMALIZE_REGISTRATION_PLACE: 'NORMALIZE_REGISTRATION_PLACE',
   GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
   FINISHED: 'FINISHED'
 };

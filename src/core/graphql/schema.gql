@@ -40,6 +40,8 @@ enum HstsMvsStage {
   FINISHED
   GENERATE_RESULT_DATA
   MODIFY_DATA
+  NORMALIZE_DRIVER_LICENCE_ISSUED_BY
+  NORMALIZE_REGISTRATION_PLACE
   NOT_STARTED
   PARSE_CAR_INFO
   PARSE_DRIVER_LICENCE
@@ -78,7 +80,7 @@ input LoginInput {
 
 type Mutation {
   clearSessionCookie: Boolean!
-  createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload!): String!
+  createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload!, isAi: Boolean): String!
   createUser(data: CreateUserInput!): Boolean!
   disabledTotp(userId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!

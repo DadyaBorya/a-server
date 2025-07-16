@@ -6,6 +6,7 @@ export interface HstsMvsDocxData {
 	driverLicenceIssuedBy: string
 	driverLicenceCategories: string
 	fullName: string
+	registrationPlace: string
 	cars: CarDocxData[]
 }
 
@@ -16,7 +17,6 @@ export interface CarDocxData {
 	registrationDate: string
 	bodyNumber: string
 	transfer: string
-	registrationPlace: string
 	color: string
 	isFirst: boolean
 }

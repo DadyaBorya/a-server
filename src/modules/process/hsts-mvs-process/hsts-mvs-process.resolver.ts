@@ -53,12 +53,14 @@ export class HstsMvsProcessResolver {
 			})
 		)
 		carInfoFile: FileUpload,
+		@Args('isAi', { nullable: true }) isAi: boolean,
 		@GqlAuthorized('id') userId: string
 	) {
 		return this.hstsMvsProcessService.createRequest(
 			driverLicenseFile,
 			carInfoFile,
-			userId
+			userId,
+			isAi
 		)
 	}
 }
