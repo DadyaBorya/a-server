@@ -31,6 +31,7 @@ type HstsMvsProcessModel {
   carInfoFile: StorageModel!
   driverLicenseFile: StorageModel!
   errorMessage: String
+  isAi: Boolean!
   process: ProcessModel!
   resultFile: StorageModel
   stage: HstsMvsStage!
@@ -119,6 +120,7 @@ type ProcessListModel {
 
 type ProcessModel {
   createdAt: DateTime!
+  finishedAt: DateTime
   id: String!
   owner: String
   status: Status!

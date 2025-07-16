@@ -27,4 +27,7 @@ export class HstsMvsProcessModel {
 
 	@Field(() => String, { nullable: true })
 	errorMessage: string
+
+	@Field(() => Boolean)
+	isAi: boolean
 }

@@ -15,7 +15,8 @@ export class HstsMvsErrorHandler {
 	async handleError(processId: string, error: Error) {
 		await Promise.all([
 			this.processService.update(processId, {
-				status: Status.ERROR
+				status: Status.ERROR,
+				finishedAt: new Date()
 			}),
 			this.hstsMvsSerive.update(processId, {
 				errorMessage: error.message

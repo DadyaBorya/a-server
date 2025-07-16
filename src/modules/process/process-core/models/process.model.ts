@@ -30,4 +30,7 @@ export class ProcessModel {
 
 	@Field(() => Date)
 	createdAt: Date
+
+	@Field(() => Date, { nullable: true })
+	finishedAt: Date
 }

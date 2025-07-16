@@ -150,7 +150,8 @@ exports.Prisma.ProcessScalarFieldEnum = {
   userId: 'userId',
   owner: 'owner',
   type: 'type',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  finishedAt: 'finishedAt'
 };
 
 exports.Prisma.ProcessHstsMvsScalarFieldEnum = {

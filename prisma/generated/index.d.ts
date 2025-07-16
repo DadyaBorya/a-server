@@ -3636,6 +3636,7 @@ export namespace Prisma {
     owner: string | null
     type: $Enums.ProcessType | null
     createdAt: Date | null
+    finishedAt: Date | null
   }
 
   export type ProcessMaxAggregateOutputType = {
@@ -3645,6 +3646,7 @@ export namespace Prisma {
     owner: string | null
     type: $Enums.ProcessType | null
     createdAt: Date | null
+    finishedAt: Date | null
   }
 
   export type ProcessCountAggregateOutputType = {
@@ -3654,6 +3656,7 @@ export namespace Prisma {
     owner: number
     type: number
     createdAt: number
+    finishedAt: number
     _all: number
   }
 
@@ -3665,6 +3668,7 @@ export namespace Prisma {
     owner?: true
     type?: true
     createdAt?: true
+    finishedAt?: true
   }
 
   export type ProcessMaxAggregateInputType = {
@@ -3674,6 +3678,7 @@ export namespace Prisma {
     owner?: true
     type?: true
     createdAt?: true
+    finishedAt?: true
   }
 
   export type ProcessCountAggregateInputType = {
@@ -3683,6 +3688,7 @@ export namespace Prisma {
     owner?: true
     type?: true
     createdAt?: true
+    finishedAt?: true
     _all?: true
   }
 
@@ -3765,6 +3771,7 @@ export namespace Prisma {
     owner: string | null
     type: $Enums.ProcessType
     createdAt: Date
+    finishedAt: Date | null
     _count: ProcessCountAggregateOutputType | null
     _min: ProcessMinAggregateOutputType | null
     _max: ProcessMaxAggregateOutputType | null
@@ -3791,6 +3798,7 @@ export namespace Prisma {
     owner?: boolean
     type?: boolean
     createdAt?: boolean
+    finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
@@ -3802,6 +3810,7 @@ export namespace Prisma {
     owner?: boolean
     type?: boolean
     createdAt?: boolean
+    finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
 
@@ -3812,6 +3821,7 @@ export namespace Prisma {
     owner?: boolean
     type?: boolean
     createdAt?: boolean
+    finishedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
 
@@ -3822,9 +3832,10 @@ export namespace Prisma {
     owner?: boolean
     type?: boolean
     createdAt?: boolean
+    finishedAt?: boolean
   }
 
-  export type ProcessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "userId" | "owner" | "type" | "createdAt", ExtArgs["result"]["process"]>
+  export type ProcessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "userId" | "owner" | "type" | "createdAt" | "finishedAt", ExtArgs["result"]["process"]>
   export type ProcessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
@@ -3849,6 +3860,7 @@ export namespace Prisma {
       owner: string | null
       type: $Enums.ProcessType
       createdAt: Date
+      finishedAt: Date | null
     }, ExtArgs["result"]["process"]>
     composites: {}
   }
@@ -4280,6 +4292,7 @@ export namespace Prisma {
     readonly owner: FieldRef<"Process", 'String'>
     readonly type: FieldRef<"Process", 'ProcessType'>
     readonly createdAt: FieldRef<"Process", 'DateTime'>
+    readonly finishedAt: FieldRef<"Process", 'DateTime'>
   }
     
 
@@ -5890,7 +5903,8 @@ export namespace Prisma {
     userId: 'userId',
     owner: 'owner',
     type: 'type',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    finishedAt: 'finishedAt'
   };
 
   export type ProcessScalarFieldEnum = (typeof ProcessScalarFieldEnum)[keyof typeof ProcessScalarFieldEnum]
@@ -6228,6 +6242,7 @@ export namespace Prisma {
     owner?: StringNullableFilter<"Process"> | string | null
     type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"Process"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
   }
@@ -6239,6 +6254,7 @@ export namespace Prisma {
     owner?: SortOrderInput | SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     hstsMvs?: ProcessHstsMvsOrderByWithRelationInput
   }
@@ -6253,6 +6269,7 @@ export namespace Prisma {
     owner?: StringNullableFilter<"Process"> | string | null
     type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"Process"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
   }, "id">
@@ -6264,6 +6281,7 @@ export namespace Prisma {
     owner?: SortOrderInput | SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrderInput | SortOrder
     _count?: ProcessCountOrderByAggregateInput
     _max?: ProcessMaxOrderByAggregateInput
     _min?: ProcessMinOrderByAggregateInput
@@ -6279,6 +6297,7 @@ export namespace Prisma {
     owner?: StringNullableWithAggregatesFilter<"Process"> | string | null
     type?: EnumProcessTypeWithAggregatesFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeWithAggregatesFilter<"Process"> | Date | string
+    finishedAt?: DateTimeNullableWithAggregatesFilter<"Process"> | Date | string | null
   }
 
   export type ProcessHstsMvsWhereInput = {
@@ -6545,6 +6564,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
     user: UserCreateNestedOneWithoutProcessesInput
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
   }
@@ -6556,6 +6576,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
   }
 
@@ -6565,6 +6586,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
   }
@@ -6576,6 +6598,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
   }
 
@@ -6586,6 +6609,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
   export type ProcessUpdateManyMutationInput = {
@@ -6594,6 +6618,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProcessUncheckedUpdateManyInput = {
@@ -6603,6 +6628,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProcessHstsMvsCreateInput = {
@@ -6927,6 +6953,17 @@ export namespace Prisma {
     not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6944,6 +6981,7 @@ export namespace Prisma {
     owner?: SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
   }
 
   export type ProcessMaxOrderByAggregateInput = {
@@ -6953,6 +6991,7 @@ export namespace Prisma {
     owner?: SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
   }
 
   export type ProcessMinOrderByAggregateInput = {
@@ -6962,6 +7001,7 @@ export namespace Prisma {
     owner?: SortOrder
     type?: SortOrder
     createdAt?: SortOrder
+    finishedAt?: SortOrder
   }
 
   export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6982,6 +7022,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProcessTypeFilter<$PrismaModel>
     _max?: NestedEnumProcessTypeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumHstsMvsStageFilter<$PrismaModel = never> = {
@@ -7273,6 +7327,10 @@ export namespace Prisma {
     set?: $Enums.ProcessType
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type UserUpdateOneRequiredWithoutProcessesNestedInput = {
     create?: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
     connectOrCreate?: UserCreateOrConnectWithoutProcessesInput
@@ -7526,6 +7584,17 @@ export namespace Prisma {
     not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
@@ -7544,6 +7613,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProcessTypeFilter<$PrismaModel>
     _max?: NestedEnumProcessTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumHstsMvsStageFilter<$PrismaModel = never> = {
@@ -7569,6 +7652,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
   }
 
@@ -7578,6 +7662,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
   }
 
@@ -7617,6 +7702,7 @@ export namespace Prisma {
     owner?: StringNullableFilter<"Process"> | string | null
     type?: EnumProcessTypeFilter<"Process"> | $Enums.ProcessType
     createdAt?: DateTimeFilter<"Process"> | Date | string
+    finishedAt?: DateTimeNullableFilter<"Process"> | Date | string | null
   }
 
   export type ProcessHstsMvsCreateWithoutDriverLicenseFileInput = {
@@ -7894,6 +7980,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
     user: UserCreateNestedOneWithoutProcessesInput
   }
 
@@ -7904,6 +7991,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
   export type ProcessCreateOrConnectWithoutHstsMvsInput = {
@@ -8015,6 +8103,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
   }
 
@@ -8025,6 +8114,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StorageFileUpsertWithoutDriverLicenseProcessesInput = {
@@ -8138,6 +8228,7 @@ export namespace Prisma {
     owner?: string | null
     type: $Enums.ProcessType
     createdAt?: Date | string
+    finishedAt?: Date | string | null
   }
 
   export type ProcessUpdateWithoutUserInput = {
@@ -8146,6 +8237,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
   }
 
@@ -8155,6 +8247,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
   }
 
@@ -8164,6 +8257,7 @@ export namespace Prisma {
     owner?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProcessHstsMvsCreateManyDriverLicenseFileInput = {

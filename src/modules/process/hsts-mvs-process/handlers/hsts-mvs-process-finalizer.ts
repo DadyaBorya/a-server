@@ -14,19 +14,12 @@ export class HstsMvsProcessFinalizer {
 
 	async finalize(processId: string) {
 		await this.hstsMvsSerive.update(processId, {
-			stage: HstsMvsStage.MODIFY_DATA
-		})
-
-		await this.hstsMvsSerive.update(processId, {
-			stage: HstsMvsStage.GENERATE_RESULT_DATA
-		})
-
-		await this.hstsMvsSerive.update(processId, {
 			stage: HstsMvsStage.FINISHED
 		})
 
 		await this.processService.update(processId, {
-			status: Status.END
+			status: Status.END,
+			finishedAt: new Date()
 		})
 	}
 }
