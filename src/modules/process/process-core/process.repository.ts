@@ -1,7 +1,7 @@
 import { PrismaService } from '@core/prisma'
 import { Injectable } from '@nestjs/common'
 
-import { Process, ProcessType } from '@/prisma/generated'
+import { Prisma, Process, ProcessType } from '@/prisma/generated'
 
 @Injectable()
 export class ProcessRepository {
@@ -14,6 +14,19 @@ export class ProcessRepository {
 				type
 			}
 		})
+	}
+
+	async findMany(params?: Prisma.ProcessFindManyArgs) {
+		return this.prisma.process.findMany(params)
+	}
+
+	async count(params?: Prisma.ProcessFindManyArgs): Promise<number> {
+		const where = params?.where
+		return this.prisma.process.count({ where })
+	}
+
+	async findById(id: string) {
+		return this.prisma.process.findUnique({ where: { id } })
 	}
 
 	async update(id: string, data: Partial<Process>) {

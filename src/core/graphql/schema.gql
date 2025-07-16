@@ -27,6 +27,34 @@ input EnableTotpInput {
   secret: String!
 }
 
+type HstsMvsProcessModel {
+  carInfoFile: StorageModel!
+  driverLicenseFile: StorageModel!
+  errorMessage: String
+  process: ProcessModel!
+  resultFile: StorageModel
+  stage: HstsMvsStage!
+}
+
+enum HstsMvsStage {
+  FINISHED
+  GENERATE_RESULT_DATA
+  MODIFY_DATA
+  NOT_STARTED
+  PARSE_CAR_INFO
+  PARSE_DRIVER_LICENCE
+  VALIDATE_CAR_INFO
+  VALIDATE_DRIVER_LICENCE
+}
+
+input ListProcessesInput {
+  limit: Int = 20
+  orderBy: String
+  orderDirection: OrderDirection = ASC
+  page: Int = 1
+  searchFor: String
+}
+
 input ListUsersInput {
   limit: Int = 20
   orderBy: String
@@ -69,10 +97,8 @@ enum OrderDirection {
 
 enum Permission {
   HSTS_MVS_CREATE
-  HSTS_MVS_READ_ALL
-  HSTS_MVS_READ_OWN
-  REQUEST_READ_ALL
-  REQUEST_READ_OWN
+  PROCESS_READ_ALL
+  PROCESS_READ_OWN
   USER_CREATE
   USER_DELETE
   USER_READ
@@ -80,9 +106,34 @@ enum Permission {
   USER_UPDATE
 }
 
+type ProcessListModel {
+  currentPage: Int!
+  data: [ProcessModel!]!
+  hasNext: Boolean!
+  hasPrev: Boolean!
+  pages: Int!
+  total: Int!
+}
+
+type ProcessModel {
+  createdAt: DateTime!
+  id: String!
+  owner: String
+  status: Status!
+  type: ProcessType!
+  user: UserModel!
+}
+
+enum ProcessType {
+  HSTS_MVS
+}
+
 type Query {
+  findAllOwnProcesses(data: ListProcessesInput!): ProcessListModel!
+  findAllProcesses(data: ListProcessesInput!): ProcessListModel!
   findAllUsers(data: ListUsersInput!): UserListModel!
   findCurrentSession: SessionModel!
+  findHstsMvsById(id: String!): HstsMvsProcessModel!
   findMe: UserModel!
   findSessions: [SessionModel!]!
   findSessionsById(id: String!): [SessionModel!]!
@@ -106,6 +157,21 @@ type SessionModel {
   id: ID!
   metadata: SessionMetadaModel!
   userId: String!
+}
+
+enum Status {
+  END
+  ERROR
+  PENDING
+  STARTED
+}
+
+type StorageModel {
+  extension: String!
+  id: String!
+  inputFilename: String!
+  outputFilename: String
+  size: Int!
 }
 
 type TotpModel {

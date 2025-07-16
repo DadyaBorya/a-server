@@ -10,4 +10,8 @@ export class StorageRepository {
 	async create(dto: CreateStorageFileDto) {
 		return this.prisma.storageFile.create({ data: dto })
 	}
+
+	async findById(id: string) {
+		return this.prisma.storageFile.findUnique({ where: { id } })
+	}
 }

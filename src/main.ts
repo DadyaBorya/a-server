@@ -8,10 +8,7 @@ import { graphqlUploadExpress } from 'graphql-upload'
 
 import { CoreModule } from './core/core.module'
 import { RedisService } from './core/redis'
-import {
-	GqlAllExceptionsFilter,
-	HttpAllExceptionsFilter
-} from './shared/filters'
+import { UniversalExceptionFilter } from './shared/filters'
 import { ms, parseBoolean, StringValue } from './shared/utils'
 
 async function bootstrap() {
@@ -30,10 +27,7 @@ async function bootstrap() {
 		})
 	)
 
-	app.useGlobalFilters(
-		new HttpAllExceptionsFilter(),
-		new GqlAllExceptionsFilter()
-	)
+	app.useGlobalFilters(new UniversalExceptionFilter())
 
 	app.use(
 		session({

@@ -1,2 +1,1 @@
-export * from './graphql-exception.filter'
-export * from './http-exception.filter'
+export * from './universal-exception.filter'
