@@ -1,10 +1,12 @@
 export interface HstsMvsDocxData {
-	driverLicenceSeries: string
-	driverLicenceNumber: string
-	driverLicenceIssueDate: string
-	driverLicenceExpirationDate: string
-	driverLicenceIssuedBy: string
-	driverLicenceCategories: string
+	hasDriverLicence: boolean
+	hasMoreThanOneCar: boolean
+	driverLicenceSeries?: string
+	driverLicenceNumber?: string
+	driverLicenceIssueDate?: string
+	driverLicenceExpirationDate?: string
+	driverLicenceIssuedBy?: string
+	driverLicenceCategories?: string
 	fullName: string
 	registrationPlace: string
 	cars: CarDocxData[]

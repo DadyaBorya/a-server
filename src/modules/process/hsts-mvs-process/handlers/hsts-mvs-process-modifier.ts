@@ -3,7 +3,8 @@ import { Injectable } from '@nestjs/common'
 import {
 	cleanText,
 	formatDateToDDMMYYYY,
-	getShortenedFullName
+	getShortenedFullName,
+	parseFullName
 } from '@shared/utils'
 
 import { HstsMvsStage } from '@/prisma/generated'
@@ -31,9 +32,9 @@ export class HstsMvsProcessModifier {
 
 	async modify(
 		processId: string,
-		driverLicenceData: DriverLicenceData,
 		carInfoData: CarInfoData | CarInfoData[],
-		isAi: boolean
+		isAi: boolean,
+		driverLicenceData?: DriverLicenceData
 	): Promise<HstsMvsDocxData> {
 		await this.hstsMvsService.update(processId, {
 			stage: HstsMvsStage.MODIFY_DATA
@@ -43,21 +44,26 @@ export class HstsMvsProcessModifier {
 			? carInfoData
 			: [carInfoData]
 
-		const driverData = await this.mapDriverLicenceData(
-			driverLicenceData,
-			isAi,
-			processId
-		)
+		const driverData = driverLicenceData
+			? await this.mapDriverLicenceData(
+					driverLicenceData,
+					isAi,
+					processId
+				)
+			: { hasDriverLicence: false }
 
 		return {
 			...driverData,
-			fullName: getShortenedFullName(driverLicenceData),
+			fullName: getShortenedFullName(
+				parseFullName(normalizedCars[0].fullName)
+			),
 			registrationPlace: await this.normalizeAddress(
 				normalizedCars[0].registrationPlace,
 				isAi,
 				processId
 			),
-			cars: this.mapCarsData(normalizedCars)
+			cars: this.mapCarsData(normalizedCars),
+			hasMoreThanOneCar: normalizeCarColor.length > 1
 		}
 	}
 
@@ -67,6 +73,7 @@ export class HstsMvsProcessModifier {
 		processId: string
 	) {
 		return {
+			hasDriverLicence: true,
 			driverLicenceSeries: driverLicenceData.series,
 			driverLicenceNumber: driverLicenceData.number,
 			driverLicenceIssueDate: formatDateToDDMMYYYY(

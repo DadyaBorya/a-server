@@ -4873,7 +4873,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsGroupByOutputType = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId: string | null
     carInfoFileId: string
     resultFileId: string | null
     isAi: boolean
@@ -4907,7 +4907,7 @@ export namespace Prisma {
     stage?: boolean
     errorMessage?: boolean
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }, ExtArgs["result"]["processHstsMvs"]>
@@ -4921,7 +4921,7 @@ export namespace Prisma {
     stage?: boolean
     errorMessage?: boolean
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }, ExtArgs["result"]["processHstsMvs"]>
@@ -4935,7 +4935,7 @@ export namespace Prisma {
     stage?: boolean
     errorMessage?: boolean
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }, ExtArgs["result"]["processHstsMvs"]>
@@ -4953,19 +4953,19 @@ export namespace Prisma {
   export type ProcessHstsMvsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"processId" | "driverLicenseFileId" | "carInfoFileId" | "resultFileId" | "isAi" | "stage" | "errorMessage", ExtArgs["result"]["processHstsMvs"]>
   export type ProcessHstsMvsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }
   export type ProcessHstsMvsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }
   export type ProcessHstsMvsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     process?: boolean | ProcessDefaultArgs<ExtArgs>
-    driverLicenseFile?: boolean | StorageFileDefaultArgs<ExtArgs>
+    driverLicenseFile?: boolean | ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>
     carInfoFile?: boolean | StorageFileDefaultArgs<ExtArgs>
     resultFile?: boolean | ProcessHstsMvs$resultFileArgs<ExtArgs>
   }
@@ -4974,13 +4974,13 @@ export namespace Prisma {
     name: "ProcessHstsMvs"
     objects: {
       process: Prisma.$ProcessPayload<ExtArgs>
-      driverLicenseFile: Prisma.$StorageFilePayload<ExtArgs>
+      driverLicenseFile: Prisma.$StorageFilePayload<ExtArgs> | null
       carInfoFile: Prisma.$StorageFilePayload<ExtArgs>
       resultFile: Prisma.$StorageFilePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       processId: string
-      driverLicenseFileId: string
+      driverLicenseFileId: string | null
       carInfoFileId: string
       resultFileId: string | null
       isAi: boolean
@@ -5381,7 +5381,7 @@ export namespace Prisma {
   export interface Prisma__ProcessHstsMvsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     process<T extends ProcessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProcessDefaultArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    driverLicenseFile<T extends StorageFileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StorageFileDefaultArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    driverLicenseFile<T extends ProcessHstsMvs$driverLicenseFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessHstsMvs$driverLicenseFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     carInfoFile<T extends StorageFileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StorageFileDefaultArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     resultFile<T extends ProcessHstsMvs$resultFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessHstsMvs$resultFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -5813,6 +5813,25 @@ export namespace Prisma {
      * Limit how many ProcessHstsMvs to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ProcessHstsMvs.driverLicenseFile
+   */
+  export type ProcessHstsMvs$driverLicenseFileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    where?: StorageFileWhereInput
   }
 
   /**
@@ -6305,21 +6324,21 @@ export namespace Prisma {
     OR?: ProcessHstsMvsWhereInput[]
     NOT?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
     processId?: StringFilter<"ProcessHstsMvs"> | string
-    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
     resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     isAi?: BoolFilter<"ProcessHstsMvs"> | boolean
     stage?: EnumHstsMvsStageFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
     errorMessage?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
-    driverLicenseFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    driverLicenseFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
     carInfoFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
     resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
   }
 
   export type ProcessHstsMvsOrderByWithRelationInput = {
     processId?: SortOrder
-    driverLicenseFileId?: SortOrder
+    driverLicenseFileId?: SortOrderInput | SortOrder
     carInfoFileId?: SortOrder
     resultFileId?: SortOrderInput | SortOrder
     isAi?: SortOrder
@@ -6336,21 +6355,21 @@ export namespace Prisma {
     AND?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
     OR?: ProcessHstsMvsWhereInput[]
     NOT?: ProcessHstsMvsWhereInput | ProcessHstsMvsWhereInput[]
-    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
     resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     isAi?: BoolFilter<"ProcessHstsMvs"> | boolean
     stage?: EnumHstsMvsStageFilter<"ProcessHstsMvs"> | $Enums.HstsMvsStage
     errorMessage?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
-    driverLicenseFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
+    driverLicenseFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
     carInfoFile?: XOR<StorageFileScalarRelationFilter, StorageFileWhereInput>
     resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
   }, "processId">
 
   export type ProcessHstsMvsOrderByWithAggregationInput = {
     processId?: SortOrder
-    driverLicenseFileId?: SortOrder
+    driverLicenseFileId?: SortOrderInput | SortOrder
     carInfoFileId?: SortOrder
     resultFileId?: SortOrderInput | SortOrder
     isAi?: SortOrder
@@ -6366,7 +6385,7 @@ export namespace Prisma {
     OR?: ProcessHstsMvsScalarWhereWithAggregatesInput[]
     NOT?: ProcessHstsMvsScalarWhereWithAggregatesInput | ProcessHstsMvsScalarWhereWithAggregatesInput[]
     processId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
-    driverLicenseFileId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringNullableWithAggregatesFilter<"ProcessHstsMvs"> | string | null
     carInfoFileId?: StringWithAggregatesFilter<"ProcessHstsMvs"> | string
     resultFileId?: StringNullableWithAggregatesFilter<"ProcessHstsMvs"> | string | null
     isAi?: BoolWithAggregatesFilter<"ProcessHstsMvs"> | boolean
@@ -6636,14 +6655,14 @@ export namespace Prisma {
     stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
-    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    driverLicenseFile?: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
     carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
     resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
   }
 
   export type ProcessHstsMvsUncheckedCreateInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     carInfoFileId: string
     resultFileId?: string | null
     isAi?: boolean
@@ -6656,14 +6675,14 @@ export namespace Prisma {
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
-    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    driverLicenseFile?: StorageFileUpdateOneWithoutDriverLicenseProcessesNestedInput
     carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
     resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
   }
 
   export type ProcessHstsMvsUncheckedUpdateInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     carInfoFileId?: StringFieldUpdateOperationsInput | string
     resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
     isAi?: BoolFieldUpdateOperationsInput | boolean
@@ -6673,7 +6692,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsCreateManyInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     carInfoFileId: string
     resultFileId?: string | null
     isAi?: boolean
@@ -6689,7 +6708,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsUncheckedUpdateManyInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     carInfoFileId?: StringFieldUpdateOperationsInput | string
     resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
     isAi?: BoolFieldUpdateOperationsInput | boolean
@@ -7050,14 +7069,14 @@ export namespace Prisma {
     isNot?: ProcessWhereInput
   }
 
-  export type StorageFileScalarRelationFilter = {
-    is?: StorageFileWhereInput
-    isNot?: StorageFileWhereInput
-  }
-
   export type StorageFileNullableScalarRelationFilter = {
     is?: StorageFileWhereInput | null
     isNot?: StorageFileWhereInput | null
+  }
+
+  export type StorageFileScalarRelationFilter = {
+    is?: StorageFileWhereInput
+    isNot?: StorageFileWhereInput
   }
 
   export type ProcessHstsMvsCountOrderByAggregateInput = {
@@ -7395,10 +7414,12 @@ export namespace Prisma {
     update?: XOR<XOR<ProcessUpdateToOneWithWhereWithoutHstsMvsInput, ProcessUpdateWithoutHstsMvsInput>, ProcessUncheckedUpdateWithoutHstsMvsInput>
   }
 
-  export type StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput = {
+  export type StorageFileUpdateOneWithoutDriverLicenseProcessesNestedInput = {
     create?: XOR<StorageFileCreateWithoutDriverLicenseProcessesInput, StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput>
     connectOrCreate?: StorageFileCreateOrConnectWithoutDriverLicenseProcessesInput
     upsert?: StorageFileUpsertWithoutDriverLicenseProcessesInput
+    disconnect?: StorageFileWhereInput | boolean
+    delete?: StorageFileWhereInput | boolean
     connect?: StorageFileWhereUniqueInput
     update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutDriverLicenseProcessesInput, StorageFileUpdateWithoutDriverLicenseProcessesInput>, StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput>
   }
@@ -7738,13 +7759,13 @@ export namespace Prisma {
     stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
-    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    driverLicenseFile?: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
     resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
   }
 
   export type ProcessHstsMvsUncheckedCreateWithoutCarInfoFileInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     resultFileId?: string | null
     isAi?: boolean
     stage?: $Enums.HstsMvsStage
@@ -7766,13 +7787,13 @@ export namespace Prisma {
     stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
     process: ProcessCreateNestedOneWithoutHstsMvsInput
-    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    driverLicenseFile?: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
     carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
   }
 
   export type ProcessHstsMvsUncheckedCreateWithoutResultFileInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     carInfoFileId: string
     isAi?: boolean
     stage?: $Enums.HstsMvsStage
@@ -7810,7 +7831,7 @@ export namespace Prisma {
     OR?: ProcessHstsMvsScalarWhereInput[]
     NOT?: ProcessHstsMvsScalarWhereInput | ProcessHstsMvsScalarWhereInput[]
     processId?: StringFilter<"ProcessHstsMvs"> | string
-    driverLicenseFileId?: StringFilter<"ProcessHstsMvs"> | string
+    driverLicenseFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     carInfoFileId?: StringFilter<"ProcessHstsMvs"> | string
     resultFileId?: StringNullableFilter<"ProcessHstsMvs"> | string | null
     isAi?: BoolFilter<"ProcessHstsMvs"> | boolean
@@ -7887,13 +7908,13 @@ export namespace Prisma {
     isAi?: boolean
     stage?: $Enums.HstsMvsStage
     errorMessage?: string | null
-    driverLicenseFile: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
+    driverLicenseFile?: StorageFileCreateNestedOneWithoutDriverLicenseProcessesInput
     carInfoFile: StorageFileCreateNestedOneWithoutCarInfoProcessesInput
     resultFile?: StorageFileCreateNestedOneWithoutResultProcessesInput
   }
 
   export type ProcessHstsMvsUncheckedCreateWithoutProcessInput = {
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     carInfoFileId: string
     resultFileId?: string | null
     isAi?: boolean
@@ -7960,13 +7981,13 @@ export namespace Prisma {
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    driverLicenseFile?: StorageFileUpdateOneWithoutDriverLicenseProcessesNestedInput
     carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
     resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
   }
 
   export type ProcessHstsMvsUncheckedUpdateWithoutProcessInput = {
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     carInfoFileId?: StringFieldUpdateOperationsInput | string
     resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
     isAi?: BoolFieldUpdateOperationsInput | boolean
@@ -8271,7 +8292,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsCreateManyCarInfoFileInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     resultFileId?: string | null
     isAi?: boolean
     stage?: $Enums.HstsMvsStage
@@ -8280,7 +8301,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsCreateManyResultFileInput = {
     processId: string
-    driverLicenseFileId: string
+    driverLicenseFileId?: string | null
     carInfoFileId: string
     isAi?: boolean
     stage?: $Enums.HstsMvsStage
@@ -8319,13 +8340,13 @@ export namespace Prisma {
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
-    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    driverLicenseFile?: StorageFileUpdateOneWithoutDriverLicenseProcessesNestedInput
     resultFile?: StorageFileUpdateOneWithoutResultProcessesNestedInput
   }
 
   export type ProcessHstsMvsUncheckedUpdateWithoutCarInfoFileInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
@@ -8334,7 +8355,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
@@ -8346,13 +8367,13 @@ export namespace Prisma {
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     process?: ProcessUpdateOneRequiredWithoutHstsMvsNestedInput
-    driverLicenseFile?: StorageFileUpdateOneRequiredWithoutDriverLicenseProcessesNestedInput
+    driverLicenseFile?: StorageFileUpdateOneWithoutDriverLicenseProcessesNestedInput
     carInfoFile?: StorageFileUpdateOneRequiredWithoutCarInfoProcessesNestedInput
   }
 
   export type ProcessHstsMvsUncheckedUpdateWithoutResultFileInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     carInfoFileId?: StringFieldUpdateOperationsInput | string
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage
@@ -8361,7 +8382,7 @@ export namespace Prisma {
 
   export type ProcessHstsMvsUncheckedUpdateManyWithoutResultFileInput = {
     processId?: StringFieldUpdateOperationsInput | string
-    driverLicenseFileId?: StringFieldUpdateOperationsInput | string
+    driverLicenseFileId?: NullableStringFieldUpdateOperationsInput | string | null
     carInfoFileId?: StringFieldUpdateOperationsInput | string
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumHstsMvsStageFieldUpdateOperationsInput | $Enums.HstsMvsStage

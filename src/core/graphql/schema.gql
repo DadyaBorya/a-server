@@ -29,7 +29,7 @@ input EnableTotpInput {
 
 type HstsMvsProcessModel {
   carInfoFile: StorageModel!
-  driverLicenseFile: StorageModel!
+  driverLicenseFile: StorageModel
   errorMessage: String
   isAi: Boolean!
   process: ProcessModel!
@@ -81,7 +81,7 @@ input LoginInput {
 
 type Mutation {
   clearSessionCookie: Boolean!
-  createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload!, isAi: Boolean): String!
+  createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload, isAi: Boolean): String!
   createUser(data: CreateUserInput!): Boolean!
   disabledTotp(userId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!

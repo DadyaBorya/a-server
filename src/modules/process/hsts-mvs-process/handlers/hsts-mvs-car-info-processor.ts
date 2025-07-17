@@ -25,8 +25,8 @@ export class HstsMvsCarInfoProcessor {
 	async process(
 		processId: string,
 		hstsMvsProcess: any,
-		birthDate: Date,
-		fullName: string
+		birthDate?: Date,
+		fullName?: string
 	) {
 		await this.hstsMvsSerive.update(processId, {
 			stage: HstsMvsStage.PARSE_CAR_INFO
@@ -65,8 +65,8 @@ export class HstsMvsCarInfoProcessor {
 	private async processSingleCarInfo(
 		processId: string,
 		buffer: Buffer,
-		fullName: string,
-		birthDate: Date
+		fullName?: string,
+		birthDate?: Date
 	) {
 		const carInfoParsedSingleData = await this.carInfoSingleParser.parse(
 			buffer,
@@ -85,6 +85,10 @@ export class HstsMvsCarInfoProcessor {
 		const validated =
 			await this.carInfoValidator.validate(carInfoParsedData)
 
+		if (!fullName && !birthDate) {
+			return validated
+		}
+
 		if (
 			validated.birthDate.getTime() !== birthDate.getTime() ||
 			fullName !== validated.fullName
@@ -100,8 +104,8 @@ export class HstsMvsCarInfoProcessor {
 	private async processMultiCarInfo(
 		processId: string,
 		buffer: Buffer,
-		fullName: string,
-		birthDate: Date
+		fullName?: string,
+		birthDate?: Date
 	) {
 		const carInfoParsedMultiCustomRowsData =
 			await this.carInfoMultiParser.parseCustomList(buffer, [1, 2, 3], 9)
@@ -124,6 +128,10 @@ export class HstsMvsCarInfoProcessor {
 			carInfoParsedData,
 			CarInfoData
 		)
+
+		if (!fullName && !birthDate) {
+			return validated
+		}
 
 		const filtered = validated.filter(
 			i =>

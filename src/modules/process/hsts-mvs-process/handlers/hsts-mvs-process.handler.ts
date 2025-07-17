@@ -1,7 +1,11 @@
 import { ProcessCoreService } from '@modules/process/process-core'
 import { createOutputFilename } from '@modules/process/utils'
 import { Injectable } from '@nestjs/common'
-import { capitalizeFullName, getFullnameFromParts } from '@shared/utils'
+import {
+	capitalizeFullName,
+	getFullnameFromParts,
+	parseFullName
+} from '@shared/utils'
 
 import { HstsMvsCarInfoProcessor } from './hsts-mvs-car-info-processor'
 import { HstsMvsDriverLicenceProcessor } from './hsts-mvs-driver-licence-processor'
@@ -28,28 +32,49 @@ export class HstsMvsProcessHandler {
 		try {
 			const hstsMvsProcess = await this.initializer.initialize(processId)
 
-			const driverLicenceData = await this.driverLicenceProcessor.process(
-				processId,
-				hstsMvsProcess
-			)
+			const driverLicenceData = hstsMvsProcess.driverLicenseFileId
+				? await this.driverLicenceProcessor.process(
+						processId,
+						hstsMvsProcess
+					)
+				: null
 
-			await this.updateOwnerInfo(processId, driverLicenceData)
+			if (driverLicenceData) {
+				await this.updateOwnerInfo(processId, driverLicenceData)
+			}
 
 			const carInfoData = await this.carInfoProcessor.process(
 				processId,
 				hstsMvsProcess,
-				driverLicenceData.birthDate,
-				getFullnameFromParts({ ...driverLicenceData })
+				driverLicenceData && driverLicenceData.birthDate,
+				driverLicenceData &&
+					getFullnameFromParts({ ...driverLicenceData })
 			)
 
 			const modifiedData = await this.modifier.modify(
 				processId,
-				driverLicenceData,
 				carInfoData,
-				hstsMvsProcess.isAi
+				hstsMvsProcess.isAi,
+				driverLicenceData
 			)
 
-			const { lastName, firstName, patronymic } = driverLicenceData
+			let fullname: string
+
+			if (Array.isArray(carInfoData)) {
+				fullname = carInfoData[0].fullName
+			} else {
+				fullname = carInfoData.fullName
+			}
+
+			const { lastName, firstName, patronymic } = parseFullName(fullname)
+
+			if (!driverLicenceData) {
+				await this.updateOwnerInfo(processId, {
+					lastName,
+					firstName,
+					patronymic
+				})
+			}
 
 			await this.docxProcess.process(
 				processId,
@@ -67,8 +92,11 @@ export class HstsMvsProcessHandler {
 		}
 	}
 
-	private async updateOwnerInfo(processId: string, driverLicenceData: any) {
-		const { lastName, firstName, patronymic } = driverLicenceData
+	private async updateOwnerInfo(
+		processId: string,
+		name: { lastName: string; firstName: string; patronymic: string }
+	) {
+		const { lastName, firstName, patronymic } = name
 
 		await this.processService.update(processId, {
 			owner: capitalizeFullName(lastName, firstName, patronymic)

@@ -110,8 +110,8 @@ model ProcessHstsMvs {
   processId String  @unique @map("process_id")
   process   Process @relation(fields: [processId], references: [id])
 
-  driverLicenseFileId String      @map("driver_license_file_id")
-  driverLicenseFile   StorageFile @relation("DriverLicenseFile", fields: [driverLicenseFileId], references: [id])
+  driverLicenseFileId String?      @map("driver_license_file_id")
+  driverLicenseFile   StorageFile? @relation("DriverLicenseFile", fields: [driverLicenseFileId], references: [id])
 
   carInfoFileId String      @map("car_info_file_id")
   carInfoFile   StorageFile @relation("CarInfoFile", fields: [carInfoFileId], references: [id])

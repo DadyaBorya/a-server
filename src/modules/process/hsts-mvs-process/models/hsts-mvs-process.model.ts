@@ -13,8 +13,8 @@ export class HstsMvsProcessModel {
 	@Field(() => ProcessModel)
 	process: ProcessModel
 
-	@Field(() => StorageModel)
-	driverLicenseFile: StorageModel
+	@Field(() => StorageModel, { nullable: true })
+	driverLicenseFile?: StorageModel
 
 	@Field(() => StorageModel)
 	carInfoFile: StorageModel

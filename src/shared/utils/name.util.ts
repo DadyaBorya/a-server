@@ -38,3 +38,15 @@ export function getShortenedFullName({
 
 	return result.replace(/\s+/g, ' ')
 }
+
+export function parseFullName(fullName: string): {
+	lastName: string
+	firstName: string
+	patronymic: string
+} {
+	const parts = fullName.trim().split(/\s+/)
+
+	const [lastName, firstName, patronymic] = parts
+
+	return { lastName, firstName, patronymic }
+}

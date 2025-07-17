@@ -39,9 +39,10 @@ export class HstsMvsProcessResolver {
 	async create(
 		@Args(
 			'driverLicenseFile',
-			{ type: () => GraphQLUpload },
+			{ type: () => GraphQLUpload, nullable: true },
 			new FileValidationPipe({
-				allowedFormats: ['xls']
+				allowedFormats: ['xls'],
+				isOptional: true
 			})
 		)
 		driverLicenseFile: FileUpload,
@@ -57,8 +58,8 @@ export class HstsMvsProcessResolver {
 		@GqlAuthorized('id') userId: string
 	) {
 		return this.hstsMvsProcessService.createRequest(
-			driverLicenseFile,
 			carInfoFile,
+			driverLicenseFile,
 			userId,
 			isAi
 		)
