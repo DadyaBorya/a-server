@@ -113,9 +113,10 @@ export class HstsMvsProcessModifier {
 			await this.hstsMvsService.update(processId, {
 				stage: HstsMvsStage.NORMALIZE_REGISTRATION_PLACE
 			})
-			const promt = `${NORMALIZE_ADDRESS_PROMPT}\n\n${address}\nВихід:`
 
-			const result = await this.ollama.execute(promt)
+			const result = await this.ollama.execute(
+				NORMALIZE_ADDRESS_PROMPT.build(address)
+			)
 
 			return cleanText(result)
 		}
@@ -132,9 +133,10 @@ export class HstsMvsProcessModifier {
 			await this.hstsMvsService.update(processId, {
 				stage: HstsMvsStage.NORMALIZE_DRIVER_LICENCE_ISSUED_BY
 			})
-			const promt = `${NORMALIZE_ISSUED_BY_PROMPT}${issuedBy}`
 
-			const result = await this.ollama.execute(promt)
+			const result = await this.ollama.execute(
+				NORMALIZE_ISSUED_BY_PROMPT.build(issuedBy)
+			)
 
 			return cleanText(result)
 		}

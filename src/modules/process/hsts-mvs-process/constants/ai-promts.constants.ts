@@ -1,4 +1,5 @@
-export const NORMALIZE_ADDRESS_PROMPT = `
+export const NORMALIZE_ADDRESS_PROMPT = {
+	prompt: `
 Ти — помічник для нормалізації українських адрес.
 
 Твоє завдання — привести адресу у формат: 
@@ -18,5 +19,14 @@ export const NORMALIZE_ADDRESS_PROMPT = `
 Вихід: Житомирська обл., Андрушівський р-н, с. Гальчин, вул. Заводська, 89
 
 Відповідай лише нормалізованою адресою, без зайвих пояснень.
-`
-export const NORMALIZE_ISSUED_BY_PROMPT = `Нормалізуй наступний орган видачі і видай мені лише текст, крапку в кінці ставити не потрібно.`
+`,
+	build(input: string) {
+		return `${this.prompt}\n\n${input}\nВихід:`
+	}
+}
+export const NORMALIZE_ISSUED_BY_PROMPT = {
+	prompt: `Нормалізуй наступний орган видачі і видай мені лише текст, крапку в кінці ставити не потрібно.`,
+	build(input: string) {
+		return `${this.prompt}${input}`
+	}
+}
