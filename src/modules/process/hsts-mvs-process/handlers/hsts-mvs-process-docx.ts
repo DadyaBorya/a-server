@@ -1,5 +1,6 @@
 import { StorageService } from '@modules/libs/storage'
 import { Injectable } from '@nestjs/common'
+import { CONTENT_TYPE } from '@shared/constants'
 
 import { HstsMvsStage } from '@/prisma/generated'
 
@@ -37,7 +38,9 @@ export class HstsMvsProcessDocx {
 		const file = await this.storage.createFromBuffer(
 			buffer,
 			'/process/hsts-mvs',
-			outputFilename
+			outputFilename,
+			CONTENT_TYPE.DOCX,
+			'docx'
 		)
 
 		await this.hstsMvsService.update(processId, {

@@ -2,6 +2,7 @@ import { SessionModule } from '@modules/auth/session'
 import { TotpModule } from '@modules/auth/totp'
 import { OllamaModule } from '@modules/libs/ollama'
 import { StorageModule } from '@modules/libs/storage'
+import { DmsuProcessModule } from '@modules/process/dmsu-process'
 import { HstsMvsProcessModule } from '@modules/process/hsts-mvs-process'
 import { AccountModule } from '@modules/users/account'
 import { ApolloDriver } from '@nestjs/apollo'
@@ -37,6 +38,7 @@ import { RedisModule } from './redis'
 		TotpModule,
 		StorageModule,
 		HstsMvsProcessModule,
+		DmsuProcessModule,
 		OllamaModule
 	],
 	exports: [BullModule]

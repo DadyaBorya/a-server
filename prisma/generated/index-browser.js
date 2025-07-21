@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.11.1
- * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
+ * Prisma Client JS version: 6.11.0
+ * Query Engine version: 9c30299f5a0ea26a96790e13f796dc6094db3173
  */
 Prisma.prismaVersion = {
-  client: "6.11.1",
-  engine: "f40f79ec31188888a2e33acda0ecc8fd10a853a9"
+  client: "6.11.0",
+  engine: "9c30299f5a0ea26a96790e13f796dc6094db3173"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -164,6 +164,16 @@ exports.Prisma.ProcessHstsMvsScalarFieldEnum = {
   errorMessage: 'errorMessage'
 };
 
+exports.Prisma.ProcessDmsuScalarFieldEnum = {
+  processId: 'processId',
+  personInfoFileId: 'personInfoFileId',
+  resultFileId: 'resultFileId',
+  withoutWMFileId: 'withoutWMFileId',
+  isAi: 'isAi',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -186,7 +196,8 @@ exports.Permission = exports.$Enums.Permission = {
   USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
   PROCESS_READ_OWN: 'PROCESS_READ_OWN',
   PROCESS_READ_ALL: 'PROCESS_READ_ALL',
-  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE'
+  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
+  DMSU_CREATE: 'DMSU_CREATE'
 };
 
 exports.Status = exports.$Enums.Status = {
@@ -197,7 +208,8 @@ exports.Status = exports.$Enums.Status = {
 };
 
 exports.ProcessType = exports.$Enums.ProcessType = {
-  HSTS_MVS: 'HSTS_MVS'
+  HSTS_MVS: 'HSTS_MVS',
+  DMSU: 'DMSU'
 };
 
 exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
@@ -213,11 +225,27 @@ exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
   FINISHED: 'FINISHED'
 };
 
+exports.DmsuStage = exports.$Enums.DmsuStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK: 'EXTRACT_IMAGE_AND_REMOVE_WATER_MARK',
+  PARSE_PERSON_INFO: 'PARSE_PERSON_INFO',
+  VALIDATE_PERSON_INFO: 'VALIDATE_PERSON_INFO',
+  MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_GENITIVE_FULLNAME: 'NORMALIZE_GENITIVE_FULLNAME',
+  NORMALIZE_BIRTH_PLACE: 'NORMALIZE_BIRTH_PLACE',
+  NORMALIZE_REGISTARION_ADDRESS: 'NORMALIZE_REGISTARION_ADDRESS',
+  NORMALIZE_PASSPORTS_ISSUER: 'NORMALIZE_PASSPORTS_ISSUER',
+  NORMALIZE_FOREIGN_PASSPORTS_ISSUER: 'NORMALIZE_FOREIGN_PASSPORTS_ISSUER',
+  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
+  FINISHED: 'FINISHED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   StorageFile: 'StorageFile',
   Process: 'Process',
-  ProcessHstsMvs: 'ProcessHstsMvs'
+  ProcessHstsMvs: 'ProcessHstsMvs',
+  ProcessDmsu: 'ProcessDmsu'
 };
 
 /**

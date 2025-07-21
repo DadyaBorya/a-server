@@ -45,7 +45,7 @@ export class DownloadHstsMvsProcessGuard implements CanActivate {
 						}
 					},
 					{
-						resultProcesses: {
+						resultProcessesHstsMvs: {
 							some: {
 								process: {
 									userId: user.id

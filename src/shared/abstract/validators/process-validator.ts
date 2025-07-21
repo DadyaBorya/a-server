@@ -3,6 +3,33 @@ import { plainToInstance } from 'class-transformer'
 import { validate } from 'class-validator'
 
 export abstract class ProcessValidator<T extends object> {
+	async validateObject(data: T, dtoClass: new () => T) {
+		const instance = plainToInstance(dtoClass, data)
+
+		const errors = await validate(instance)
+
+		if (errors.length > 0) {
+			const messages = errors.flatMap(error =>
+				Object.values(error.constraints || {})
+			)
+
+			const allFields = Object.keys(data)
+			const invalidFields = errors.map(e => e.property)
+
+			const allFieldsInvalid = allFields.every(field =>
+				invalidFields.includes(field)
+			)
+
+			if (allFieldsInvalid) {
+				throw new BadRequestException('Файл невалідний')
+			}
+
+			throw new BadRequestException(
+				`Помилка валідації:\n${messages.join('\n')}`
+			)
+		}
+	}
+
 	async validate(
 		data: Record<string, unknown>,
 		dtoClass: new () => T

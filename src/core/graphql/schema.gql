@@ -22,6 +22,31 @@ type DeviceModel {
   type: String
 }
 
+type DmsuProcessModel {
+  errorMessage: String
+  isAi: Boolean!
+  personInfoFile: StorageModel!
+  process: ProcessModel!
+  resultFile: StorageModel
+  stage: DmsuStage!
+  withoutWMFile: StorageModel
+}
+
+enum DmsuStage {
+  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK
+  FINISHED
+  GENERATE_RESULT_DATA
+  MODIFY_DATA
+  NORMALIZE_BIRTH_PLACE
+  NORMALIZE_FOREIGN_PASSPORTS_ISSUER
+  NORMALIZE_GENITIVE_FULLNAME
+  NORMALIZE_PASSPORTS_ISSUER
+  NORMALIZE_REGISTARION_ADDRESS
+  NOT_STARTED
+  PARSE_PERSON_INFO
+  VALIDATE_PERSON_INFO
+}
+
 input EnableTotpInput {
   pin: String!
   secret: String!
@@ -81,6 +106,7 @@ input LoginInput {
 
 type Mutation {
   clearSessionCookie: Boolean!
+  createDmsuProcess(isAi: Boolean, personInfoFile: Upload!): String!
   createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload, isAi: Boolean): String!
   createUser(data: CreateUserInput!): Boolean!
   disabledTotp(userId: String!): Boolean!
@@ -99,6 +125,7 @@ enum OrderDirection {
 }
 
 enum Permission {
+  DMSU_CREATE
   HSTS_MVS_CREATE
   PROCESS_READ_ALL
   PROCESS_READ_OWN
@@ -129,6 +156,7 @@ type ProcessModel {
 }
 
 enum ProcessType {
+  DMSU
   HSTS_MVS
 }
 
@@ -137,6 +165,7 @@ type Query {
   findAllProcesses(data: ListProcessesInput!): ProcessListModel!
   findAllUsers(data: ListUsersInput!): UserListModel!
   findCurrentSession: SessionModel!
+  findDmsuById(id: String!): DmsuProcessModel!
   findHstsMvsById(id: String!): HstsMvsProcessModel!
   findMe: UserModel!
   findSessions: [SessionModel!]!

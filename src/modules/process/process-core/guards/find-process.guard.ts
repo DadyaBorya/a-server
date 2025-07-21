@@ -5,7 +5,7 @@ import { ForbiddenInsufficientPermissionsException } from '@shared/exceptions'
 
 import { Permission, User } from '@/prisma/generated'
 
-export class GqlFindHstsMvsProcessGuard implements CanActivate {
+export class GqlFindProcessGuard implements CanActivate {
 	constructor(private readonly processService: ProcessCoreService) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -25,7 +25,7 @@ export class GqlFindHstsMvsProcessGuard implements CanActivate {
 
 		const process = await this.processService.findById(id)
 
-		if (process.id !== id) {
+		if (process.userId !== user.id) {
 			throw new ForbiddenInsufficientPermissionsException()
 		}
 

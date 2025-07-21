@@ -19,6 +19,8 @@ enum Permission {
   PROCESS_READ_ALL
 
   HSTS_MVS_CREATE
+
+  DMSU_CREATE
 }
 
 enum Status {
@@ -30,6 +32,7 @@ enum Status {
 
 enum ProcessType {
   HSTS_MVS
+  DMSU
 }
 
 enum HstsMvsStage {
@@ -41,6 +44,21 @@ enum HstsMvsStage {
   MODIFY_DATA
   NORMALIZE_DRIVER_LICENCE_ISSUED_BY
   NORMALIZE_REGISTRATION_PLACE
+  GENERATE_RESULT_DATA
+  FINISHED
+}
+
+enum DmsuStage {
+  NOT_STARTED
+  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK
+  PARSE_PERSON_INFO
+  VALIDATE_PERSON_INFO
+  MODIFY_DATA
+  NORMALIZE_GENITIVE_FULLNAME
+  NORMALIZE_BIRTH_PLACE
+  NORMALIZE_REGISTARION_ADDRESS
+  NORMALIZE_PASSPORTS_ISSUER
+  NORMALIZE_FOREIGN_PASSPORTS_ISSUER
   GENERATE_RESULT_DATA
   FINISHED
 }
@@ -81,7 +99,12 @@ model StorageFile {
   // MVS
   driverLicenseProcesses ProcessHstsMvs[] @relation("DriverLicenseFile")
   carInfoProcesses       ProcessHstsMvs[] @relation("CarInfoFile")
-  resultProcesses        ProcessHstsMvs[] @relation("ResultFile")
+  resultProcessesHstsMvs ProcessHstsMvs[] @relation("ResultFileHstsMvs")
+
+  // DMSU
+  personInfoProcesses ProcessDmsu[] @relation("PersonInfoFile")
+  resultProcessesDmsu ProcessDmsu[] @relation("ResultFile")
+  withoutWMProcesses  ProcessDmsu[] @relation("WithoutWMFile")
 
   @@map("storage_files")
 }
@@ -99,6 +122,7 @@ model Process {
   type ProcessType
 
   hstsMvs ProcessHstsMvs?
+  dmsu    ProcessDmsu?
 
   createdAt  DateTime  @default(now()) @map("created_at")
   finishedAt DateTime? @map("finished_at")
@@ -117,7 +141,7 @@ model ProcessHstsMvs {
   carInfoFile   StorageFile @relation("CarInfoFile", fields: [carInfoFileId], references: [id])
 
   resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
+  resultFile   StorageFile? @relation("ResultFileHstsMvs", fields: [resultFileId], references: [id])
 
   isAi Boolean @default(false) @map("is_ai")
 
@@ -125,4 +149,25 @@ model ProcessHstsMvs {
   errorMessage String?      @map("error_message")
 
   @@map("process_hsts_mvs")
+}
+
+model ProcessDmsu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  personInfoFileId String      @map("person_info_file_id")
+  personInfoFile   StorageFile @relation("PersonInfoFile", fields: [personInfoFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
+
+  withoutWMFileId String?      @map("without_wm_file_id")
+  withoutWMFile   StorageFile? @relation("WithoutWMFile", fields: [withoutWMFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        DmsuStage @default(NOT_STARTED)
+  errorMessage String?   @map("error_message")
+
+  @@map("process_dmsu")
 }

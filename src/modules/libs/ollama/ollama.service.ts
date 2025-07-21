@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { cleanText } from '@shared/utils'
 import { firstValueFrom } from 'rxjs'
 
 @Injectable()
@@ -12,7 +13,8 @@ export class OllamaService {
 		private readonly httpService: HttpService,
 		private readonly configService: ConfigService
 	) {
-		this.baseUrl = `http://${configService.getOrThrow<string>('OLLAMA_URI')}/api/generate`
+		this.baseUrl = `${configService.getOrThrow<string>('OLLAMA_URI')}/api/generate`
+
 		this.model = this.configService.getOrThrow<string>('OLLAMA_MODEL')
 	}
 
@@ -25,6 +27,6 @@ export class OllamaService {
 			})
 		)
 
-		return response.data.response
+		return cleanText(response.data.response)
 	}
 }

@@ -40,7 +40,13 @@ export class HstsMvsProcessHandler {
 				: null
 
 			if (driverLicenceData) {
-				await this.updateOwnerInfo(processId, driverLicenceData)
+				await this.processService.update(processId, {
+					owner: capitalizeFullName(
+						driverLicenceData.firstName,
+						driverLicenceData.lastName,
+						driverLicenceData.patronymic
+					)
+				})
 			}
 
 			const carInfoData = await this.carInfoProcessor.process(
@@ -69,10 +75,8 @@ export class HstsMvsProcessHandler {
 			const { lastName, firstName, patronymic } = parseFullName(fullname)
 
 			if (!driverLicenceData) {
-				await this.updateOwnerInfo(processId, {
-					lastName,
-					firstName,
-					patronymic
+				await this.processService.update(processId, {
+					owner: capitalizeFullName(lastName, firstName, patronymic)
 				})
 			}
 
@@ -82,7 +86,8 @@ export class HstsMvsProcessHandler {
 				createOutputFilename(
 					hstsMvsProcess.process.createdAt,
 					capitalizeFullName(lastName, firstName, patronymic),
-					'ГСЦ МВС'
+					'ГСЦ МВС',
+					'docx'
 				)
 			)
 
@@ -90,16 +95,5 @@ export class HstsMvsProcessHandler {
 		} catch (error) {
 			await this.errorHandler.handleError(processId, error)
 		}
-	}
-
-	private async updateOwnerInfo(
-		processId: string,
-		name: { lastName: string; firstName: string; patronymic: string }
-	) {
-		const { lastName, firstName, patronymic } = name
-
-		await this.processService.update(processId, {
-			owner: capitalizeFullName(lastName, firstName, patronymic)
-		})
 	}
 }

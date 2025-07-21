@@ -24,6 +24,7 @@ export const NORMALIZE_ADDRESS_PROMPT = {
 		return `${this.prompt}\n\n${input}\nВихід:`
 	}
 }
+
 export const NORMALIZE_ISSUED_BY_PROMPT = {
 	prompt: `Нормалізуй наступний орган видачі і видай мені лише текст, крапку в кінці ставити не потрібно.`,
 	build(input: string) {

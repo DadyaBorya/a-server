@@ -22,6 +22,6 @@ export class HstsMvsProcessController {
 		@Param('id', ParseUUIDPipe) id: string,
 		@Res() res: Response
 	) {
-		return this.storageService.downloadFile(id, res)
+		this.storageService.downloadFile(id, res)
 	}
 }

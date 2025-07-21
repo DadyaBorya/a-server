@@ -1,1 +1,1 @@
-export * from './abstract-excel-parser'
+export * from './excel-parser'

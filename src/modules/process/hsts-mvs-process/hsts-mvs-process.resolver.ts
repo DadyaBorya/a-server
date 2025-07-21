@@ -10,7 +10,8 @@ import { FileUpload, GraphQLUpload } from 'graphql-upload'
 
 import { Permission } from '@/prisma/generated'
 
-import { GqlFindHstsMvsProcessGuard } from './guards'
+import { GqlFindProcessGuard } from '../process-core/guards'
+
 import { HstsMvsProcessService } from './hsts-mvs-process.service'
 import { HstsMvsProcessModel } from './models'
 
@@ -20,7 +21,7 @@ export class HstsMvsProcessResolver {
 		private readonly hstsMvsProcessService: HstsMvsProcessService
 	) {}
 
-	@UseGuards(GqlFindHstsMvsProcessGuard)
+	@UseGuards(GqlFindProcessGuard)
 	@GqlAuthorization()
 	@Query(() => HstsMvsProcessModel, { name: 'findHstsMvsById' })
 	async findById(@Args('id', ParseUUIDPipe) id: string) {

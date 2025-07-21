@@ -51,11 +51,12 @@ export class StorageService {
 	async createFromBuffer(
 		buffer: Buffer,
 		path: string,
-		outputFilename: string
+		outputFilename: string,
+		contentType: string,
+		extension: string
 	) {
 		const id = v4()
 		const size = buffer.length
-		const extension = 'docx'
 
 		const dto: CreateStorageFileDto = {
 			id,
@@ -70,8 +71,7 @@ export class StorageService {
 		const fileDb = await this.storageRepository.create(dto)
 
 		await this.minioClient.putObject(dto.bucket, dto.path, buffer, size, {
-			'Content-Type':
-				'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+			'Content-Type': contentType
 		})
 
 		return fileDb
@@ -157,7 +157,7 @@ export class StorageService {
 			dataStream.on('error', err => reject(err))
 		})
 
-		const filename = file.inputFilename || file.outputFilename
+		const filename = file.outputFilename || file.inputFilename
 		const mimetype = lookup(filename) || 'application/octet-stream'
 
 		return { buffer, filename, mimetype }
@@ -168,7 +168,7 @@ export class StorageService {
 
 		res.setHeader(
 			'Content-Disposition',
-			`attachment; filename="file.xls"; filename*=UTF-8''${encodeURIComponent(filename)}`
+			`attachment; filename*=UTF-8''${encodeURIComponent(filename)}`
 		)
 		res.setHeader('Content-Type', mimetype)
 		res.send(buffer)

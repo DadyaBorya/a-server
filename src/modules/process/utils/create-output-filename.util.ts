@@ -1,4 +1,10 @@
-export function createOutputFilename(date: Date, owner: string, type: string) {
+export function createOutputFilename(
+	date: Date,
+	owner: string,
+	type: string,
+	extension: string,
+	sufix?: string
+) {
 	const formatDate = (date: Date): string => {
 		const year = date.getFullYear()
 		const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -18,5 +24,5 @@ export function createOutputFilename(date: Date, owner: string, type: string) {
 	const sanitizedOwner = sanitizeString(owner)
 	const sanitizedType = sanitizeString(type)
 
-	return `${sanitizedType}_${sanitizedOwner}_${formattedDate}.docx`
+	return `${sanitizedType}_${sanitizedOwner}_${formattedDate}${sufix && `_${sufix}`}.${extension}`
 }
