@@ -104,7 +104,7 @@ export class DmsuProcessModifier {
 				return {
 					number: doc.number,
 					issuedAt: doc.issuedAt,
-					expiresAt: doc.expiresAt,
+					expiresAt: this.normalizeDocumentExpiresAt(doc.expiresAt),
 					status: doc.status,
 					statusBool: doc.status.toLowerCase() === 'дійсний',
 					issuer: await this.normalizeIssuer(
@@ -119,6 +119,14 @@ export class DmsuProcessModifier {
 		)
 
 		return result
+	}
+
+	private normalizeDocumentExpiresAt(expiresAt: string) {
+		const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/
+		if (dateRegex.test(expiresAt)) {
+			return `до ${expiresAt}`
+		}
+		return expiresAt
 	}
 
 	private async normalizeIssuer(

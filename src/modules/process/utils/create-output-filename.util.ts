@@ -24,5 +24,7 @@ export function createOutputFilename(
 	const sanitizedOwner = sanitizeString(owner)
 	const sanitizedType = sanitizeString(type)
 
-	return `${sanitizedType}_${sanitizedOwner}_${formattedDate}${sufix && `_${sufix}`}.${extension}`
+	const sufixValue = sufix ? `_${sufix}` : ''
+
+	return `${sanitizedType}_${sanitizedOwner}_${formattedDate}${sufixValue}.${extension}`
 }
