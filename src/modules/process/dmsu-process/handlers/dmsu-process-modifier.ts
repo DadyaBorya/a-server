@@ -1,6 +1,10 @@
 import { OllamaService } from '@modules/libs/ollama'
 import { Injectable } from '@nestjs/common'
-import { capitalizeFullName, translateUkrainian } from '@shared/utils'
+import {
+	capitalizeFullName,
+	parseDate,
+	translateUkrainian
+} from '@shared/utils'
 
 import { DmsuStage } from '@/prisma/generated'
 
@@ -41,7 +45,8 @@ export class DmsuProcessModifier {
 	): Promise<DmsuDocxData> {
 		return {
 			isMale: data.gender === 'чоловіча',
-
+			isPhone: data.phone !== null,
+			isTaxId: data.taxId !== null,
 			taxId: data.taxId,
 			phone: data.phone,
 			hasPassports: data.passportsData.length != 0,
@@ -102,11 +107,15 @@ export class DmsuProcessModifier {
 		const result = await Promise.all(
 			documents.map(async (doc, index) => {
 				return {
-					number: doc.number,
+					number: this.normalizeDocumentNumber(doc.number),
 					issuedAt: doc.issuedAt,
 					expiresAt: this.normalizeDocumentExpiresAt(doc.expiresAt),
 					status: doc.status,
-					statusBool: doc.status.toLowerCase() === 'дійсний',
+					statusBool:
+						doc.status.toLowerCase() === 'дійсний' &&
+						(doc.expiresAt.includes('необмежен') ||
+							new Date().getTime() <
+								parseDate(doc.expiresAt).getTime()),
 					issuer: await this.normalizeIssuer(
 						processId,
 						isAi,
@@ -116,6 +125,12 @@ export class DmsuProcessModifier {
 					isLast: index === lastIndex
 				}
 			})
+		)
+
+		result.sort(
+			(a, b) =>
+				parseDate(b.issuedAt).getTime() -
+				parseDate(a.issuedAt).getTime()
 		)
 
 		return result
@@ -249,6 +264,18 @@ export class DmsuProcessModifier {
 			)
 			.join(' ')
 
-		return `${lastName} (${translateUkrainian('ОГОРОДНІЙ')}) ${formattedFirstName} (${translateUkrainian(firstName)}) ${formattedPatronymic}`
+		return `${lastName} (${translateUkrainian(lastName).toUpperCase()}) ${formattedFirstName} (${translateUkrainian(firstName).toUpperCase()}) ${formattedPatronymic}`
+	}
+
+	private normalizeDocumentNumber(docNumber: string): string {
+		const clean = docNumber.replace(/\s+/g, '')
+
+		if (/^[A-ZА-ЯІЇЄ]{2}/i.test(clean)) {
+			const firstPart = clean.slice(0, 2)
+			const rest = clean.slice(2)
+			return `${firstPart}\u00A0${rest}`
+		}
+
+		return docNumber
 	}
 }

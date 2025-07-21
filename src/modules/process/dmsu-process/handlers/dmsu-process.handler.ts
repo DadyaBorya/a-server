@@ -49,20 +49,28 @@ export class DmsuProcessHandler {
 
 			const { lastName, firstName, patronymic } = personInfoData
 
+			const capitalizedFullname = capitalizeFullName(
+				lastName,
+				firstName,
+				patronymic
+			)
+
 			await this.processService.update(processId, {
-				owner: capitalizeFullName(lastName, firstName, patronymic)
+				owner: capitalizedFullname
 			})
+
+			const personInfoFileWWMFilename = createOutputFilename(
+				process.createdAt,
+				capitalizedFullname,
+				'ДМСУ',
+				'pdf',
+				'WWM'
+			)
 
 			const personalInfoFileWWM = await this.storage.createFromBuffer(
 				personalInfoFileBuffer,
 				'/process/dmsu',
-				createOutputFilename(
-					process.createdAt,
-					capitalizeFullName(lastName, firstName, patronymic),
-					'ДМСУ',
-					'pdf',
-					'WWM'
-				),
+				personInfoFileWWMFilename,
 				CONTENT_TYPE.PDF,
 				'pdf'
 			)
@@ -78,16 +86,14 @@ export class DmsuProcessHandler {
 				isAi
 			)
 
-			await this.docxProcess.process(
-				processId,
-				docxData,
-				createOutputFilename(
-					process.createdAt,
-					capitalizeFullName(lastName, firstName, patronymic),
-					'ДМСУ',
-					'docx'
-				)
+			const resultFilename = createOutputFilename(
+				process.createdAt,
+				capitalizedFullname,
+				'ДМСУ',
+				'docx'
 			)
+
+			await this.docxProcess.process(processId, docxData, resultFilename)
 
 			await await this.finalizer.finalize(processId)
 		} catch (error) {

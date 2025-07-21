@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer'
-import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
+import {
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+	Matches,
+	ValidateNested
+} from 'class-validator'
 
 import { DocumentData } from './document-data.interface'
 
@@ -36,16 +42,16 @@ export class PersonInfoData {
 	@IsString({ message: 'Місце проживання має бути текстом' })
 	registrationPlace: string
 
-	@IsNotEmpty({ message: 'РНОКПП обовʼязковий' })
 	@Matches(/^\d{10}$/, {
 		message: 'РНОКПП має складатися з 10 цифр'
 	})
+	@IsOptional()
 	taxId: string
 
-	@IsNotEmpty({ message: 'Телефон обовʼязковий' })
 	@Matches(/^380\d{9}$/, {
 		message: 'Телефон має бути у форматі 380XXXXXXXXX'
 	})
+	@IsOptional()
 	phone: string
 
 	@ValidateNested({ each: true })

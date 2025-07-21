@@ -1,6 +1,6 @@
 import { Permission, User } from '@/prisma/generated'
 
-export function hasPermission(
+export function assertPermission(
 	user: User,
 	requiredPermissions: Permission[],
 	PermissionError: new () => Error,

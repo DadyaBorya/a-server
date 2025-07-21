@@ -117,7 +117,7 @@ export class PersonInfoParser extends PdfParser {
 			)
 			const match = text.match(regex)
 
-			return match ? match[1].trim() : ''
+			return match ? match[1].trim() : null
 		}
 
 		return {

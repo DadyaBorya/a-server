@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
+import { assertPermission } from '@shared/utils'
 
 import { Permission } from '@/prisma/generated'
-import { hasPermission } from '@/src/shared/utils'
 
 import {
 	CannotDeleteCurrentSessionException,
@@ -30,7 +30,7 @@ export class GqlRemoveSessionGuard implements CanActivate {
 
 		const session = await this.sessionService.getSession(id)
 
-		hasPermission(
+		assertPermission(
 			user,
 			[Permission.USER_UPDATE],
 			NoPermissionToDeleteSessionException,

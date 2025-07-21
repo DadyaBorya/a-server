@@ -15,6 +15,8 @@ export interface DmsuDocxData {
 	foreignPassports: DmsuDocumentDocxData[]
 	imageYear: number
 	image: string
+	isTaxId: boolean
+	isPhone: boolean
 }
 
 export interface DmsuDocumentDocxData {

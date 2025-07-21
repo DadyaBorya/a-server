@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 
 import { ForbiddenInsufficientPermissionsException } from '@/src/shared/exceptions'
-import { hasPermission } from '@/src/shared/utils'
+import { assertPermission } from '@/src/shared/utils'
 
 import { Permission } from '../models'
 
@@ -16,7 +16,7 @@ export class GqlFindUserByIdGuard implements CanActivate {
 		const args = gqlCtx.getArgs()
 		const id = args.id
 
-		hasPermission(
+		assertPermission(
 			user,
 			[Permission.USER_READ],
 			ForbiddenInsufficientPermissionsException,
