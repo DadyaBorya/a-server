@@ -2,12 +2,9 @@ import { StorageService } from '@modules/libs/storage'
 import { UtilsServerService } from '@modules/libs/utils-server'
 import { Injectable } from '@nestjs/common'
 
-import { DmsuProcessService } from '../dmsu-process.service'
-
 @Injectable()
-export class DmsuExtractImageAndRemoveWatermarkProcess {
+export class DmsuPrimaryPersonInfoProcessorHandler {
 	constructor(
-		private readonly dmsuService: DmsuProcessService,
 		private readonly storage: StorageService,
 		private readonly utilsServerService: UtilsServerService
 	) {}

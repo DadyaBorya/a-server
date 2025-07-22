@@ -9,7 +9,7 @@ import { DmsuDocxGenerator } from '../docx'
 import { DmsuDocxData } from '../interfaces'
 
 @Injectable()
-export class DmsuProcessDocx {
+export class DmsuDocxHandler {
 	private readonly bucket = 'templates'
 	private readonly path = 'dmsu/template.docx'
 

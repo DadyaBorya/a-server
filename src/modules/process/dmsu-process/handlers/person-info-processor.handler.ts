@@ -8,7 +8,7 @@ import { PersonInfoParser } from '../parsers'
 import { PersonInfoValidator } from '../validators'
 
 @Injectable()
-export class DmsuPersonInfoProcessor {
+export class DmsuPersonInfoProcessorHandler {
 	constructor(
 		private readonly dmsuService: DmsuProcessService,
 		private readonly personInfoParser: PersonInfoParser,

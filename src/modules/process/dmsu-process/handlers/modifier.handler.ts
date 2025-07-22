@@ -18,7 +18,7 @@ import { DmsuProcessService } from '../dmsu-process.service'
 import { DmsuDocxData, DocumentData, PersonInfoData } from '../interfaces'
 
 @Injectable()
-export class DmsuProcessModifier {
+export class DmsuModifierHandler {
 	constructor(
 		private readonly dmsuService: DmsuProcessService,
 		private readonly ollama: OllamaService
@@ -45,8 +45,8 @@ export class DmsuProcessModifier {
 	): Promise<DmsuDocxData> {
 		return {
 			isMale: data.gender === 'чоловіча',
-			isPhone: data.phone !== null,
-			isTaxId: data.taxId !== null,
+			isPhone: !!data.phone,
+			isTaxId: !!data.taxId,
 			taxId: data.taxId,
 			phone: data.phone,
 			hasPassports: data.passportsData.length != 0,
@@ -106,6 +106,11 @@ export class DmsuProcessModifier {
 
 		const result = await Promise.all(
 			documents.map(async (doc, index) => {
+				const currentTime = Date.now()
+				const expiresTime = doc.expiresAt.includes('необмежен')
+					? Infinity
+					: parseDate(doc.expiresAt).getTime()
+
 				return {
 					number: this.normalizeDocumentNumber(doc.number),
 					issuedAt: doc.issuedAt,
@@ -113,9 +118,7 @@ export class DmsuProcessModifier {
 					status: doc.status,
 					statusBool:
 						doc.status.toLowerCase() === 'дійсний' &&
-						(doc.expiresAt.includes('необмежен') ||
-							new Date().getTime() <
-								parseDate(doc.expiresAt).getTime()),
+						currentTime < expiresTime,
 					issuer: await this.normalizeIssuer(
 						processId,
 						isAi,
@@ -127,21 +130,17 @@ export class DmsuProcessModifier {
 			})
 		)
 
-		result.sort(
+		return result.sort(
 			(a, b) =>
 				parseDate(b.issuedAt).getTime() -
 				parseDate(a.issuedAt).getTime()
 		)
-
-		return result
 	}
 
-	private normalizeDocumentExpiresAt(expiresAt: string) {
-		const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/
-		if (dateRegex.test(expiresAt)) {
-			return `до ${expiresAt}`
-		}
-		return expiresAt
+	private normalizeDocumentExpiresAt(expiresAt: string): string {
+		return /^\d{2}\.\d{2}\.\d{4}$/.test(expiresAt)
+			? `до ${expiresAt}`
+			: expiresAt
 	}
 
 	private async normalizeIssuer(
@@ -170,19 +169,15 @@ export class DmsuProcessModifier {
 	private getLastImageYear(
 		passports: DocumentData[],
 		foreignPassports: DocumentData[]
-	) {
-		const allDocs = [...passports, ...foreignPassports]
-
-		const years = allDocs
+	): number {
+		const years = [...passports, ...foreignPassports]
 			.map(doc => {
-				const match = doc.issuedAt.match(/^(\d{2})\.(\d{2})\.(\d{4})$/)
-				return match ? parseInt(match[3], 10) : null
+				const match = doc.issuedAt.match(/^\d{2}\.\d{2}\.(\d{4})$/)
+				return match ? parseInt(match[1], 10) : null
 			})
 			.filter((year): year is number => year !== null)
 
-		if (years.length === 0) return 0
-
-		return Math.max(...years)
+		return years.length ? Math.max(...years) : 0
 	}
 
 	private async normalizeGenitiveFullname(
@@ -191,78 +186,64 @@ export class DmsuProcessModifier {
 		lastName: string,
 		firstName: string,
 		patronymic: string
-	) {
+	): Promise<string> {
 		await this.dmsuService.update(processId, {
 			stage: DmsuStage.NORMALIZE_GENITIVE_FULLNAME
 		})
 
 		const fullName = capitalizeFullName(lastName, firstName, patronymic)
-
-		if (!isAi) {
-			return fullName
-		}
-
-		return this.ollama.execute(
-			NORMALIZE_GENITIVE_FULLNAME_PROMPT.build(fullName)
-		)
+		return isAi
+			? this.ollama.execute(
+					NORMALIZE_GENITIVE_FULLNAME_PROMPT.build(fullName)
+				)
+			: fullName
 	}
 
 	private async normalizeBirthPlace(
 		processId: string,
 		isAi: boolean,
 		birthPlace: string
-	) {
+	): Promise<string> {
 		await this.dmsuService.update(processId, {
 			stage: DmsuStage.NORMALIZE_BIRTH_PLACE
 		})
-
-		if (!isAi) {
-			return birthPlace
-		}
-
-		return this.ollama.execute(
-			NORMALIZE_BIRTH_PLACE_PROMPT.build(birthPlace)
-		)
+		return isAi
+			? this.ollama.execute(
+					NORMALIZE_BIRTH_PLACE_PROMPT.build(birthPlace)
+				)
+			: birthPlace
 	}
 
 	private async normalizeRegistrationPlace(
 		processId: string,
 		isAi: boolean,
 		registrationPlace: string
-	) {
+	): Promise<string> {
 		await this.dmsuService.update(processId, {
 			stage: DmsuStage.NORMALIZE_REGISTARION_ADDRESS
 		})
-
-		if (!isAi) {
-			return registrationPlace
-		}
-
-		return this.ollama.execute(
-			NORMALIZE_REGISTARION_ADDRESS_PROMPT.build(registrationPlace)
-		)
+		return isAi
+			? this.ollama.execute(
+					NORMALIZE_REGISTARION_ADDRESS_PROMPT.build(
+						registrationPlace
+					)
+				)
+			: registrationPlace
 	}
 
 	private translitFullName(
 		lastName: string,
 		firstName: string,
 		patronymic: string
-	) {
-		const formattedFirstName = firstName
-			.split(' ')
-			.map(
-				name =>
-					name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-			)
-			.join(' ')
+	): string {
+		const formatName = (name: string) =>
+			name
+				.split(' ')
+				.map(n => n.charAt(0).toUpperCase() + n.slice(1).toLowerCase())
+				.join(' ')
 
-		const formattedPatronymic = patronymic
-			.split(' ')
-			.map(
-				name =>
-					name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-			)
-			.join(' ')
+		const formattedFirstName = formatName(firstName)
+		const formattedPatronymic = formatName(patronymic)
 
 		return `${lastName} (${translateUkrainian(lastName).toUpperCase()}) ${formattedFirstName} (${translateUkrainian(firstName).toUpperCase()}) ${formattedPatronymic}`
 	}
@@ -271,9 +252,7 @@ export class DmsuProcessModifier {
 		const clean = docNumber.replace(/\s+/g, '')
 
 		if (/^[A-ZА-ЯІЇЄ]{2}/i.test(clean)) {
-			const firstPart = clean.slice(0, 2)
-			const rest = clean.slice(2)
-			return `${firstPart}\u00A0${rest}`
+			return `${clean.slice(0, 2)}\u00A0${clean.slice(2)}`
 		}
 
 		return docNumber

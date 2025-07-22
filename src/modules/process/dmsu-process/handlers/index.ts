@@ -1,28 +1,28 @@
-import { DmsuErrorHandler } from './dmsu-error-handler'
-import { DmsuExtractImageAndRemoveWatermarkProcess } from './dmsu-extract-image-and-remove-watermark-processor'
-import { DmsuPersonInfoProcessor } from './dmsu-person-info-processor'
-import { DmsuProcessDocx } from './dmsu-process-docx'
-import { DmsuProcessFinalizer } from './dmsu-process-finalizer'
-import { DmsuProcessInitializer } from './dmsu-process-initializer'
-import { DmsuProcessModifier } from './dmsu-process-modifier'
-import { DmsuProcessHandler } from './dmsu-process.handler'
+import { DmsuDocxHandler } from './docx.handler'
+import { DmsuErrorHandler } from './error.handler'
+import { DmsuFinalizerHandler } from './finalizer.handler'
+import { DmsuInitializerHandler } from './initializer.handler'
+import { DmsuModifierHandler } from './modifier.handler'
+import { DmsuPersonInfoProcessorHandler } from './person-info-processor.handler'
+import { DmsuPrimaryPersonInfoProcessorHandler } from './primary-person-info-processor.handler'
+import { DmsuProcessHandler } from './process.handler'
 
-export * from './dmsu-process.handler'
-export * from './dmsu-process-initializer'
-export * from './dmsu-error-handler'
-export * from './dmsu-process-finalizer'
-export * from './dmsu-extract-image-and-remove-watermark-processor'
-export * from './dmsu-person-info-processor'
-export * from './dmsu-process-modifier'
-export * from './dmsu-process-docx'
+export * from './process.handler'
+export * from './initializer.handler'
+export * from './error.handler'
+export * from './finalizer.handler'
+export * from './primary-person-info-processor.handler'
+export * from './person-info-processor.handler'
+export * from './modifier.handler'
+export * from './docx.handler'
 
 export const HANDLERS = [
 	DmsuProcessHandler,
-	DmsuProcessInitializer,
+	DmsuInitializerHandler,
 	DmsuErrorHandler,
-	DmsuProcessFinalizer,
-	DmsuExtractImageAndRemoveWatermarkProcess,
-	DmsuPersonInfoProcessor,
-	DmsuProcessModifier,
-	DmsuProcessDocx
+	DmsuFinalizerHandler,
+	DmsuPrimaryPersonInfoProcessorHandler,
+	DmsuPersonInfoProcessorHandler,
+	DmsuModifierHandler,
+	DmsuDocxHandler
 ]

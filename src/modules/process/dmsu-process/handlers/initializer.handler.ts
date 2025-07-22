@@ -6,7 +6,7 @@ import { DmsuStage, Status } from '@/prisma/generated'
 import { DmsuProcessService } from '../dmsu-process.service'
 
 @Injectable()
-export class DmsuProcessInitializer {
+export class DmsuInitializerHandler {
 	constructor(
 		private readonly processService: ProcessCoreService,
 		private readonly dmsuSerive: DmsuProcessService
