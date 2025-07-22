@@ -24,7 +24,7 @@ import {
 } from '../utils'
 
 @Injectable()
-export class HstsMvsProcessModifier {
+export class HstsMvsModifierHandler {
 	constructor(
 		private readonly hstsMvsService: HstsMvsProcessService,
 		private readonly ollama: OllamaService

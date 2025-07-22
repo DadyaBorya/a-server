@@ -1,28 +1,28 @@
-import { HstsMvsCarInfoProcessor } from './hsts-mvs-car-info-processor'
-import { HstsMvsDriverLicenceProcessor } from './hsts-mvs-driver-licence-processor'
-import { HstsMvsErrorHandler } from './hsts-mvs-error-handler'
-import { HstsMvsProcessDocx } from './hsts-mvs-process-docx'
-import { HstsMvsProcessFinalizer } from './hsts-mvs-process-finalizer'
-import { HstsMvsProcessInitializer } from './hsts-mvs-process-initializer'
-import { HstsMvsProcessModifier } from './hsts-mvs-process-modifier'
-import { HstsMvsProcessHandler } from './hsts-mvs-process.handler'
+import { HstsMvsCarInfoProcessorHandler } from './car-info-processor.handler'
+import { HstsMvsDocxHandler } from './docx.handler'
+import { HstsMvsDriverLicenceProcessorHandler } from './driver-licence-processor.handler'
+import { HstsMvsErrorHandler } from './error.handler'
+import { HstsMvsFinalizerHandler } from './finalizer.handler'
+import { HstsMvsInitializerHandler } from './initializer.handler'
+import { HstsMvsModifierHandler } from './modifier.handler'
+import { HstsMvsProcessHandler } from './process.handler'
 
-export * from './hsts-mvs-car-info-processor'
-export * from './hsts-mvs-driver-licence-processor'
-export * from './hsts-mvs-error-handler'
-export * from './hsts-mvs-process-finalizer'
-export * from './hsts-mvs-process-initializer'
-export * from './hsts-mvs-process.handler'
-export * from './hsts-mvs-process-modifier'
-export * from './hsts-mvs-process-docx'
+export * from './car-info-processor.handler'
+export * from './driver-licence-processor.handler'
+export * from './error.handler'
+export * from './finalizer.handler'
+export * from './initializer.handler'
+export * from './process.handler'
+export * from './modifier.handler'
+export * from './docx.handler'
 
 export const HANDLERS = [
-	HstsMvsProcessInitializer,
-	HstsMvsDriverLicenceProcessor,
-	HstsMvsCarInfoProcessor,
-	HstsMvsProcessFinalizer,
+	HstsMvsInitializerHandler,
+	HstsMvsDriverLicenceProcessorHandler,
+	HstsMvsCarInfoProcessorHandler,
+	HstsMvsFinalizerHandler,
 	HstsMvsErrorHandler,
 	HstsMvsProcessHandler,
-	HstsMvsProcessModifier,
-	HstsMvsProcessDocx
+	HstsMvsModifierHandler,
+	HstsMvsDocxHandler
 ]

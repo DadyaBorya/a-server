@@ -9,7 +9,7 @@ import { HstsMvsProcessService } from '../hsts-mvs-process.service'
 import { HstsMvsDocxData } from '../interfaces'
 
 @Injectable()
-export class HstsMvsProcessDocx {
+export class HstsMvsDocxHandler {
 	private readonly bucket = 'templates'
 	private readonly path = 'hsts_mvs/template.docx'
 

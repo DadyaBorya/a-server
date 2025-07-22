@@ -109,7 +109,7 @@ export class DmsuModifierHandler {
 				const currentTime = Date.now()
 				const expiresTime = doc.expiresAt.includes('необмежен')
 					? Infinity
-					: parseDate(doc.expiresAt).getTime()
+					: (parseDate(doc.expiresAt)?.getTime() ?? 0)
 
 				return {
 					number: this.normalizeDocumentNumber(doc.number),

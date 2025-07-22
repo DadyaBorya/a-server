@@ -11,7 +11,7 @@ import { CarInfoMultiTransform, CarInfoSingleTransform } from '../transform'
 import { CarInfoValidator } from '../validators'
 
 @Injectable()
-export class HstsMvsCarInfoProcessor {
+export class HstsMvsCarInfoProcessorHandler {
 	constructor(
 		private readonly storage: StorageService,
 		private readonly hstsMvsSerive: HstsMvsProcessService,

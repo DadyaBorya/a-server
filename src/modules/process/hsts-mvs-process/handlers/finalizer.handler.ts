@@ -6,7 +6,7 @@ import { HstsMvsStage, Status } from '@/prisma/generated'
 import { HstsMvsProcessService } from '../hsts-mvs-process.service'
 
 @Injectable()
-export class HstsMvsProcessFinalizer {
+export class HstsMvsFinalizerHandler {
 	constructor(
 		private readonly processService: ProcessCoreService,
 		private readonly hstsMvsSerive: HstsMvsProcessService

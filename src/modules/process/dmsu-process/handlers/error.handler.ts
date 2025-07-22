@@ -13,6 +13,8 @@ export class DmsuErrorHandler {
 	) {}
 
 	async handleError(processId: string, error: Error) {
+		console.log(error)
+
 		await Promise.all([
 			this.processService.update(processId, {
 				status: Status.ERROR,

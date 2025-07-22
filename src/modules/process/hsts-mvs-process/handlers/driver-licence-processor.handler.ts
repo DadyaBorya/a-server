@@ -10,7 +10,7 @@ import { DriverLicenceTransform } from '../transform'
 import { DriverLicenceValidator } from '../validators'
 
 @Injectable()
-export class HstsMvsDriverLicenceProcessor {
+export class HstsMvsDriverLicenceProcessorHandler {
 	constructor(
 		private readonly storage: StorageService,
 		private readonly hstsMvsSerive: HstsMvsProcessService,

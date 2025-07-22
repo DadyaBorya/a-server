@@ -1,26 +1,33 @@
 import { ProcessCoreService } from '@modules/process/process-core'
 import { Injectable } from '@nestjs/common'
 
-import { Status } from '@/prisma/generated'
+import { HstsMvsStage, Status } from '@/prisma/generated'
 
 import { HstsMvsProcessService } from '../hsts-mvs-process.service'
 
 @Injectable()
-export class HstsMvsErrorHandler {
+export class HstsMvsInitializerHandler {
 	constructor(
 		private readonly processService: ProcessCoreService,
 		private readonly hstsMvsSerive: HstsMvsProcessService
 	) {}
 
-	async handleError(processId: string, error: Error) {
+	async initialize(processId: string) {
+		const hstsMvsProcess = await this.hstsMvsSerive.findById(processId, {
+			process: true,
+			carInfoFile: true,
+			driverLicenseFile: true
+		})
+
 		await Promise.all([
 			this.processService.update(processId, {
-				status: Status.ERROR,
-				finishedAt: new Date()
+				status: Status.STARTED
 			}),
 			this.hstsMvsSerive.update(processId, {
-				errorMessage: error.message
+				stage: HstsMvsStage.PARSE_DRIVER_LICENCE
 			})
 		])
+
+		return hstsMvsProcess
 	}
 }

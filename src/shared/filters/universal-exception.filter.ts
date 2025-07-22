@@ -15,6 +15,8 @@ export class UniversalExceptionFilter implements ExceptionFilter {
 	catch(exception: unknown, host: ArgumentsHost): void | never {
 		const ctxType = host.getType()
 
+		console.log(exception)
+
 		if (ctxType === ('graphql' as ContextType)) {
 			// GraphQL обробка
 			const gqlHost = GqlArgumentsHost.create(host)
