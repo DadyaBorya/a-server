@@ -1,7 +1,13 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { GqlAuthorization, UserAgent } from '@shared/decorators'
+import {
+	GqlAuthorization,
+	GqlAuthorizedWithPermissions,
+	UserAgent
+} from '@shared/decorators'
 import { GqlContext } from '@shared/types'
+
+import { Permission } from '@/prisma/generated'
 
 import { GqlRemoveSessionGuard } from './guards'
 import { LoginInput } from './input'
@@ -22,7 +28,8 @@ export class SessionResolver {
 		)
 	}
 
-	// Знайти всі сесії користувача який робе запит
+	// Знайти всі сесії користувача
+	@GqlAuthorizedWithPermissions(Permission.USER_READ)
 	@GqlAuthorization()
 	@Query(() => [SessionModel], { name: 'findSessionsById' })
 	async findSessionsById(@Args('id') id: string) {
