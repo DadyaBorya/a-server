@@ -108,6 +108,7 @@ type Mutation {
   clearSessionCookie: Boolean!
   createDmsuProcess(isAi: Boolean, personInfoFile: Upload!): String!
   createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload, isAi: Boolean): String!
+  createPfuProcess(inputFile: Upload!, isAi: Boolean): String!
   createUser(data: CreateUserInput!): Boolean!
   disabledTotp(userId: String!): Boolean!
   enableTotp(data: EnableTotpInput!): Boolean!
@@ -127,6 +128,7 @@ enum OrderDirection {
 enum Permission {
   DMSU_CREATE
   HSTS_MVS_CREATE
+  PFU_CREATE
   PROCESS_READ_ALL
   PROCESS_READ_OWN
   USER_CREATE
@@ -134,6 +136,26 @@ enum Permission {
   USER_READ
   USER_RESET_PASSWORD
   USER_UPDATE
+}
+
+type PfuProcessModel {
+  errorMessage: String
+  inputFile: StorageModel!
+  isAi: Boolean!
+  process: ProcessModel!
+  resultFile: StorageModel
+  stage: PfuStage!
+}
+
+enum PfuStage {
+  FINISHED
+  GENERATE_RESULT_DATA
+  MODIFY_DATA
+  NORMALIZE_INSURE_NAME
+  NOT_STARTED
+  PARSE_INPUT_FILE
+  TRANSFORM_INPUT_FILE
+  VALIDATE_INPUT_FILE
 }
 
 type ProcessListModel {
@@ -158,6 +180,7 @@ type ProcessModel {
 enum ProcessType {
   DMSU
   HSTS_MVS
+  PFU
 }
 
 type Query {
@@ -168,6 +191,7 @@ type Query {
   findDmsuById(id: String!): DmsuProcessModel!
   findHstsMvsById(id: String!): HstsMvsProcessModel!
   findMe: UserModel!
+  findPfuById(id: String!): PfuProcessModel!
   findSessions: [SessionModel!]!
   findSessionsById(id: String!): [SessionModel!]!
   findUserById(id: String!): UserModel!

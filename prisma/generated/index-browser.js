@@ -174,6 +174,15 @@ exports.Prisma.ProcessDmsuScalarFieldEnum = {
   errorMessage: 'errorMessage'
 };
 
+exports.Prisma.ProcessPfuScalarFieldEnum = {
+  processId: 'processId',
+  inputFileId: 'inputFileId',
+  resultFileId: 'resultFileId',
+  isAi: 'isAi',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -197,7 +206,8 @@ exports.Permission = exports.$Enums.Permission = {
   PROCESS_READ_OWN: 'PROCESS_READ_OWN',
   PROCESS_READ_ALL: 'PROCESS_READ_ALL',
   HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
-  DMSU_CREATE: 'DMSU_CREATE'
+  DMSU_CREATE: 'DMSU_CREATE',
+  PFU_CREATE: 'PFU_CREATE'
 };
 
 exports.Status = exports.$Enums.Status = {
@@ -209,7 +219,8 @@ exports.Status = exports.$Enums.Status = {
 
 exports.ProcessType = exports.$Enums.ProcessType = {
   HSTS_MVS: 'HSTS_MVS',
-  DMSU: 'DMSU'
+  DMSU: 'DMSU',
+  PFU: 'PFU'
 };
 
 exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
@@ -240,12 +251,24 @@ exports.DmsuStage = exports.$Enums.DmsuStage = {
   FINISHED: 'FINISHED'
 };
 
+exports.PfuStage = exports.$Enums.PfuStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  PARSE_INPUT_FILE: 'PARSE_INPUT_FILE',
+  VALIDATE_INPUT_FILE: 'VALIDATE_INPUT_FILE',
+  TRANSFORM_INPUT_FILE: 'TRANSFORM_INPUT_FILE',
+  MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_INSURE_NAME: 'NORMALIZE_INSURE_NAME',
+  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
+  FINISHED: 'FINISHED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   StorageFile: 'StorageFile',
   Process: 'Process',
   ProcessHstsMvs: 'ProcessHstsMvs',
-  ProcessDmsu: 'ProcessDmsu'
+  ProcessDmsu: 'ProcessDmsu',
+  ProcessPfu: 'ProcessPfu'
 };
 
 /**

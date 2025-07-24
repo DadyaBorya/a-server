@@ -23,6 +23,8 @@ export class GqlFindProcessGuard implements CanActivate {
 			return true
 		}
 
+		console.log(123)
+
 		const process = await this.processService.findById(id)
 
 		if (process.userId !== user.id) {

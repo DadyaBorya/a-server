@@ -4,6 +4,7 @@ import { OllamaModule } from '@modules/libs/ollama'
 import { StorageModule } from '@modules/libs/storage'
 import { DmsuProcessModule } from '@modules/process/dmsu-process'
 import { HstsMvsProcessModule } from '@modules/process/hsts-mvs-process'
+import { PfuProcessModule } from '@modules/process/pfu-process'
 import { AccountModule } from '@modules/users/account'
 import { ApolloDriver } from '@nestjs/apollo'
 import { BullModule } from '@nestjs/bullmq'
@@ -39,6 +40,7 @@ import { RedisModule } from './redis'
 		StorageModule,
 		HstsMvsProcessModule,
 		DmsuProcessModule,
+		PfuProcessModule,
 		OllamaModule
 	],
 	exports: [BullModule]

@@ -1,0 +1,22 @@
+export function normalizeLetters(text: string): string {
+	return text
+		.replace(/I/g, 'І')
+		.replace(/i/g, 'і')
+		.replace(/A/g, 'А')
+		.replace(/a/g, 'а')
+		.replace(/O/g, 'О')
+		.replace(/o/g, 'о')
+		.replace(/P/g, 'Р')
+		.replace(/p/g, 'р')
+		.replace(/C/g, 'С')
+		.replace(/c/g, 'с')
+		.replace(/T/g, 'Т')
+		.replace(/H/g, 'Н')
+		.replace(/X/g, 'Х')
+		.replace(/x/g, 'х')
+		.replace(/E/g, 'Е')
+		.replace(/e/g, 'е')
+		.replace(/M/g, 'М')
+		.replace(/K/g, 'К')
+		.replace(/B/g, 'В')
+}

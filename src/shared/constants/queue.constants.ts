@@ -3,3 +3,6 @@ export const HSTS_MVS_CONSUMER_PROCESS_NAME = 'process'
 
 export const DMSU_PROCESS_QUEUE = 'dmsu-process-queues'
 export const DMSU_CONSUMER_PROCESS_NAME = 'process'
+
+export const PFU_PROCESS_QUEUE = 'pfu-process-queues'
+export const PFU_CONSUMER_PROCESS_NAME = 'process'

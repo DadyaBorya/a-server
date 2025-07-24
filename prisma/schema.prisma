@@ -21,6 +21,8 @@ enum Permission {
   HSTS_MVS_CREATE
 
   DMSU_CREATE
+
+  PFU_CREATE
 }
 
 enum Status {
@@ -33,6 +35,7 @@ enum Status {
 enum ProcessType {
   HSTS_MVS
   DMSU
+  PFU
 }
 
 enum HstsMvsStage {
@@ -59,6 +62,17 @@ enum DmsuStage {
   NORMALIZE_REGISTARION_ADDRESS
   NORMALIZE_PASSPORTS_ISSUER
   NORMALIZE_FOREIGN_PASSPORTS_ISSUER
+  GENERATE_RESULT_DATA
+  FINISHED
+}
+
+enum PfuStage {
+  NOT_STARTED
+  PARSE_INPUT_FILE
+  VALIDATE_INPUT_FILE
+  TRANSFORM_INPUT_FILE
+  MODIFY_DATA
+  NORMALIZE_INSURE_NAME
   GENERATE_RESULT_DATA
   FINISHED
 }
@@ -103,8 +117,12 @@ model StorageFile {
 
   // DMSU
   personInfoProcesses ProcessDmsu[] @relation("PersonInfoFile")
-  resultProcessesDmsu ProcessDmsu[] @relation("ResultFile")
+  resultProcessesDmsu ProcessDmsu[] @relation("ResultFileDmsu")
   withoutWMProcesses  ProcessDmsu[] @relation("WithoutWMFile")
+
+  // PFU
+  inputFilePfu  ProcessPfu[] @relation("InputFilePfu")
+  resultFilePfu ProcessPfu[] @relation("ResultFilePfu")
 
   @@map("storage_files")
 }
@@ -123,6 +141,7 @@ model Process {
 
   hstsMvs ProcessHstsMvs?
   dmsu    ProcessDmsu?
+  pfu     ProcessPfu?
 
   createdAt  DateTime  @default(now()) @map("created_at")
   finishedAt DateTime? @map("finished_at")
@@ -159,7 +178,7 @@ model ProcessDmsu {
   personInfoFile   StorageFile @relation("PersonInfoFile", fields: [personInfoFileId], references: [id])
 
   resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFile", fields: [resultFileId], references: [id])
+  resultFile   StorageFile? @relation("ResultFileDmsu", fields: [resultFileId], references: [id])
 
   withoutWMFileId String?      @map("without_wm_file_id")
   withoutWMFile   StorageFile? @relation("WithoutWMFile", fields: [withoutWMFileId], references: [id])
@@ -170,4 +189,22 @@ model ProcessDmsu {
   errorMessage String?   @map("error_message")
 
   @@map("process_dmsu")
+}
+
+model ProcessPfu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  inputFileId String      @map("input_file_id")
+  inputFile   StorageFile @relation("InputFilePfu", fields: [inputFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFilePfu", fields: [resultFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        PfuStage @default(NOT_STARTED)
+  errorMessage String?  @map("error_message")
+
+  @@map("process_pfu")
 }
