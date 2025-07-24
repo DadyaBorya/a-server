@@ -4,7 +4,8 @@ import {
 	ContextType,
 	ExceptionFilter,
 	HttpException,
-	HttpStatus
+	HttpStatus,
+	Logger
 } from '@nestjs/common'
 import { GqlArgumentsHost } from '@nestjs/graphql'
 import { Request, Response } from 'express'
@@ -12,10 +13,12 @@ import { GraphQLError } from 'graphql'
 
 @Catch()
 export class UniversalExceptionFilter implements ExceptionFilter {
+	private readonly logger = new Logger(UniversalExceptionFilter.name)
+
 	catch(exception: unknown, host: ArgumentsHost): void | never {
 		const ctxType = host.getType()
 
-		console.log(exception)
+		this.logger.error(exception)
 
 		if (ctxType === ('graphql' as ContextType)) {
 			// GraphQL обробка
