@@ -47,7 +47,7 @@ export class PfuInputTransformHandler {
 			newPayments.push({
 				month: `з ${periodsText}`,
 				insurerCode: payments[0].insurerCode,
-				insurerName: insurerName
+				insurerName: this.normalizeQuotes(insurerName)
 			})
 		})
 
@@ -80,5 +80,40 @@ export class PfuInputTransformHandler {
 
 		periods.push(currentPeriod)
 		return periods
+	}
+
+	private normalizeQuotes(text: string): string {
+		const normalized = text.replace(/[«»""]/g, '"')
+
+		let result = ''
+		const quoteStack: string[] = []
+
+		for (let i = 0; i < normalized.length; i++) {
+			const char = normalized[i]
+
+			if (char === '"') {
+				if (quoteStack.length === 0) {
+					result += '«'
+					quoteStack.push('«')
+				} else if (quoteStack.length === 1) {
+					const nextQuoteIndex = normalized.indexOf('"', i + 1)
+
+					if (nextQuoteIndex !== -1) {
+						result += '«'
+						quoteStack.push('«')
+					} else {
+						result += '»'
+						quoteStack.pop()
+					}
+				} else {
+					result += '»'
+					quoteStack.pop()
+				}
+			} else {
+				result += char
+			}
+		}
+
+		return result
 	}
 }
