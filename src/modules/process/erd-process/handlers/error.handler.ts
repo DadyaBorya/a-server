@@ -3,13 +3,13 @@ import { Injectable } from '@nestjs/common'
 
 import { Status } from '@/prisma/generated'
 
-import { DmsuProcessService } from '../dmsu-process.service'
+import { ErdProcessService } from '../erd-process.service'
 
 @Injectable()
-export class DmsuErrorHandler {
+export class ErdErrorHandler {
 	constructor(
 		private readonly processService: ProcessCoreService,
-		private readonly dmsuService: DmsuProcessService
+		private readonly erdService: ErdProcessService
 	) {}
 
 	async handleError(processId: string, error: Error) {
@@ -18,7 +18,7 @@ export class DmsuErrorHandler {
 				status: Status.ERROR,
 				finishedAt: new Date()
 			}),
-			this.dmsuService.update(processId, {
+			this.erdService.update(processId, {
 				errorMessage: error.message
 			})
 		])

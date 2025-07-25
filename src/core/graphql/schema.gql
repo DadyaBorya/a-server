@@ -52,6 +52,21 @@ input EnableTotpInput {
   secret: String!
 }
 
+type ErdProcessModel {
+  acceptedInputFile: StorageModel
+  errorMessage: String
+  grantedInputFile: StorageModel
+  isAi: Boolean!
+  process: ProcessModel!
+  resultFile: StorageModel
+  stage: ErdStage!
+}
+
+enum ErdStage {
+  FINISHED
+  NOT_STARTED
+}
+
 type HstsMvsProcessModel {
   carInfoFile: StorageModel!
   driverLicenseFile: StorageModel
@@ -107,6 +122,7 @@ input LoginInput {
 type Mutation {
   clearSessionCookie: Boolean!
   createDmsuProcess(isAi: Boolean, personInfoFile: Upload!): String!
+  createErdProcess(acceptedInputFile: Upload, grantedInputFile: Upload, isAi: Boolean): String!
   createHstsMvsProcess(carInfoFile: Upload!, driverLicenseFile: Upload, isAi: Boolean): String!
   createPfuProcess(inputFile: Upload!, isAi: Boolean): String!
   createUser(data: CreateUserInput!): Boolean!
@@ -127,6 +143,7 @@ enum OrderDirection {
 
 enum Permission {
   DMSU_CREATE
+  ERD_CREATE
   HSTS_MVS_CREATE
   PFU_CREATE
   PROCESS_READ_ALL
@@ -179,6 +196,7 @@ type ProcessModel {
 
 enum ProcessType {
   DMSU
+  ERD
   HSTS_MVS
   PFU
 }
@@ -189,6 +207,7 @@ type Query {
   findAllUsers(data: ListUsersInput!): UserListModel!
   findCurrentSession: SessionModel!
   findDmsuById(id: String!): DmsuProcessModel!
+  findErdById(id: String!): ErdProcessModel!
   findHstsMvsById(id: String!): HstsMvsProcessModel!
   findMe: UserModel!
   findPfuById(id: String!): PfuProcessModel!

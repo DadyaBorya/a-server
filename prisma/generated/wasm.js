@@ -183,6 +183,16 @@ exports.Prisma.ProcessPfuScalarFieldEnum = {
   errorMessage: 'errorMessage'
 };
 
+exports.Prisma.ProcessErdScalarFieldEnum = {
+  processId: 'processId',
+  grantedІnputFileId: 'grantedІnputFileId',
+  acceptedІnputFileId: 'acceptedІnputFileId',
+  resultFileId: 'resultFileId',
+  isAi: 'isAi',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -207,7 +217,8 @@ exports.Permission = exports.$Enums.Permission = {
   PROCESS_READ_ALL: 'PROCESS_READ_ALL',
   HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
   DMSU_CREATE: 'DMSU_CREATE',
-  PFU_CREATE: 'PFU_CREATE'
+  PFU_CREATE: 'PFU_CREATE',
+  ERD_CREATE: 'ERD_CREATE'
 };
 
 exports.Status = exports.$Enums.Status = {
@@ -220,7 +231,8 @@ exports.Status = exports.$Enums.Status = {
 exports.ProcessType = exports.$Enums.ProcessType = {
   HSTS_MVS: 'HSTS_MVS',
   DMSU: 'DMSU',
-  PFU: 'PFU'
+  PFU: 'PFU',
+  ERD: 'ERD'
 };
 
 exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
@@ -262,13 +274,19 @@ exports.PfuStage = exports.$Enums.PfuStage = {
   FINISHED: 'FINISHED'
 };
 
+exports.ErdStage = exports.$Enums.ErdStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  FINISHED: 'FINISHED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   StorageFile: 'StorageFile',
   Process: 'Process',
   ProcessHstsMvs: 'ProcessHstsMvs',
   ProcessDmsu: 'ProcessDmsu',
-  ProcessPfu: 'ProcessPfu'
+  ProcessPfu: 'ProcessPfu',
+  ProcessErd: 'ProcessErd'
 };
 
 /**

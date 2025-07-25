@@ -3,6 +3,7 @@ import { TotpModule } from '@modules/auth/totp'
 import { OllamaModule } from '@modules/libs/ollama'
 import { StorageModule } from '@modules/libs/storage'
 import { DmsuProcessModule } from '@modules/process/dmsu-process'
+import { ErdProcessModule } from '@modules/process/erd-process'
 import { HstsMvsProcessModule } from '@modules/process/hsts-mvs-process'
 import { PfuProcessModule } from '@modules/process/pfu-process'
 import { AccountModule } from '@modules/users/account'
@@ -41,6 +42,7 @@ import { RedisModule } from './redis'
 		HstsMvsProcessModule,
 		DmsuProcessModule,
 		PfuProcessModule,
+		ErdProcessModule,
 		OllamaModule
 	],
 	exports: [BullModule]

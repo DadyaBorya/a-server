@@ -43,6 +43,11 @@ export type ProcessDmsu = $Result.DefaultSelection<Prisma.$ProcessDmsuPayload>
  * 
  */
 export type ProcessPfu = $Result.DefaultSelection<Prisma.$ProcessPfuPayload>
+/**
+ * Model ProcessErd
+ * 
+ */
+export type ProcessErd = $Result.DefaultSelection<Prisma.$ProcessErdPayload>
 
 /**
  * Enums
@@ -58,7 +63,8 @@ export namespace $Enums {
   PROCESS_READ_ALL: 'PROCESS_READ_ALL',
   HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
   DMSU_CREATE: 'DMSU_CREATE',
-  PFU_CREATE: 'PFU_CREATE'
+  PFU_CREATE: 'PFU_CREATE',
+  ERD_CREATE: 'ERD_CREATE'
 };
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
@@ -77,7 +83,8 @@ export type Status = (typeof Status)[keyof typeof Status]
 export const ProcessType: {
   HSTS_MVS: 'HSTS_MVS',
   DMSU: 'DMSU',
-  PFU: 'PFU'
+  PFU: 'PFU',
+  ERD: 'ERD'
 };
 
 export type ProcessType = (typeof ProcessType)[keyof typeof ProcessType]
@@ -130,6 +137,14 @@ export const PfuStage: {
 
 export type PfuStage = (typeof PfuStage)[keyof typeof PfuStage]
 
+
+export const ErdStage: {
+  NOT_STARTED: 'NOT_STARTED',
+  FINISHED: 'FINISHED'
+};
+
+export type ErdStage = (typeof ErdStage)[keyof typeof ErdStage]
+
 }
 
 export type Permission = $Enums.Permission
@@ -155,6 +170,10 @@ export const DmsuStage: typeof $Enums.DmsuStage
 export type PfuStage = $Enums.PfuStage
 
 export const PfuStage: typeof $Enums.PfuStage
+
+export type ErdStage = $Enums.ErdStage
+
+export const ErdStage: typeof $Enums.ErdStage
 
 /**
  * ##  Prisma Client ʲˢ
@@ -340,6 +359,16 @@ export class PrismaClient<
     * ```
     */
   get processPfu(): Prisma.ProcessPfuDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.processErd`: Exposes CRUD operations for the **ProcessErd** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProcessErds
+    * const processErds = await prisma.processErd.findMany()
+    * ```
+    */
+  get processErd(): Prisma.ProcessErdDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -785,7 +814,8 @@ export namespace Prisma {
     Process: 'Process',
     ProcessHstsMvs: 'ProcessHstsMvs',
     ProcessDmsu: 'ProcessDmsu',
-    ProcessPfu: 'ProcessPfu'
+    ProcessPfu: 'ProcessPfu',
+    ProcessErd: 'ProcessErd'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -804,7 +834,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "storageFile" | "process" | "processHstsMvs" | "processDmsu" | "processPfu"
+      modelProps: "user" | "storageFile" | "process" | "processHstsMvs" | "processDmsu" | "processPfu" | "processErd"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1252,6 +1282,80 @@ export namespace Prisma {
           }
         }
       }
+      ProcessErd: {
+        payload: Prisma.$ProcessErdPayload<ExtArgs>
+        fields: Prisma.ProcessErdFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProcessErdFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProcessErdFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          findFirst: {
+            args: Prisma.ProcessErdFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProcessErdFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          findMany: {
+            args: Prisma.ProcessErdFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>[]
+          }
+          create: {
+            args: Prisma.ProcessErdCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          createMany: {
+            args: Prisma.ProcessErdCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProcessErdCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>[]
+          }
+          delete: {
+            args: Prisma.ProcessErdDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          update: {
+            args: Prisma.ProcessErdUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProcessErdDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProcessErdUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProcessErdUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProcessErdUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProcessErdPayload>
+          }
+          aggregate: {
+            args: Prisma.ProcessErdAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProcessErd>
+          }
+          groupBy: {
+            args: Prisma.ProcessErdGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProcessErdGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProcessErdCountArgs<ExtArgs>
+            result: $Utils.Optional<ProcessErdCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1342,6 +1446,7 @@ export namespace Prisma {
     processHstsMvs?: ProcessHstsMvsOmit
     processDmsu?: ProcessDmsuOmit
     processPfu?: ProcessPfuOmit
+    processErd?: ProcessErdOmit
   }
 
   /* Types for Logging */
@@ -1475,6 +1580,9 @@ export namespace Prisma {
     withoutWMProcesses: number
     inputFilePfu: number
     resultFilePfu: number
+    grantedІnputFileErd: number
+    acceptedІnputFileErd: number
+    resultFileErd: number
   }
 
   export type StorageFileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1486,6 +1594,9 @@ export namespace Prisma {
     withoutWMProcesses?: boolean | StorageFileCountOutputTypeCountWithoutWMProcessesArgs
     inputFilePfu?: boolean | StorageFileCountOutputTypeCountInputFilePfuArgs
     resultFilePfu?: boolean | StorageFileCountOutputTypeCountResultFilePfuArgs
+    grantedІnputFileErd?: boolean | StorageFileCountOutputTypeCountGrantedІnputFileErdArgs
+    acceptedІnputFileErd?: boolean | StorageFileCountOutputTypeCountAcceptedІnputFileErdArgs
+    resultFileErd?: boolean | StorageFileCountOutputTypeCountResultFileErdArgs
   }
 
   // Custom InputTypes
@@ -1553,6 +1664,27 @@ export namespace Prisma {
    */
   export type StorageFileCountOutputTypeCountResultFilePfuArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProcessPfuWhereInput
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountGrantedІnputFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessErdWhereInput
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountAcceptedІnputFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessErdWhereInput
+  }
+
+  /**
+   * StorageFileCountOutputType without action
+   */
+  export type StorageFileCountOutputTypeCountResultFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessErdWhereInput
   }
 
 
@@ -2926,6 +3058,9 @@ export namespace Prisma {
     withoutWMProcesses?: boolean | StorageFile$withoutWMProcessesArgs<ExtArgs>
     inputFilePfu?: boolean | StorageFile$inputFilePfuArgs<ExtArgs>
     resultFilePfu?: boolean | StorageFile$resultFilePfuArgs<ExtArgs>
+    grantedІnputFileErd?: boolean | StorageFile$grantedІnputFileErdArgs<ExtArgs>
+    acceptedІnputFileErd?: boolean | StorageFile$acceptedІnputFileErdArgs<ExtArgs>
+    resultFileErd?: boolean | StorageFile$resultFileErdArgs<ExtArgs>
     _count?: boolean | StorageFileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storageFile"]>
 
@@ -2969,6 +3104,9 @@ export namespace Prisma {
     withoutWMProcesses?: boolean | StorageFile$withoutWMProcessesArgs<ExtArgs>
     inputFilePfu?: boolean | StorageFile$inputFilePfuArgs<ExtArgs>
     resultFilePfu?: boolean | StorageFile$resultFilePfuArgs<ExtArgs>
+    grantedІnputFileErd?: boolean | StorageFile$grantedІnputFileErdArgs<ExtArgs>
+    acceptedІnputFileErd?: boolean | StorageFile$acceptedІnputFileErdArgs<ExtArgs>
+    resultFileErd?: boolean | StorageFile$resultFileErdArgs<ExtArgs>
     _count?: boolean | StorageFileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StorageFileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2985,6 +3123,9 @@ export namespace Prisma {
       withoutWMProcesses: Prisma.$ProcessDmsuPayload<ExtArgs>[]
       inputFilePfu: Prisma.$ProcessPfuPayload<ExtArgs>[]
       resultFilePfu: Prisma.$ProcessPfuPayload<ExtArgs>[]
+      grantedІnputFileErd: Prisma.$ProcessErdPayload<ExtArgs>[]
+      acceptedІnputFileErd: Prisma.$ProcessErdPayload<ExtArgs>[]
+      resultFileErd: Prisma.$ProcessErdPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3396,6 +3537,9 @@ export namespace Prisma {
     withoutWMProcesses<T extends StorageFile$withoutWMProcessesArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$withoutWMProcessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessDmsuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inputFilePfu<T extends StorageFile$inputFilePfuArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$inputFilePfuArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPfuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     resultFilePfu<T extends StorageFile$resultFilePfuArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$resultFilePfuArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessPfuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    grantedІnputFileErd<T extends StorageFile$grantedІnputFileErdArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$grantedІnputFileErdArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    acceptedІnputFileErd<T extends StorageFile$acceptedІnputFileErdArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$acceptedІnputFileErdArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    resultFileErd<T extends StorageFile$resultFileErdArgs<ExtArgs> = {}>(args?: Subset<T, StorageFile$resultFileErdArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4012,6 +4156,78 @@ export namespace Prisma {
   }
 
   /**
+   * StorageFile.grantedІnputFileErd
+   */
+  export type StorageFile$grantedІnputFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    where?: ProcessErdWhereInput
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    cursor?: ProcessErdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile.acceptedІnputFileErd
+   */
+  export type StorageFile$acceptedІnputFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    where?: ProcessErdWhereInput
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    cursor?: ProcessErdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
+   * StorageFile.resultFileErd
+   */
+  export type StorageFile$resultFileErdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    where?: ProcessErdWhereInput
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    cursor?: ProcessErdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
    * StorageFile without action
    */
   export type StorageFileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4214,6 +4430,7 @@ export namespace Prisma {
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
     dmsu?: boolean | Process$dmsuArgs<ExtArgs>
     pfu?: boolean | Process$pfuArgs<ExtArgs>
+    erd?: boolean | Process$erdArgs<ExtArgs>
   }, ExtArgs["result"]["process"]>
 
   export type ProcessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4254,6 +4471,7 @@ export namespace Prisma {
     hstsMvs?: boolean | Process$hstsMvsArgs<ExtArgs>
     dmsu?: boolean | Process$dmsuArgs<ExtArgs>
     pfu?: boolean | Process$pfuArgs<ExtArgs>
+    erd?: boolean | Process$erdArgs<ExtArgs>
   }
   export type ProcessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4269,6 +4487,7 @@ export namespace Prisma {
       hstsMvs: Prisma.$ProcessHstsMvsPayload<ExtArgs> | null
       dmsu: Prisma.$ProcessDmsuPayload<ExtArgs> | null
       pfu: Prisma.$ProcessPfuPayload<ExtArgs> | null
+      erd: Prisma.$ProcessErdPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4676,6 +4895,7 @@ export namespace Prisma {
     hstsMvs<T extends Process$hstsMvsArgs<ExtArgs> = {}>(args?: Subset<T, Process$hstsMvsArgs<ExtArgs>>): Prisma__ProcessHstsMvsClient<$Result.GetResult<Prisma.$ProcessHstsMvsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     dmsu<T extends Process$dmsuArgs<ExtArgs> = {}>(args?: Subset<T, Process$dmsuArgs<ExtArgs>>): Prisma__ProcessDmsuClient<$Result.GetResult<Prisma.$ProcessDmsuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     pfu<T extends Process$pfuArgs<ExtArgs> = {}>(args?: Subset<T, Process$pfuArgs<ExtArgs>>): Prisma__ProcessPfuClient<$Result.GetResult<Prisma.$ProcessPfuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    erd<T extends Process$erdArgs<ExtArgs> = {}>(args?: Subset<T, Process$erdArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5162,6 +5382,25 @@ export namespace Prisma {
      */
     include?: ProcessPfuInclude<ExtArgs> | null
     where?: ProcessPfuWhereInput
+  }
+
+  /**
+   * Process.erd
+   */
+  export type Process$erdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    where?: ProcessErdWhereInput
   }
 
   /**
@@ -8582,6 +8821,1171 @@ export namespace Prisma {
 
 
   /**
+   * Model ProcessErd
+   */
+
+  export type AggregateProcessErd = {
+    _count: ProcessErdCountAggregateOutputType | null
+    _min: ProcessErdMinAggregateOutputType | null
+    _max: ProcessErdMaxAggregateOutputType | null
+  }
+
+  export type ProcessErdMinAggregateOutputType = {
+    processId: string | null
+    grantedІnputFileId: string | null
+    acceptedІnputFileId: string | null
+    resultFileId: string | null
+    isAi: boolean | null
+    stage: $Enums.ErdStage | null
+    errorMessage: string | null
+  }
+
+  export type ProcessErdMaxAggregateOutputType = {
+    processId: string | null
+    grantedІnputFileId: string | null
+    acceptedІnputFileId: string | null
+    resultFileId: string | null
+    isAi: boolean | null
+    stage: $Enums.ErdStage | null
+    errorMessage: string | null
+  }
+
+  export type ProcessErdCountAggregateOutputType = {
+    processId: number
+    grantedІnputFileId: number
+    acceptedІnputFileId: number
+    resultFileId: number
+    isAi: number
+    stage: number
+    errorMessage: number
+    _all: number
+  }
+
+
+  export type ProcessErdMinAggregateInputType = {
+    processId?: true
+    grantedІnputFileId?: true
+    acceptedІnputFileId?: true
+    resultFileId?: true
+    isAi?: true
+    stage?: true
+    errorMessage?: true
+  }
+
+  export type ProcessErdMaxAggregateInputType = {
+    processId?: true
+    grantedІnputFileId?: true
+    acceptedІnputFileId?: true
+    resultFileId?: true
+    isAi?: true
+    stage?: true
+    errorMessage?: true
+  }
+
+  export type ProcessErdCountAggregateInputType = {
+    processId?: true
+    grantedІnputFileId?: true
+    acceptedІnputFileId?: true
+    resultFileId?: true
+    isAi?: true
+    stage?: true
+    errorMessage?: true
+    _all?: true
+  }
+
+  export type ProcessErdAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProcessErd to aggregate.
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessErds to fetch.
+     */
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProcessErdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessErds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessErds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProcessErds
+    **/
+    _count?: true | ProcessErdCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProcessErdMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProcessErdMaxAggregateInputType
+  }
+
+  export type GetProcessErdAggregateType<T extends ProcessErdAggregateArgs> = {
+        [P in keyof T & keyof AggregateProcessErd]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProcessErd[P]>
+      : GetScalarType<T[P], AggregateProcessErd[P]>
+  }
+
+
+
+
+  export type ProcessErdGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcessErdWhereInput
+    orderBy?: ProcessErdOrderByWithAggregationInput | ProcessErdOrderByWithAggregationInput[]
+    by: ProcessErdScalarFieldEnum[] | ProcessErdScalarFieldEnum
+    having?: ProcessErdScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProcessErdCountAggregateInputType | true
+    _min?: ProcessErdMinAggregateInputType
+    _max?: ProcessErdMaxAggregateInputType
+  }
+
+  export type ProcessErdGroupByOutputType = {
+    processId: string
+    grantedІnputFileId: string | null
+    acceptedІnputFileId: string | null
+    resultFileId: string | null
+    isAi: boolean
+    stage: $Enums.ErdStage
+    errorMessage: string | null
+    _count: ProcessErdCountAggregateOutputType | null
+    _min: ProcessErdMinAggregateOutputType | null
+    _max: ProcessErdMaxAggregateOutputType | null
+  }
+
+  type GetProcessErdGroupByPayload<T extends ProcessErdGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProcessErdGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProcessErdGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProcessErdGroupByOutputType[P]>
+            : GetScalarType<T[P], ProcessErdGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProcessErdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    grantedІnputFileId?: boolean
+    acceptedІnputFileId?: boolean
+    resultFileId?: boolean
+    isAi?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processErd"]>
+
+  export type ProcessErdSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    grantedІnputFileId?: boolean
+    acceptedІnputFileId?: boolean
+    resultFileId?: boolean
+    isAi?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processErd"]>
+
+  export type ProcessErdSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    processId?: boolean
+    grantedІnputFileId?: boolean
+    acceptedІnputFileId?: boolean
+    resultFileId?: boolean
+    isAi?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }, ExtArgs["result"]["processErd"]>
+
+  export type ProcessErdSelectScalar = {
+    processId?: boolean
+    grantedІnputFileId?: boolean
+    acceptedІnputFileId?: boolean
+    resultFileId?: boolean
+    isAi?: boolean
+    stage?: boolean
+    errorMessage?: boolean
+  }
+
+  export type ProcessErdOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"processId" | "grantedІnputFileId" | "acceptedІnputFileId" | "resultFileId" | "isAi" | "stage" | "errorMessage", ExtArgs["result"]["processErd"]>
+  export type ProcessErdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }
+  export type ProcessErdIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }
+  export type ProcessErdIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    process?: boolean | ProcessDefaultArgs<ExtArgs>
+    grantedІnputFile?: boolean | ProcessErd$grantedІnputFileArgs<ExtArgs>
+    acceptedІnputFile?: boolean | ProcessErd$acceptedІnputFileArgs<ExtArgs>
+    resultFile?: boolean | ProcessErd$resultFileArgs<ExtArgs>
+  }
+
+  export type $ProcessErdPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProcessErd"
+    objects: {
+      process: Prisma.$ProcessPayload<ExtArgs>
+      grantedІnputFile: Prisma.$StorageFilePayload<ExtArgs> | null
+      acceptedІnputFile: Prisma.$StorageFilePayload<ExtArgs> | null
+      resultFile: Prisma.$StorageFilePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      processId: string
+      grantedІnputFileId: string | null
+      acceptedІnputFileId: string | null
+      resultFileId: string | null
+      isAi: boolean
+      stage: $Enums.ErdStage
+      errorMessage: string | null
+    }, ExtArgs["result"]["processErd"]>
+    composites: {}
+  }
+
+  type ProcessErdGetPayload<S extends boolean | null | undefined | ProcessErdDefaultArgs> = $Result.GetResult<Prisma.$ProcessErdPayload, S>
+
+  type ProcessErdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProcessErdFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProcessErdCountAggregateInputType | true
+    }
+
+  export interface ProcessErdDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProcessErd'], meta: { name: 'ProcessErd' } }
+    /**
+     * Find zero or one ProcessErd that matches the filter.
+     * @param {ProcessErdFindUniqueArgs} args - Arguments to find a ProcessErd
+     * @example
+     * // Get one ProcessErd
+     * const processErd = await prisma.processErd.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProcessErdFindUniqueArgs>(args: SelectSubset<T, ProcessErdFindUniqueArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProcessErd that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProcessErdFindUniqueOrThrowArgs} args - Arguments to find a ProcessErd
+     * @example
+     * // Get one ProcessErd
+     * const processErd = await prisma.processErd.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProcessErdFindUniqueOrThrowArgs>(args: SelectSubset<T, ProcessErdFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProcessErd that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdFindFirstArgs} args - Arguments to find a ProcessErd
+     * @example
+     * // Get one ProcessErd
+     * const processErd = await prisma.processErd.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProcessErdFindFirstArgs>(args?: SelectSubset<T, ProcessErdFindFirstArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProcessErd that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdFindFirstOrThrowArgs} args - Arguments to find a ProcessErd
+     * @example
+     * // Get one ProcessErd
+     * const processErd = await prisma.processErd.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProcessErdFindFirstOrThrowArgs>(args?: SelectSubset<T, ProcessErdFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProcessErds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProcessErds
+     * const processErds = await prisma.processErd.findMany()
+     * 
+     * // Get first 10 ProcessErds
+     * const processErds = await prisma.processErd.findMany({ take: 10 })
+     * 
+     * // Only select the `processId`
+     * const processErdWithProcessIdOnly = await prisma.processErd.findMany({ select: { processId: true } })
+     * 
+     */
+    findMany<T extends ProcessErdFindManyArgs>(args?: SelectSubset<T, ProcessErdFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProcessErd.
+     * @param {ProcessErdCreateArgs} args - Arguments to create a ProcessErd.
+     * @example
+     * // Create one ProcessErd
+     * const ProcessErd = await prisma.processErd.create({
+     *   data: {
+     *     // ... data to create a ProcessErd
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProcessErdCreateArgs>(args: SelectSubset<T, ProcessErdCreateArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProcessErds.
+     * @param {ProcessErdCreateManyArgs} args - Arguments to create many ProcessErds.
+     * @example
+     * // Create many ProcessErds
+     * const processErd = await prisma.processErd.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProcessErdCreateManyArgs>(args?: SelectSubset<T, ProcessErdCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProcessErds and returns the data saved in the database.
+     * @param {ProcessErdCreateManyAndReturnArgs} args - Arguments to create many ProcessErds.
+     * @example
+     * // Create many ProcessErds
+     * const processErd = await prisma.processErd.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProcessErds and only return the `processId`
+     * const processErdWithProcessIdOnly = await prisma.processErd.createManyAndReturn({
+     *   select: { processId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProcessErdCreateManyAndReturnArgs>(args?: SelectSubset<T, ProcessErdCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProcessErd.
+     * @param {ProcessErdDeleteArgs} args - Arguments to delete one ProcessErd.
+     * @example
+     * // Delete one ProcessErd
+     * const ProcessErd = await prisma.processErd.delete({
+     *   where: {
+     *     // ... filter to delete one ProcessErd
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProcessErdDeleteArgs>(args: SelectSubset<T, ProcessErdDeleteArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProcessErd.
+     * @param {ProcessErdUpdateArgs} args - Arguments to update one ProcessErd.
+     * @example
+     * // Update one ProcessErd
+     * const processErd = await prisma.processErd.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProcessErdUpdateArgs>(args: SelectSubset<T, ProcessErdUpdateArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProcessErds.
+     * @param {ProcessErdDeleteManyArgs} args - Arguments to filter ProcessErds to delete.
+     * @example
+     * // Delete a few ProcessErds
+     * const { count } = await prisma.processErd.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProcessErdDeleteManyArgs>(args?: SelectSubset<T, ProcessErdDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProcessErds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProcessErds
+     * const processErd = await prisma.processErd.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProcessErdUpdateManyArgs>(args: SelectSubset<T, ProcessErdUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProcessErds and returns the data updated in the database.
+     * @param {ProcessErdUpdateManyAndReturnArgs} args - Arguments to update many ProcessErds.
+     * @example
+     * // Update many ProcessErds
+     * const processErd = await prisma.processErd.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProcessErds and only return the `processId`
+     * const processErdWithProcessIdOnly = await prisma.processErd.updateManyAndReturn({
+     *   select: { processId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProcessErdUpdateManyAndReturnArgs>(args: SelectSubset<T, ProcessErdUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProcessErd.
+     * @param {ProcessErdUpsertArgs} args - Arguments to update or create a ProcessErd.
+     * @example
+     * // Update or create a ProcessErd
+     * const processErd = await prisma.processErd.upsert({
+     *   create: {
+     *     // ... data to create a ProcessErd
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProcessErd we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProcessErdUpsertArgs>(args: SelectSubset<T, ProcessErdUpsertArgs<ExtArgs>>): Prisma__ProcessErdClient<$Result.GetResult<Prisma.$ProcessErdPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProcessErds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdCountArgs} args - Arguments to filter ProcessErds to count.
+     * @example
+     * // Count the number of ProcessErds
+     * const count = await prisma.processErd.count({
+     *   where: {
+     *     // ... the filter for the ProcessErds we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProcessErdCountArgs>(
+      args?: Subset<T, ProcessErdCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProcessErdCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProcessErd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProcessErdAggregateArgs>(args: Subset<T, ProcessErdAggregateArgs>): Prisma.PrismaPromise<GetProcessErdAggregateType<T>>
+
+    /**
+     * Group by ProcessErd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProcessErdGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProcessErdGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProcessErdGroupByArgs['orderBy'] }
+        : { orderBy?: ProcessErdGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProcessErdGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProcessErdGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProcessErd model
+   */
+  readonly fields: ProcessErdFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProcessErd.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProcessErdClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    process<T extends ProcessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProcessDefaultArgs<ExtArgs>>): Prisma__ProcessClient<$Result.GetResult<Prisma.$ProcessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grantedІnputFile<T extends ProcessErd$grantedІnputFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessErd$grantedІnputFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    acceptedІnputFile<T extends ProcessErd$acceptedІnputFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessErd$acceptedІnputFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    resultFile<T extends ProcessErd$resultFileArgs<ExtArgs> = {}>(args?: Subset<T, ProcessErd$resultFileArgs<ExtArgs>>): Prisma__StorageFileClient<$Result.GetResult<Prisma.$StorageFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProcessErd model
+   */
+  interface ProcessErdFieldRefs {
+    readonly processId: FieldRef<"ProcessErd", 'String'>
+    readonly grantedІnputFileId: FieldRef<"ProcessErd", 'String'>
+    readonly acceptedІnputFileId: FieldRef<"ProcessErd", 'String'>
+    readonly resultFileId: FieldRef<"ProcessErd", 'String'>
+    readonly isAi: FieldRef<"ProcessErd", 'Boolean'>
+    readonly stage: FieldRef<"ProcessErd", 'ErdStage'>
+    readonly errorMessage: FieldRef<"ProcessErd", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProcessErd findUnique
+   */
+  export type ProcessErdFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessErd to fetch.
+     */
+    where: ProcessErdWhereUniqueInput
+  }
+
+  /**
+   * ProcessErd findUniqueOrThrow
+   */
+  export type ProcessErdFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessErd to fetch.
+     */
+    where: ProcessErdWhereUniqueInput
+  }
+
+  /**
+   * ProcessErd findFirst
+   */
+  export type ProcessErdFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessErd to fetch.
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessErds to fetch.
+     */
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProcessErds.
+     */
+    cursor?: ProcessErdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessErds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessErds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProcessErds.
+     */
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessErd findFirstOrThrow
+   */
+  export type ProcessErdFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessErd to fetch.
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessErds to fetch.
+     */
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProcessErds.
+     */
+    cursor?: ProcessErdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessErds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessErds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProcessErds.
+     */
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessErd findMany
+   */
+  export type ProcessErdFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter, which ProcessErds to fetch.
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProcessErds to fetch.
+     */
+    orderBy?: ProcessErdOrderByWithRelationInput | ProcessErdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProcessErds.
+     */
+    cursor?: ProcessErdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProcessErds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProcessErds.
+     */
+    skip?: number
+    distinct?: ProcessErdScalarFieldEnum | ProcessErdScalarFieldEnum[]
+  }
+
+  /**
+   * ProcessErd create
+   */
+  export type ProcessErdCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProcessErd.
+     */
+    data: XOR<ProcessErdCreateInput, ProcessErdUncheckedCreateInput>
+  }
+
+  /**
+   * ProcessErd createMany
+   */
+  export type ProcessErdCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProcessErds.
+     */
+    data: ProcessErdCreateManyInput | ProcessErdCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProcessErd createManyAndReturn
+   */
+  export type ProcessErdCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProcessErds.
+     */
+    data: ProcessErdCreateManyInput | ProcessErdCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProcessErd update
+   */
+  export type ProcessErdUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProcessErd.
+     */
+    data: XOR<ProcessErdUpdateInput, ProcessErdUncheckedUpdateInput>
+    /**
+     * Choose, which ProcessErd to update.
+     */
+    where: ProcessErdWhereUniqueInput
+  }
+
+  /**
+   * ProcessErd updateMany
+   */
+  export type ProcessErdUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProcessErds.
+     */
+    data: XOR<ProcessErdUpdateManyMutationInput, ProcessErdUncheckedUpdateManyInput>
+    /**
+     * Filter which ProcessErds to update
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * Limit how many ProcessErds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProcessErd updateManyAndReturn
+   */
+  export type ProcessErdUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * The data used to update ProcessErds.
+     */
+    data: XOR<ProcessErdUpdateManyMutationInput, ProcessErdUncheckedUpdateManyInput>
+    /**
+     * Filter which ProcessErds to update
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * Limit how many ProcessErds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProcessErd upsert
+   */
+  export type ProcessErdUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProcessErd to update in case it exists.
+     */
+    where: ProcessErdWhereUniqueInput
+    /**
+     * In case the ProcessErd found by the `where` argument doesn't exist, create a new ProcessErd with this data.
+     */
+    create: XOR<ProcessErdCreateInput, ProcessErdUncheckedCreateInput>
+    /**
+     * In case the ProcessErd was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProcessErdUpdateInput, ProcessErdUncheckedUpdateInput>
+  }
+
+  /**
+   * ProcessErd delete
+   */
+  export type ProcessErdDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+    /**
+     * Filter which ProcessErd to delete.
+     */
+    where: ProcessErdWhereUniqueInput
+  }
+
+  /**
+   * ProcessErd deleteMany
+   */
+  export type ProcessErdDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProcessErds to delete
+     */
+    where?: ProcessErdWhereInput
+    /**
+     * Limit how many ProcessErds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProcessErd.grantedІnputFile
+   */
+  export type ProcessErd$grantedІnputFileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    where?: StorageFileWhereInput
+  }
+
+  /**
+   * ProcessErd.acceptedІnputFile
+   */
+  export type ProcessErd$acceptedІnputFileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    where?: StorageFileWhereInput
+  }
+
+  /**
+   * ProcessErd.resultFile
+   */
+  export type ProcessErd$resultFileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StorageFile
+     */
+    select?: StorageFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StorageFile
+     */
+    omit?: StorageFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StorageFileInclude<ExtArgs> | null
+    where?: StorageFileWhereInput
+  }
+
+  /**
+   * ProcessErd without action
+   */
+  export type ProcessErdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProcessErd
+     */
+    select?: ProcessErdSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProcessErd
+     */
+    omit?: ProcessErdOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcessErdInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8674,6 +10078,19 @@ export namespace Prisma {
   };
 
   export type ProcessPfuScalarFieldEnum = (typeof ProcessPfuScalarFieldEnum)[keyof typeof ProcessPfuScalarFieldEnum]
+
+
+  export const ProcessErdScalarFieldEnum: {
+    processId: 'processId',
+    grantedІnputFileId: 'grantedІnputFileId',
+    acceptedІnputFileId: 'acceptedІnputFileId',
+    resultFileId: 'resultFileId',
+    isAi: 'isAi',
+    stage: 'stage',
+    errorMessage: 'errorMessage'
+  };
+
+  export type ProcessErdScalarFieldEnum = (typeof ProcessErdScalarFieldEnum)[keyof typeof ProcessErdScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8839,6 +10256,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ErdStage'
+   */
+  export type EnumErdStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ErdStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'ErdStage[]'
+   */
+  export type ListEnumErdStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ErdStage[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8959,6 +10390,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuListRelationFilter
     inputFilePfu?: ProcessPfuListRelationFilter
     resultFilePfu?: ProcessPfuListRelationFilter
+    grantedІnputFileErd?: ProcessErdListRelationFilter
+    acceptedІnputFileErd?: ProcessErdListRelationFilter
+    resultFileErd?: ProcessErdListRelationFilter
   }
 
   export type StorageFileOrderByWithRelationInput = {
@@ -8977,6 +10411,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuOrderByRelationAggregateInput
     inputFilePfu?: ProcessPfuOrderByRelationAggregateInput
     resultFilePfu?: ProcessPfuOrderByRelationAggregateInput
+    grantedІnputFileErd?: ProcessErdOrderByRelationAggregateInput
+    acceptedІnputFileErd?: ProcessErdOrderByRelationAggregateInput
+    resultFileErd?: ProcessErdOrderByRelationAggregateInput
   }
 
   export type StorageFileWhereUniqueInput = Prisma.AtLeast<{
@@ -8998,6 +10435,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuListRelationFilter
     inputFilePfu?: ProcessPfuListRelationFilter
     resultFilePfu?: ProcessPfuListRelationFilter
+    grantedІnputFileErd?: ProcessErdListRelationFilter
+    acceptedІnputFileErd?: ProcessErdListRelationFilter
+    resultFileErd?: ProcessErdListRelationFilter
   }, "id">
 
   export type StorageFileOrderByWithAggregationInput = {
@@ -9043,6 +10483,7 @@ export namespace Prisma {
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
     dmsu?: XOR<ProcessDmsuNullableScalarRelationFilter, ProcessDmsuWhereInput> | null
     pfu?: XOR<ProcessPfuNullableScalarRelationFilter, ProcessPfuWhereInput> | null
+    erd?: XOR<ProcessErdNullableScalarRelationFilter, ProcessErdWhereInput> | null
   }
 
   export type ProcessOrderByWithRelationInput = {
@@ -9057,6 +10498,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsOrderByWithRelationInput
     dmsu?: ProcessDmsuOrderByWithRelationInput
     pfu?: ProcessPfuOrderByWithRelationInput
+    erd?: ProcessErdOrderByWithRelationInput
   }
 
   export type ProcessWhereUniqueInput = Prisma.AtLeast<{
@@ -9074,6 +10516,7 @@ export namespace Prisma {
     hstsMvs?: XOR<ProcessHstsMvsNullableScalarRelationFilter, ProcessHstsMvsWhereInput> | null
     dmsu?: XOR<ProcessDmsuNullableScalarRelationFilter, ProcessDmsuWhereInput> | null
     pfu?: XOR<ProcessPfuNullableScalarRelationFilter, ProcessPfuWhereInput> | null
+    erd?: XOR<ProcessErdNullableScalarRelationFilter, ProcessErdWhereInput> | null
   }, "id">
 
   export type ProcessOrderByWithAggregationInput = {
@@ -9316,6 +10759,80 @@ export namespace Prisma {
     errorMessage?: StringNullableWithAggregatesFilter<"ProcessPfu"> | string | null
   }
 
+  export type ProcessErdWhereInput = {
+    AND?: ProcessErdWhereInput | ProcessErdWhereInput[]
+    OR?: ProcessErdWhereInput[]
+    NOT?: ProcessErdWhereInput | ProcessErdWhereInput[]
+    processId?: StringFilter<"ProcessErd"> | string
+    grantedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    acceptedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    resultFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    isAi?: BoolFilter<"ProcessErd"> | boolean
+    stage?: EnumErdStageFilter<"ProcessErd"> | $Enums.ErdStage
+    errorMessage?: StringNullableFilter<"ProcessErd"> | string | null
+    process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
+    grantedІnputFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+    acceptedІnputFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+    resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+  }
+
+  export type ProcessErdOrderByWithRelationInput = {
+    processId?: SortOrder
+    grantedІnputFileId?: SortOrderInput | SortOrder
+    acceptedІnputFileId?: SortOrderInput | SortOrder
+    resultFileId?: SortOrderInput | SortOrder
+    isAi?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    process?: ProcessOrderByWithRelationInput
+    grantedІnputFile?: StorageFileOrderByWithRelationInput
+    acceptedІnputFile?: StorageFileOrderByWithRelationInput
+    resultFile?: StorageFileOrderByWithRelationInput
+  }
+
+  export type ProcessErdWhereUniqueInput = Prisma.AtLeast<{
+    processId?: string
+    AND?: ProcessErdWhereInput | ProcessErdWhereInput[]
+    OR?: ProcessErdWhereInput[]
+    NOT?: ProcessErdWhereInput | ProcessErdWhereInput[]
+    grantedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    acceptedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    resultFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    isAi?: BoolFilter<"ProcessErd"> | boolean
+    stage?: EnumErdStageFilter<"ProcessErd"> | $Enums.ErdStage
+    errorMessage?: StringNullableFilter<"ProcessErd"> | string | null
+    process?: XOR<ProcessScalarRelationFilter, ProcessWhereInput>
+    grantedІnputFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+    acceptedІnputFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+    resultFile?: XOR<StorageFileNullableScalarRelationFilter, StorageFileWhereInput> | null
+  }, "processId">
+
+  export type ProcessErdOrderByWithAggregationInput = {
+    processId?: SortOrder
+    grantedІnputFileId?: SortOrderInput | SortOrder
+    acceptedІnputFileId?: SortOrderInput | SortOrder
+    resultFileId?: SortOrderInput | SortOrder
+    isAi?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    _count?: ProcessErdCountOrderByAggregateInput
+    _max?: ProcessErdMaxOrderByAggregateInput
+    _min?: ProcessErdMinOrderByAggregateInput
+  }
+
+  export type ProcessErdScalarWhereWithAggregatesInput = {
+    AND?: ProcessErdScalarWhereWithAggregatesInput | ProcessErdScalarWhereWithAggregatesInput[]
+    OR?: ProcessErdScalarWhereWithAggregatesInput[]
+    NOT?: ProcessErdScalarWhereWithAggregatesInput | ProcessErdScalarWhereWithAggregatesInput[]
+    processId?: StringWithAggregatesFilter<"ProcessErd"> | string
+    grantedІnputFileId?: StringNullableWithAggregatesFilter<"ProcessErd"> | string | null
+    acceptedІnputFileId?: StringNullableWithAggregatesFilter<"ProcessErd"> | string | null
+    resultFileId?: StringNullableWithAggregatesFilter<"ProcessErd"> | string | null
+    isAi?: BoolWithAggregatesFilter<"ProcessErd"> | boolean
+    stage?: EnumErdStageWithAggregatesFilter<"ProcessErd"> | $Enums.ErdStage
+    errorMessage?: StringNullableWithAggregatesFilter<"ProcessErd"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -9434,6 +10951,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateInput = {
@@ -9452,6 +10972,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUpdateInput = {
@@ -9470,6 +10993,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateInput = {
@@ -9488,6 +11014,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileCreateManyInput = {
@@ -9531,6 +11060,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUncheckedCreateInput = {
@@ -9544,6 +11074,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuUncheckedCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuUncheckedCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdUncheckedCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUpdateInput = {
@@ -9557,6 +11088,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateInput = {
@@ -9570,6 +11102,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUncheckedUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUncheckedUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUncheckedUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessCreateManyInput = {
@@ -9793,6 +11326,72 @@ export namespace Prisma {
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProcessErdCreateInput = {
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutErdInput
+    grantedІnputFile?: StorageFileCreateNestedOneWithoutGrantedІnputFileErdInput
+    acceptedІnputFile?: StorageFileCreateNestedOneWithoutAcceptedІnputFileErdInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultFileErdInput
+  }
+
+  export type ProcessErdUncheckedCreateInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    acceptedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdUpdateInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutErdNestedInput
+    grantedІnputFile?: StorageFileUpdateOneWithoutGrantedІnputFileErdNestedInput
+    acceptedІnputFile?: StorageFileUpdateOneWithoutAcceptedІnputFileErdNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultFileErdNestedInput
+  }
+
+  export type ProcessErdUncheckedUpdateInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdCreateManyInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    acceptedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdUpdateManyMutationInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUncheckedUpdateManyInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9989,6 +11588,12 @@ export namespace Prisma {
     none?: ProcessPfuWhereInput
   }
 
+  export type ProcessErdListRelationFilter = {
+    every?: ProcessErdWhereInput
+    some?: ProcessErdWhereInput
+    none?: ProcessErdWhereInput
+  }
+
   export type ProcessHstsMvsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9998,6 +11603,10 @@ export namespace Prisma {
   }
 
   export type ProcessPfuOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProcessErdOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10098,6 +11707,11 @@ export namespace Prisma {
   export type ProcessPfuNullableScalarRelationFilter = {
     is?: ProcessPfuWhereInput | null
     isNot?: ProcessPfuWhereInput | null
+  }
+
+  export type ProcessErdNullableScalarRelationFilter = {
+    is?: ProcessErdWhereInput | null
+    isNot?: ProcessErdWhereInput | null
   }
 
   export type ProcessCountOrderByAggregateInput = {
@@ -10317,6 +11931,53 @@ export namespace Prisma {
     _max?: NestedEnumPfuStageFilter<$PrismaModel>
   }
 
+  export type EnumErdStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.ErdStage | EnumErdStageFieldRefInput<$PrismaModel>
+    in?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumErdStageFilter<$PrismaModel> | $Enums.ErdStage
+  }
+
+  export type ProcessErdCountOrderByAggregateInput = {
+    processId?: SortOrder
+    grantedІnputFileId?: SortOrder
+    acceptedІnputFileId?: SortOrder
+    resultFileId?: SortOrder
+    isAi?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type ProcessErdMaxOrderByAggregateInput = {
+    processId?: SortOrder
+    grantedІnputFileId?: SortOrder
+    acceptedІnputFileId?: SortOrder
+    resultFileId?: SortOrder
+    isAi?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type ProcessErdMinOrderByAggregateInput = {
+    processId?: SortOrder
+    grantedІnputFileId?: SortOrder
+    acceptedІnputFileId?: SortOrder
+    resultFileId?: SortOrder
+    isAi?: SortOrder
+    stage?: SortOrder
+    errorMessage?: SortOrder
+  }
+
+  export type EnumErdStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ErdStage | EnumErdStageFieldRefInput<$PrismaModel>
+    in?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumErdStageWithAggregatesFilter<$PrismaModel> | $Enums.ErdStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumErdStageFilter<$PrismaModel>
+    _max?: NestedEnumErdStageFilter<$PrismaModel>
+  }
+
   export type UserCreatepermissionsInput = {
     set: $Enums.Permission[]
   }
@@ -10440,6 +12101,27 @@ export namespace Prisma {
     connect?: ProcessPfuWhereUniqueInput | ProcessPfuWhereUniqueInput[]
   }
 
+  export type ProcessErdCreateNestedManyWithoutGrantedІnputFileInput = {
+    create?: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput> | ProcessErdCreateWithoutGrantedІnputFileInput[] | ProcessErdUncheckedCreateWithoutGrantedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutGrantedІnputFileInput | ProcessErdCreateOrConnectWithoutGrantedІnputFileInput[]
+    createMany?: ProcessErdCreateManyGrantedІnputFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+  }
+
+  export type ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput = {
+    create?: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput> | ProcessErdCreateWithoutAcceptedІnputFileInput[] | ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput | ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput[]
+    createMany?: ProcessErdCreateManyAcceptedІnputFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+  }
+
+  export type ProcessErdCreateNestedManyWithoutResultFileInput = {
+    create?: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput> | ProcessErdCreateWithoutResultFileInput[] | ProcessErdUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutResultFileInput | ProcessErdCreateOrConnectWithoutResultFileInput[]
+    createMany?: ProcessErdCreateManyResultFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+  }
+
   export type ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput = {
     create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
     connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
@@ -10494,6 +12176,27 @@ export namespace Prisma {
     connectOrCreate?: ProcessPfuCreateOrConnectWithoutResultFileInput | ProcessPfuCreateOrConnectWithoutResultFileInput[]
     createMany?: ProcessPfuCreateManyResultFileInputEnvelope
     connect?: ProcessPfuWhereUniqueInput | ProcessPfuWhereUniqueInput[]
+  }
+
+  export type ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput = {
+    create?: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput> | ProcessErdCreateWithoutGrantedІnputFileInput[] | ProcessErdUncheckedCreateWithoutGrantedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutGrantedІnputFileInput | ProcessErdCreateOrConnectWithoutGrantedІnputFileInput[]
+    createMany?: ProcessErdCreateManyGrantedІnputFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+  }
+
+  export type ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput = {
+    create?: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput> | ProcessErdCreateWithoutAcceptedІnputFileInput[] | ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput | ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput[]
+    createMany?: ProcessErdCreateManyAcceptedІnputFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+  }
+
+  export type ProcessErdUncheckedCreateNestedManyWithoutResultFileInput = {
+    create?: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput> | ProcessErdCreateWithoutResultFileInput[] | ProcessErdUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutResultFileInput | ProcessErdCreateOrConnectWithoutResultFileInput[]
+    createMany?: ProcessErdCreateManyResultFileInputEnvelope
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10616,6 +12319,48 @@ export namespace Prisma {
     deleteMany?: ProcessPfuScalarWhereInput | ProcessPfuScalarWhereInput[]
   }
 
+  export type ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput> | ProcessErdCreateWithoutGrantedІnputFileInput[] | ProcessErdUncheckedCreateWithoutGrantedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutGrantedІnputFileInput | ProcessErdCreateOrConnectWithoutGrantedІnputFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutGrantedІnputFileInput | ProcessErdUpsertWithWhereUniqueWithoutGrantedІnputFileInput[]
+    createMany?: ProcessErdCreateManyGrantedІnputFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutGrantedІnputFileInput | ProcessErdUpdateWithWhereUniqueWithoutGrantedІnputFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutGrantedІnputFileInput | ProcessErdUpdateManyWithWhereWithoutGrantedІnputFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
+  export type ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput> | ProcessErdCreateWithoutAcceptedІnputFileInput[] | ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput | ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutAcceptedІnputFileInput | ProcessErdUpsertWithWhereUniqueWithoutAcceptedІnputFileInput[]
+    createMany?: ProcessErdCreateManyAcceptedІnputFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutAcceptedІnputFileInput | ProcessErdUpdateWithWhereUniqueWithoutAcceptedІnputFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutAcceptedІnputFileInput | ProcessErdUpdateManyWithWhereWithoutAcceptedІnputFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
+  export type ProcessErdUpdateManyWithoutResultFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput> | ProcessErdCreateWithoutResultFileInput[] | ProcessErdUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutResultFileInput | ProcessErdCreateOrConnectWithoutResultFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutResultFileInput | ProcessErdUpsertWithWhereUniqueWithoutResultFileInput[]
+    createMany?: ProcessErdCreateManyResultFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutResultFileInput | ProcessErdUpdateWithWhereUniqueWithoutResultFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutResultFileInput | ProcessErdUpdateManyWithWhereWithoutResultFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
   export type ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput = {
     create?: XOR<ProcessHstsMvsCreateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput> | ProcessHstsMvsCreateWithoutDriverLicenseFileInput[] | ProcessHstsMvsUncheckedCreateWithoutDriverLicenseFileInput[]
     connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput | ProcessHstsMvsCreateOrConnectWithoutDriverLicenseFileInput[]
@@ -10728,6 +12473,48 @@ export namespace Prisma {
     deleteMany?: ProcessPfuScalarWhereInput | ProcessPfuScalarWhereInput[]
   }
 
+  export type ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput> | ProcessErdCreateWithoutGrantedІnputFileInput[] | ProcessErdUncheckedCreateWithoutGrantedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutGrantedІnputFileInput | ProcessErdCreateOrConnectWithoutGrantedІnputFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutGrantedІnputFileInput | ProcessErdUpsertWithWhereUniqueWithoutGrantedІnputFileInput[]
+    createMany?: ProcessErdCreateManyGrantedІnputFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutGrantedІnputFileInput | ProcessErdUpdateWithWhereUniqueWithoutGrantedІnputFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutGrantedІnputFileInput | ProcessErdUpdateManyWithWhereWithoutGrantedІnputFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
+  export type ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput> | ProcessErdCreateWithoutAcceptedІnputFileInput[] | ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput | ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutAcceptedІnputFileInput | ProcessErdUpsertWithWhereUniqueWithoutAcceptedІnputFileInput[]
+    createMany?: ProcessErdCreateManyAcceptedІnputFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutAcceptedІnputFileInput | ProcessErdUpdateWithWhereUniqueWithoutAcceptedІnputFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutAcceptedІnputFileInput | ProcessErdUpdateManyWithWhereWithoutAcceptedІnputFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
+  export type ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput> | ProcessErdCreateWithoutResultFileInput[] | ProcessErdUncheckedCreateWithoutResultFileInput[]
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutResultFileInput | ProcessErdCreateOrConnectWithoutResultFileInput[]
+    upsert?: ProcessErdUpsertWithWhereUniqueWithoutResultFileInput | ProcessErdUpsertWithWhereUniqueWithoutResultFileInput[]
+    createMany?: ProcessErdCreateManyResultFileInputEnvelope
+    set?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    disconnect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    delete?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    connect?: ProcessErdWhereUniqueInput | ProcessErdWhereUniqueInput[]
+    update?: ProcessErdUpdateWithWhereUniqueWithoutResultFileInput | ProcessErdUpdateWithWhereUniqueWithoutResultFileInput[]
+    updateMany?: ProcessErdUpdateManyWithWhereWithoutResultFileInput | ProcessErdUpdateManyWithWhereWithoutResultFileInput[]
+    deleteMany?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutProcessesInput = {
     create?: XOR<UserCreateWithoutProcessesInput, UserUncheckedCreateWithoutProcessesInput>
     connectOrCreate?: UserCreateOrConnectWithoutProcessesInput
@@ -10752,6 +12539,12 @@ export namespace Prisma {
     connect?: ProcessPfuWhereUniqueInput
   }
 
+  export type ProcessErdCreateNestedOneWithoutProcessInput = {
+    create?: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutProcessInput
+    connect?: ProcessErdWhereUniqueInput
+  }
+
   export type ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput = {
     create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
     connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
@@ -10768,6 +12561,12 @@ export namespace Prisma {
     create?: XOR<ProcessPfuCreateWithoutProcessInput, ProcessPfuUncheckedCreateWithoutProcessInput>
     connectOrCreate?: ProcessPfuCreateOrConnectWithoutProcessInput
     connect?: ProcessPfuWhereUniqueInput
+  }
+
+  export type ProcessErdUncheckedCreateNestedOneWithoutProcessInput = {
+    create?: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutProcessInput
+    connect?: ProcessErdWhereUniqueInput
   }
 
   export type EnumStatusFieldUpdateOperationsInput = {
@@ -10820,6 +12619,16 @@ export namespace Prisma {
     update?: XOR<XOR<ProcessPfuUpdateToOneWithWhereWithoutProcessInput, ProcessPfuUpdateWithoutProcessInput>, ProcessPfuUncheckedUpdateWithoutProcessInput>
   }
 
+  export type ProcessErdUpdateOneWithoutProcessNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutProcessInput
+    upsert?: ProcessErdUpsertWithoutProcessInput
+    disconnect?: ProcessErdWhereInput | boolean
+    delete?: ProcessErdWhereInput | boolean
+    connect?: ProcessErdWhereUniqueInput
+    update?: XOR<XOR<ProcessErdUpdateToOneWithWhereWithoutProcessInput, ProcessErdUpdateWithoutProcessInput>, ProcessErdUncheckedUpdateWithoutProcessInput>
+  }
+
   export type ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput = {
     create?: XOR<ProcessHstsMvsCreateWithoutProcessInput, ProcessHstsMvsUncheckedCreateWithoutProcessInput>
     connectOrCreate?: ProcessHstsMvsCreateOrConnectWithoutProcessInput
@@ -10848,6 +12657,16 @@ export namespace Prisma {
     delete?: ProcessPfuWhereInput | boolean
     connect?: ProcessPfuWhereUniqueInput
     update?: XOR<XOR<ProcessPfuUpdateToOneWithWhereWithoutProcessInput, ProcessPfuUpdateWithoutProcessInput>, ProcessPfuUncheckedUpdateWithoutProcessInput>
+  }
+
+  export type ProcessErdUncheckedUpdateOneWithoutProcessNestedInput = {
+    create?: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
+    connectOrCreate?: ProcessErdCreateOrConnectWithoutProcessInput
+    upsert?: ProcessErdUpsertWithoutProcessInput
+    disconnect?: ProcessErdWhereInput | boolean
+    delete?: ProcessErdWhereInput | boolean
+    connect?: ProcessErdWhereUniqueInput
+    update?: XOR<XOR<ProcessErdUpdateToOneWithWhereWithoutProcessInput, ProcessErdUpdateWithoutProcessInput>, ProcessErdUncheckedUpdateWithoutProcessInput>
   }
 
   export type ProcessCreateNestedOneWithoutHstsMvsInput = {
@@ -11024,6 +12843,72 @@ export namespace Prisma {
     delete?: StorageFileWhereInput | boolean
     connect?: StorageFileWhereUniqueInput
     update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutResultFilePfuInput, StorageFileUpdateWithoutResultFilePfuInput>, StorageFileUncheckedUpdateWithoutResultFilePfuInput>
+  }
+
+  export type ProcessCreateNestedOneWithoutErdInput = {
+    create?: XOR<ProcessCreateWithoutErdInput, ProcessUncheckedCreateWithoutErdInput>
+    connectOrCreate?: ProcessCreateOrConnectWithoutErdInput
+    connect?: ProcessWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutGrantedІnputFileErdInput = {
+    create?: XOR<StorageFileCreateWithoutGrantedІnputFileErdInput, StorageFileUncheckedCreateWithoutGrantedІnputFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutGrantedІnputFileErdInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutAcceptedІnputFileErdInput = {
+    create?: XOR<StorageFileCreateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedCreateWithoutAcceptedІnputFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutAcceptedІnputFileErdInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type StorageFileCreateNestedOneWithoutResultFileErdInput = {
+    create?: XOR<StorageFileCreateWithoutResultFileErdInput, StorageFileUncheckedCreateWithoutResultFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutResultFileErdInput
+    connect?: StorageFileWhereUniqueInput
+  }
+
+  export type EnumErdStageFieldUpdateOperationsInput = {
+    set?: $Enums.ErdStage
+  }
+
+  export type ProcessUpdateOneRequiredWithoutErdNestedInput = {
+    create?: XOR<ProcessCreateWithoutErdInput, ProcessUncheckedCreateWithoutErdInput>
+    connectOrCreate?: ProcessCreateOrConnectWithoutErdInput
+    upsert?: ProcessUpsertWithoutErdInput
+    connect?: ProcessWhereUniqueInput
+    update?: XOR<XOR<ProcessUpdateToOneWithWhereWithoutErdInput, ProcessUpdateWithoutErdInput>, ProcessUncheckedUpdateWithoutErdInput>
+  }
+
+  export type StorageFileUpdateOneWithoutGrantedІnputFileErdNestedInput = {
+    create?: XOR<StorageFileCreateWithoutGrantedІnputFileErdInput, StorageFileUncheckedCreateWithoutGrantedІnputFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutGrantedІnputFileErdInput
+    upsert?: StorageFileUpsertWithoutGrantedІnputFileErdInput
+    disconnect?: StorageFileWhereInput | boolean
+    delete?: StorageFileWhereInput | boolean
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutGrantedІnputFileErdInput, StorageFileUpdateWithoutGrantedІnputFileErdInput>, StorageFileUncheckedUpdateWithoutGrantedІnputFileErdInput>
+  }
+
+  export type StorageFileUpdateOneWithoutAcceptedІnputFileErdNestedInput = {
+    create?: XOR<StorageFileCreateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedCreateWithoutAcceptedІnputFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutAcceptedІnputFileErdInput
+    upsert?: StorageFileUpsertWithoutAcceptedІnputFileErdInput
+    disconnect?: StorageFileWhereInput | boolean
+    delete?: StorageFileWhereInput | boolean
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutAcceptedІnputFileErdInput, StorageFileUpdateWithoutAcceptedІnputFileErdInput>, StorageFileUncheckedUpdateWithoutAcceptedІnputFileErdInput>
+  }
+
+  export type StorageFileUpdateOneWithoutResultFileErdNestedInput = {
+    create?: XOR<StorageFileCreateWithoutResultFileErdInput, StorageFileUncheckedCreateWithoutResultFileErdInput>
+    connectOrCreate?: StorageFileCreateOrConnectWithoutResultFileErdInput
+    upsert?: StorageFileUpsertWithoutResultFileErdInput
+    disconnect?: StorageFileWhereInput | boolean
+    delete?: StorageFileWhereInput | boolean
+    connect?: StorageFileWhereUniqueInput
+    update?: XOR<XOR<StorageFileUpdateToOneWithWhereWithoutResultFileErdInput, StorageFileUpdateWithoutResultFileErdInput>, StorageFileUncheckedUpdateWithoutResultFileErdInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11285,6 +13170,23 @@ export namespace Prisma {
     _max?: NestedEnumPfuStageFilter<$PrismaModel>
   }
 
+  export type NestedEnumErdStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.ErdStage | EnumErdStageFieldRefInput<$PrismaModel>
+    in?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumErdStageFilter<$PrismaModel> | $Enums.ErdStage
+  }
+
+  export type NestedEnumErdStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ErdStage | EnumErdStageFieldRefInput<$PrismaModel>
+    in?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ErdStage[] | ListEnumErdStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumErdStageWithAggregatesFilter<$PrismaModel> | $Enums.ErdStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumErdStageFilter<$PrismaModel>
+    _max?: NestedEnumErdStageFilter<$PrismaModel>
+  }
+
   export type ProcessCreateWithoutUserInput = {
     id?: string
     status?: $Enums.Status
@@ -11295,6 +13197,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUncheckedCreateWithoutUserInput = {
@@ -11307,6 +13210,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuUncheckedCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuUncheckedCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdUncheckedCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessCreateOrConnectWithoutUserInput = {
@@ -11568,6 +13472,90 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProcessErdCreateWithoutGrantedІnputFileInput = {
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutErdInput
+    acceptedІnputFile?: StorageFileCreateNestedOneWithoutAcceptedІnputFileErdInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultFileErdInput
+  }
+
+  export type ProcessErdUncheckedCreateWithoutGrantedІnputFileInput = {
+    processId: string
+    acceptedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateOrConnectWithoutGrantedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    create: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput>
+  }
+
+  export type ProcessErdCreateManyGrantedІnputFileInputEnvelope = {
+    data: ProcessErdCreateManyGrantedІnputFileInput | ProcessErdCreateManyGrantedІnputFileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessErdCreateWithoutAcceptedІnputFileInput = {
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutErdInput
+    grantedІnputFile?: StorageFileCreateNestedOneWithoutGrantedІnputFileErdInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultFileErdInput
+  }
+
+  export type ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateOrConnectWithoutAcceptedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    create: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput>
+  }
+
+  export type ProcessErdCreateManyAcceptedІnputFileInputEnvelope = {
+    data: ProcessErdCreateManyAcceptedІnputFileInput | ProcessErdCreateManyAcceptedІnputFileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProcessErdCreateWithoutResultFileInput = {
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+    process: ProcessCreateNestedOneWithoutErdInput
+    grantedІnputFile?: StorageFileCreateNestedOneWithoutGrantedІnputFileErdInput
+    acceptedІnputFile?: StorageFileCreateNestedOneWithoutAcceptedІnputFileErdInput
+  }
+
+  export type ProcessErdUncheckedCreateWithoutResultFileInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    acceptedІnputFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateOrConnectWithoutResultFileInput = {
+    where: ProcessErdWhereUniqueInput
+    create: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput>
+  }
+
+  export type ProcessErdCreateManyResultFileInputEnvelope = {
+    data: ProcessErdCreateManyResultFileInput | ProcessErdCreateManyResultFileInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProcessHstsMvsUpsertWithWhereUniqueWithoutDriverLicenseFileInput = {
     where: ProcessHstsMvsWhereUniqueInput
     update: XOR<ProcessHstsMvsUpdateWithoutDriverLicenseFileInput, ProcessHstsMvsUncheckedUpdateWithoutDriverLicenseFileInput>
@@ -11734,6 +13722,67 @@ export namespace Prisma {
     data: XOR<ProcessPfuUpdateManyMutationInput, ProcessPfuUncheckedUpdateManyWithoutResultFileInput>
   }
 
+  export type ProcessErdUpsertWithWhereUniqueWithoutGrantedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    update: XOR<ProcessErdUpdateWithoutGrantedІnputFileInput, ProcessErdUncheckedUpdateWithoutGrantedІnputFileInput>
+    create: XOR<ProcessErdCreateWithoutGrantedІnputFileInput, ProcessErdUncheckedCreateWithoutGrantedІnputFileInput>
+  }
+
+  export type ProcessErdUpdateWithWhereUniqueWithoutGrantedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    data: XOR<ProcessErdUpdateWithoutGrantedІnputFileInput, ProcessErdUncheckedUpdateWithoutGrantedІnputFileInput>
+  }
+
+  export type ProcessErdUpdateManyWithWhereWithoutGrantedІnputFileInput = {
+    where: ProcessErdScalarWhereInput
+    data: XOR<ProcessErdUpdateManyMutationInput, ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileInput>
+  }
+
+  export type ProcessErdScalarWhereInput = {
+    AND?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+    OR?: ProcessErdScalarWhereInput[]
+    NOT?: ProcessErdScalarWhereInput | ProcessErdScalarWhereInput[]
+    processId?: StringFilter<"ProcessErd"> | string
+    grantedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    acceptedІnputFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    resultFileId?: StringNullableFilter<"ProcessErd"> | string | null
+    isAi?: BoolFilter<"ProcessErd"> | boolean
+    stage?: EnumErdStageFilter<"ProcessErd"> | $Enums.ErdStage
+    errorMessage?: StringNullableFilter<"ProcessErd"> | string | null
+  }
+
+  export type ProcessErdUpsertWithWhereUniqueWithoutAcceptedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    update: XOR<ProcessErdUpdateWithoutAcceptedІnputFileInput, ProcessErdUncheckedUpdateWithoutAcceptedІnputFileInput>
+    create: XOR<ProcessErdCreateWithoutAcceptedІnputFileInput, ProcessErdUncheckedCreateWithoutAcceptedІnputFileInput>
+  }
+
+  export type ProcessErdUpdateWithWhereUniqueWithoutAcceptedІnputFileInput = {
+    where: ProcessErdWhereUniqueInput
+    data: XOR<ProcessErdUpdateWithoutAcceptedІnputFileInput, ProcessErdUncheckedUpdateWithoutAcceptedІnputFileInput>
+  }
+
+  export type ProcessErdUpdateManyWithWhereWithoutAcceptedІnputFileInput = {
+    where: ProcessErdScalarWhereInput
+    data: XOR<ProcessErdUpdateManyMutationInput, ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileInput>
+  }
+
+  export type ProcessErdUpsertWithWhereUniqueWithoutResultFileInput = {
+    where: ProcessErdWhereUniqueInput
+    update: XOR<ProcessErdUpdateWithoutResultFileInput, ProcessErdUncheckedUpdateWithoutResultFileInput>
+    create: XOR<ProcessErdCreateWithoutResultFileInput, ProcessErdUncheckedCreateWithoutResultFileInput>
+  }
+
+  export type ProcessErdUpdateWithWhereUniqueWithoutResultFileInput = {
+    where: ProcessErdWhereUniqueInput
+    data: XOR<ProcessErdUpdateWithoutResultFileInput, ProcessErdUncheckedUpdateWithoutResultFileInput>
+  }
+
+  export type ProcessErdUpdateManyWithWhereWithoutResultFileInput = {
+    where: ProcessErdScalarWhereInput
+    data: XOR<ProcessErdUpdateManyMutationInput, ProcessErdUncheckedUpdateManyWithoutResultFileInput>
+  }
+
   export type UserCreateWithoutProcessesInput = {
     id?: string
     username: string
@@ -11832,6 +13881,29 @@ export namespace Prisma {
   export type ProcessPfuCreateOrConnectWithoutProcessInput = {
     where: ProcessPfuWhereUniqueInput
     create: XOR<ProcessPfuCreateWithoutProcessInput, ProcessPfuUncheckedCreateWithoutProcessInput>
+  }
+
+  export type ProcessErdCreateWithoutProcessInput = {
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+    grantedІnputFile?: StorageFileCreateNestedOneWithoutGrantedІnputFileErdInput
+    acceptedІnputFile?: StorageFileCreateNestedOneWithoutAcceptedІnputFileErdInput
+    resultFile?: StorageFileCreateNestedOneWithoutResultFileErdInput
+  }
+
+  export type ProcessErdUncheckedCreateWithoutProcessInput = {
+    grantedІnputFileId?: string | null
+    acceptedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateOrConnectWithoutProcessInput = {
+    where: ProcessErdWhereUniqueInput
+    create: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
   }
 
   export type UserUpsertWithoutProcessesInput = {
@@ -11958,6 +14030,35 @@ export namespace Prisma {
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProcessErdUpsertWithoutProcessInput = {
+    update: XOR<ProcessErdUpdateWithoutProcessInput, ProcessErdUncheckedUpdateWithoutProcessInput>
+    create: XOR<ProcessErdCreateWithoutProcessInput, ProcessErdUncheckedCreateWithoutProcessInput>
+    where?: ProcessErdWhereInput
+  }
+
+  export type ProcessErdUpdateToOneWithWhereWithoutProcessInput = {
+    where?: ProcessErdWhereInput
+    data: XOR<ProcessErdUpdateWithoutProcessInput, ProcessErdUncheckedUpdateWithoutProcessInput>
+  }
+
+  export type ProcessErdUpdateWithoutProcessInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    grantedІnputFile?: StorageFileUpdateOneWithoutGrantedІnputFileErdNestedInput
+    acceptedІnputFile?: StorageFileUpdateOneWithoutAcceptedІnputFileErdNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultFileErdNestedInput
+  }
+
+  export type ProcessErdUncheckedUpdateWithoutProcessInput = {
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type ProcessCreateWithoutHstsMvsInput = {
     id?: string
     status?: $Enums.Status
@@ -11968,6 +14069,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutProcessesInput
     dmsu?: ProcessDmsuCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUncheckedCreateWithoutHstsMvsInput = {
@@ -11980,6 +14082,7 @@ export namespace Prisma {
     finishedAt?: Date | string | null
     dmsu?: ProcessDmsuUncheckedCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuUncheckedCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdUncheckedCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessCreateOrConnectWithoutHstsMvsInput = {
@@ -12002,6 +14105,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutDriverLicenseProcessesInput = {
@@ -12019,6 +14125,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutDriverLicenseProcessesInput = {
@@ -12041,6 +14150,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutCarInfoProcessesInput = {
@@ -12058,6 +14170,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutCarInfoProcessesInput = {
@@ -12080,6 +14195,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutResultProcessesHstsMvsInput = {
@@ -12097,6 +14215,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutResultProcessesHstsMvsInput = {
@@ -12125,6 +14246,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
     dmsu?: ProcessDmsuUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateWithoutHstsMvsInput = {
@@ -12137,6 +14259,7 @@ export namespace Prisma {
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsu?: ProcessDmsuUncheckedUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUncheckedUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUncheckedUpdateOneWithoutProcessNestedInput
   }
 
   export type StorageFileUpsertWithoutDriverLicenseProcessesInput = {
@@ -12165,6 +14288,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutDriverLicenseProcessesInput = {
@@ -12182,6 +14308,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUpsertWithoutCarInfoProcessesInput = {
@@ -12210,6 +14339,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutCarInfoProcessesInput = {
@@ -12227,6 +14359,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUpsertWithoutResultProcessesHstsMvsInput = {
@@ -12255,6 +14390,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutResultProcessesHstsMvsInput = {
@@ -12272,6 +14410,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type ProcessCreateWithoutDmsuInput = {
@@ -12284,6 +14425,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutProcessesInput
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUncheckedCreateWithoutDmsuInput = {
@@ -12296,6 +14438,7 @@ export namespace Prisma {
     finishedAt?: Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
     pfu?: ProcessPfuUncheckedCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdUncheckedCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessCreateOrConnectWithoutDmsuInput = {
@@ -12318,6 +14461,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutPersonInfoProcessesInput = {
@@ -12335,6 +14481,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutPersonInfoProcessesInput = {
@@ -12357,6 +14506,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutResultProcessesDmsuInput = {
@@ -12374,6 +14526,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutResultProcessesDmsuInput = {
@@ -12396,6 +14551,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutWithoutWMProcessesInput = {
@@ -12413,6 +14571,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutWithoutWMProcessesInput = {
@@ -12441,6 +14602,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateWithoutDmsuInput = {
@@ -12453,6 +14615,7 @@ export namespace Prisma {
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUncheckedUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUncheckedUpdateOneWithoutProcessNestedInput
   }
 
   export type StorageFileUpsertWithoutPersonInfoProcessesInput = {
@@ -12481,6 +14644,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutPersonInfoProcessesInput = {
@@ -12498,6 +14664,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUpsertWithoutResultProcessesDmsuInput = {
@@ -12526,6 +14695,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutResultProcessesDmsuInput = {
@@ -12543,6 +14715,9 @@ export namespace Prisma {
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUpsertWithoutWithoutWMProcessesInput = {
@@ -12571,6 +14746,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutWithoutWMProcessesInput = {
@@ -12588,6 +14766,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type ProcessCreateWithoutPfuInput = {
@@ -12600,6 +14781,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutProcessesInput
     hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessUncheckedCreateWithoutPfuInput = {
@@ -12612,6 +14794,7 @@ export namespace Prisma {
     finishedAt?: Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
     dmsu?: ProcessDmsuUncheckedCreateNestedOneWithoutProcessInput
+    erd?: ProcessErdUncheckedCreateNestedOneWithoutProcessInput
   }
 
   export type ProcessCreateOrConnectWithoutPfuInput = {
@@ -12634,6 +14817,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutInputFilePfuInput = {
@@ -12651,6 +14837,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutInputFilePfuInput = {
@@ -12673,6 +14862,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
     withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileUncheckedCreateWithoutResultFilePfuInput = {
@@ -12690,6 +14882,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
     withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
     inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
   }
 
   export type StorageFileCreateOrConnectWithoutResultFilePfuInput = {
@@ -12718,6 +14913,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutProcessesNestedInput
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateWithoutPfuInput = {
@@ -12730,6 +14926,7 @@ export namespace Prisma {
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUncheckedUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUncheckedUpdateOneWithoutProcessNestedInput
   }
 
   export type StorageFileUpsertWithoutInputFilePfuInput = {
@@ -12758,6 +14955,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutInputFilePfuInput = {
@@ -12775,6 +14975,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUpsertWithoutResultFilePfuInput = {
@@ -12803,6 +15006,9 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
     withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
   }
 
   export type StorageFileUncheckedUpdateWithoutResultFilePfuInput = {
@@ -12820,6 +15026,365 @@ export namespace Prisma {
     resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
     withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
     inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type ProcessCreateWithoutErdInput = {
+    id?: string
+    status?: $Enums.Status
+    owner?: string | null
+    type: $Enums.ProcessType
+    createdAt?: Date | string
+    finishedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutProcessesInput
+    hstsMvs?: ProcessHstsMvsCreateNestedOneWithoutProcessInput
+    dmsu?: ProcessDmsuCreateNestedOneWithoutProcessInput
+    pfu?: ProcessPfuCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessUncheckedCreateWithoutErdInput = {
+    id?: string
+    status?: $Enums.Status
+    userId: string
+    owner?: string | null
+    type: $Enums.ProcessType
+    createdAt?: Date | string
+    finishedAt?: Date | string | null
+    hstsMvs?: ProcessHstsMvsUncheckedCreateNestedOneWithoutProcessInput
+    dmsu?: ProcessDmsuUncheckedCreateNestedOneWithoutProcessInput
+    pfu?: ProcessPfuUncheckedCreateNestedOneWithoutProcessInput
+  }
+
+  export type ProcessCreateOrConnectWithoutErdInput = {
+    where: ProcessWhereUniqueInput
+    create: XOR<ProcessCreateWithoutErdInput, ProcessUncheckedCreateWithoutErdInput>
+  }
+
+  export type StorageFileCreateWithoutGrantedІnputFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutGrantedІnputFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutGrantedІnputFileErdInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutGrantedІnputFileErdInput, StorageFileUncheckedCreateWithoutGrantedІnputFileErdInput>
+  }
+
+  export type StorageFileCreateWithoutAcceptedІnputFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    resultFileErd?: ProcessErdCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutAcceptedІnputFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    resultFileErd?: ProcessErdUncheckedCreateNestedManyWithoutResultFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutAcceptedІnputFileErdInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedCreateWithoutAcceptedІnputFileErdInput>
+  }
+
+  export type StorageFileCreateWithoutResultFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdCreateNestedManyWithoutAcceptedІnputFileInput
+  }
+
+  export type StorageFileUncheckedCreateWithoutResultFileErdInput = {
+    id?: string
+    inputFilename: string
+    outputFilename?: string | null
+    extension: string
+    size: number
+    bucket: string
+    path: string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutDriverLicenseFileInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedCreateNestedManyWithoutCarInfoFileInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedCreateNestedManyWithoutResultFileInput
+    personInfoProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutPersonInfoFileInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedCreateNestedManyWithoutResultFileInput
+    withoutWMProcesses?: ProcessDmsuUncheckedCreateNestedManyWithoutWithoutWMFileInput
+    inputFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutInputFileInput
+    resultFilePfu?: ProcessPfuUncheckedCreateNestedManyWithoutResultFileInput
+    grantedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutGrantedІnputFileInput
+    acceptedІnputFileErd?: ProcessErdUncheckedCreateNestedManyWithoutAcceptedІnputFileInput
+  }
+
+  export type StorageFileCreateOrConnectWithoutResultFileErdInput = {
+    where: StorageFileWhereUniqueInput
+    create: XOR<StorageFileCreateWithoutResultFileErdInput, StorageFileUncheckedCreateWithoutResultFileErdInput>
+  }
+
+  export type ProcessUpsertWithoutErdInput = {
+    update: XOR<ProcessUpdateWithoutErdInput, ProcessUncheckedUpdateWithoutErdInput>
+    create: XOR<ProcessCreateWithoutErdInput, ProcessUncheckedCreateWithoutErdInput>
+    where?: ProcessWhereInput
+  }
+
+  export type ProcessUpdateToOneWithWhereWithoutErdInput = {
+    where?: ProcessWhereInput
+    data: XOR<ProcessUpdateWithoutErdInput, ProcessUncheckedUpdateWithoutErdInput>
+  }
+
+  export type ProcessUpdateWithoutErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutProcessesNestedInput
+    hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
+    dmsu?: ProcessDmsuUpdateOneWithoutProcessNestedInput
+    pfu?: ProcessPfuUpdateOneWithoutProcessNestedInput
+  }
+
+  export type ProcessUncheckedUpdateWithoutErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    userId?: StringFieldUpdateOperationsInput | string
+    owner?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
+    dmsu?: ProcessDmsuUncheckedUpdateOneWithoutProcessNestedInput
+    pfu?: ProcessPfuUncheckedUpdateOneWithoutProcessNestedInput
+  }
+
+  export type StorageFileUpsertWithoutGrantedІnputFileErdInput = {
+    update: XOR<StorageFileUpdateWithoutGrantedІnputFileErdInput, StorageFileUncheckedUpdateWithoutGrantedІnputFileErdInput>
+    create: XOR<StorageFileCreateWithoutGrantedІnputFileErdInput, StorageFileUncheckedCreateWithoutGrantedІnputFileErdInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutGrantedІnputFileErdInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutGrantedІnputFileErdInput, StorageFileUncheckedUpdateWithoutGrantedІnputFileErdInput>
+  }
+
+  export type StorageFileUpdateWithoutGrantedІnputFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutGrantedІnputFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUncheckedUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUpsertWithoutAcceptedІnputFileErdInput = {
+    update: XOR<StorageFileUpdateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedUpdateWithoutAcceptedІnputFileErdInput>
+    create: XOR<StorageFileCreateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedCreateWithoutAcceptedІnputFileErdInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutAcceptedІnputFileErdInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutAcceptedІnputFileErdInput, StorageFileUncheckedUpdateWithoutAcceptedІnputFileErdInput>
+  }
+
+  export type StorageFileUpdateWithoutAcceptedІnputFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    resultFileErd?: ProcessErdUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutAcceptedІnputFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUncheckedUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    resultFileErd?: ProcessErdUncheckedUpdateManyWithoutResultFileNestedInput
+  }
+
+  export type StorageFileUpsertWithoutResultFileErdInput = {
+    update: XOR<StorageFileUpdateWithoutResultFileErdInput, StorageFileUncheckedUpdateWithoutResultFileErdInput>
+    create: XOR<StorageFileCreateWithoutResultFileErdInput, StorageFileUncheckedCreateWithoutResultFileErdInput>
+    where?: StorageFileWhereInput
+  }
+
+  export type StorageFileUpdateToOneWithWhereWithoutResultFileErdInput = {
+    where?: StorageFileWhereInput
+    data: XOR<StorageFileUpdateWithoutResultFileErdInput, StorageFileUncheckedUpdateWithoutResultFileErdInput>
+  }
+
+  export type StorageFileUpdateWithoutResultFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUpdateManyWithoutAcceptedІnputFileNestedInput
+  }
+
+  export type StorageFileUncheckedUpdateWithoutResultFileErdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    inputFilename?: StringFieldUpdateOperationsInput | string
+    outputFilename?: NullableStringFieldUpdateOperationsInput | string | null
+    extension?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    bucket?: StringFieldUpdateOperationsInput | string
+    path?: StringFieldUpdateOperationsInput | string
+    driverLicenseProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutDriverLicenseFileNestedInput
+    carInfoProcesses?: ProcessHstsMvsUncheckedUpdateManyWithoutCarInfoFileNestedInput
+    resultProcessesHstsMvs?: ProcessHstsMvsUncheckedUpdateManyWithoutResultFileNestedInput
+    personInfoProcesses?: ProcessDmsuUncheckedUpdateManyWithoutPersonInfoFileNestedInput
+    resultProcessesDmsu?: ProcessDmsuUncheckedUpdateManyWithoutResultFileNestedInput
+    withoutWMProcesses?: ProcessDmsuUncheckedUpdateManyWithoutWithoutWMFileNestedInput
+    inputFilePfu?: ProcessPfuUncheckedUpdateManyWithoutInputFileNestedInput
+    resultFilePfu?: ProcessPfuUncheckedUpdateManyWithoutResultFileNestedInput
+    grantedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileNestedInput
+    acceptedІnputFileErd?: ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileNestedInput
   }
 
   export type ProcessCreateManyUserInput = {
@@ -12841,6 +15406,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateWithoutUserInput = {
@@ -12853,6 +15419,7 @@ export namespace Prisma {
     hstsMvs?: ProcessHstsMvsUncheckedUpdateOneWithoutProcessNestedInput
     dmsu?: ProcessDmsuUncheckedUpdateOneWithoutProcessNestedInput
     pfu?: ProcessPfuUncheckedUpdateOneWithoutProcessNestedInput
+    erd?: ProcessErdUncheckedUpdateOneWithoutProcessNestedInput
   }
 
   export type ProcessUncheckedUpdateManyWithoutUserInput = {
@@ -12931,6 +15498,33 @@ export namespace Prisma {
     inputFileId: string
     isAi?: boolean
     stage?: $Enums.PfuStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateManyGrantedІnputFileInput = {
+    processId: string
+    acceptedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateManyAcceptedІnputFileInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    resultFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
+    errorMessage?: string | null
+  }
+
+  export type ProcessErdCreateManyResultFileInput = {
+    processId: string
+    grantedІnputFileId?: string | null
+    acceptedІnputFileId?: string | null
+    isAi?: boolean
+    stage?: $Enums.ErdStage
     errorMessage?: string | null
   }
 
@@ -13141,6 +15735,87 @@ export namespace Prisma {
     inputFileId?: StringFieldUpdateOperationsInput | string
     isAi?: BoolFieldUpdateOperationsInput | boolean
     stage?: EnumPfuStageFieldUpdateOperationsInput | $Enums.PfuStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUpdateWithoutGrantedІnputFileInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutErdNestedInput
+    acceptedІnputFile?: StorageFileUpdateOneWithoutAcceptedІnputFileErdNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultFileErdNestedInput
+  }
+
+  export type ProcessErdUncheckedUpdateWithoutGrantedІnputFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUncheckedUpdateManyWithoutGrantedІnputFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUpdateWithoutAcceptedІnputFileInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutErdNestedInput
+    grantedІnputFile?: StorageFileUpdateOneWithoutGrantedІnputFileErdNestedInput
+    resultFile?: StorageFileUpdateOneWithoutResultFileErdNestedInput
+  }
+
+  export type ProcessErdUncheckedUpdateWithoutAcceptedІnputFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUncheckedUpdateManyWithoutAcceptedІnputFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    resultFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUpdateWithoutResultFileInput = {
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    process?: ProcessUpdateOneRequiredWithoutErdNestedInput
+    grantedІnputFile?: StorageFileUpdateOneWithoutGrantedІnputFileErdNestedInput
+    acceptedІnputFile?: StorageFileUpdateOneWithoutAcceptedІnputFileErdNestedInput
+  }
+
+  export type ProcessErdUncheckedUpdateWithoutResultFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcessErdUncheckedUpdateManyWithoutResultFileInput = {
+    processId?: StringFieldUpdateOperationsInput | string
+    grantedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedІnputFileId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAi?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumErdStageFieldUpdateOperationsInput | $Enums.ErdStage
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

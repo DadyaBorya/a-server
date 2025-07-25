@@ -23,6 +23,8 @@ enum Permission {
   DMSU_CREATE
 
   PFU_CREATE
+
+  ERD_CREATE
 }
 
 enum Status {
@@ -36,6 +38,7 @@ enum ProcessType {
   HSTS_MVS
   DMSU
   PFU
+  ERD
 }
 
 enum HstsMvsStage {
@@ -74,6 +77,11 @@ enum PfuStage {
   MODIFY_DATA
   NORMALIZE_INSURE_NAME
   GENERATE_RESULT_DATA
+  FINISHED
+}
+
+enum ErdStage {
+  NOT_STARTED
   FINISHED
 }
 
@@ -124,6 +132,11 @@ model StorageFile {
   inputFilePfu  ProcessPfu[] @relation("InputFilePfu")
   resultFilePfu ProcessPfu[] @relation("ResultFilePfu")
 
+  // ERD
+  grantedІnputFileErd  ProcessErd[] @relation("GrantedІnputFileErd")
+  acceptedІnputFileErd ProcessErd[] @relation("AcceptedІnputFileErd")
+  resultFileErd         ProcessErd[] @relation("ResultFileErd")
+
   @@map("storage_files")
 }
 
@@ -142,6 +155,7 @@ model Process {
   hstsMvs ProcessHstsMvs?
   dmsu    ProcessDmsu?
   pfu     ProcessPfu?
+  erd     ProcessErd?
 
   createdAt  DateTime  @default(now()) @map("created_at")
   finishedAt DateTime? @map("finished_at")
@@ -207,4 +221,25 @@ model ProcessPfu {
   errorMessage String?  @map("error_message")
 
   @@map("process_pfu")
+}
+
+model ProcessErd {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  grantedІnputFileId String?      @map("granted_input_file_id")
+  grantedІnputFile   StorageFile? @relation("GrantedІnputFileErd", fields: [grantedІnputFileId], references: [id])
+
+  acceptedІnputFileId String?      @map("accepted_input_file_id")
+  acceptedІnputFile   StorageFile? @relation("AcceptedІnputFileErd", fields: [acceptedІnputFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFileErd", fields: [resultFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        ErdStage @default(NOT_STARTED)
+  errorMessage String?  @map("error_message")
+
+  @@map("process_erd")
 }
