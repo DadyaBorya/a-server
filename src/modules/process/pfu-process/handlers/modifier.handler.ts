@@ -77,6 +77,7 @@ export class PfuModifierHandler {
 
 				return {
 					...payment,
+					isInsurerPerson: payment.insurerCode.length === 10,
 					insurerName: finalName.toUpperCase()
 				}
 			})
