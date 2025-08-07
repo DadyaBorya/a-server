@@ -95,6 +95,7 @@ export class PfuModifierHandler {
 
 				newPayments.push({
 					...payment,
+					isInsurerPerson: payment.insurerCode.length === 10,
 					insurerName: newIssuer
 				})
 			}

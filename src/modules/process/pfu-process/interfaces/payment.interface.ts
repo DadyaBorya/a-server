@@ -22,6 +22,9 @@ export class PfuPayment {
 	insurerName: string
 
 	@IsOptional()
+	isInsurerPerson?: boolean
+
+	@IsOptional()
 	isLast?: boolean
 }
 
