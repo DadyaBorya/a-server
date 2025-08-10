@@ -1,0 +1,4 @@
+enum ErdStage {
+  NOT_STARTED
+  FINISHED
+}

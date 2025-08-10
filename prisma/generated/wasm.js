@@ -120,38 +120,24 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  password: 'password',
-  displayName: 'displayName',
-  isSuperUser: 'isSuperUser',
-  isBlocked: 'isBlocked',
-  isTotpEnabled: 'isTotpEnabled',
-  totpSecret: 'totpSecret',
-  permissions: 'permissions',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+exports.Prisma.ProcessDmsuScalarFieldEnum = {
+  processId: 'processId',
+  personInfoFileId: 'personInfoFileId',
+  resultFileId: 'resultFileId',
+  withoutWMFileId: 'withoutWMFileId',
+  isAi: 'isAi',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
 };
 
-exports.Prisma.StorageFileScalarFieldEnum = {
-  id: 'id',
-  inputFilename: 'inputFilename',
-  outputFilename: 'outputFilename',
-  extension: 'extension',
-  size: 'size',
-  bucket: 'bucket',
-  path: 'path'
-};
-
-exports.Prisma.ProcessScalarFieldEnum = {
-  id: 'id',
-  status: 'status',
-  userId: 'userId',
-  owner: 'owner',
-  type: 'type',
-  createdAt: 'createdAt',
-  finishedAt: 'finishedAt'
+exports.Prisma.ProcessErdScalarFieldEnum = {
+  processId: 'processId',
+  grantedІnputFileId: 'grantedІnputFileId',
+  acceptedІnputFileId: 'acceptedІnputFileId',
+  resultFileId: 'resultFileId',
+  isAi: 'isAi',
+  stage: 'stage',
+  errorMessage: 'errorMessage'
 };
 
 exports.Prisma.ProcessHstsMvsScalarFieldEnum = {
@@ -159,16 +145,6 @@ exports.Prisma.ProcessHstsMvsScalarFieldEnum = {
   driverLicenseFileId: 'driverLicenseFileId',
   carInfoFileId: 'carInfoFileId',
   resultFileId: 'resultFileId',
-  isAi: 'isAi',
-  stage: 'stage',
-  errorMessage: 'errorMessage'
-};
-
-exports.Prisma.ProcessDmsuScalarFieldEnum = {
-  processId: 'processId',
-  personInfoFileId: 'personInfoFileId',
-  resultFileId: 'resultFileId',
-  withoutWMFileId: 'withoutWMFileId',
   isAi: 'isAi',
   stage: 'stage',
   errorMessage: 'errorMessage'
@@ -183,14 +159,38 @@ exports.Prisma.ProcessPfuScalarFieldEnum = {
   errorMessage: 'errorMessage'
 };
 
-exports.Prisma.ProcessErdScalarFieldEnum = {
-  processId: 'processId',
-  grantedІnputFileId: 'grantedІnputFileId',
-  acceptedІnputFileId: 'acceptedІnputFileId',
-  resultFileId: 'resultFileId',
-  isAi: 'isAi',
-  stage: 'stage',
-  errorMessage: 'errorMessage'
+exports.Prisma.ProcessScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  userId: 'userId',
+  owner: 'owner',
+  type: 'type',
+  createdAt: 'createdAt',
+  finishedAt: 'finishedAt'
+};
+
+exports.Prisma.StorageFileScalarFieldEnum = {
+  id: 'id',
+  inputFilename: 'inputFilename',
+  outputFilename: 'outputFilename',
+  extension: 'extension',
+  size: 'size',
+  bucket: 'bucket',
+  path: 'path'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  password: 'password',
+  displayName: 'displayName',
+  isSuperUser: 'isSuperUser',
+  isBlocked: 'isBlocked',
+  isTotpEnabled: 'isTotpEnabled',
+  totpSecret: 'totpSecret',
+  permissions: 'permissions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -207,18 +207,48 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Permission = exports.$Enums.Permission = {
-  USER_READ: 'USER_READ',
-  USER_CREATE: 'USER_CREATE',
-  USER_UPDATE: 'USER_UPDATE',
-  USER_DELETE: 'USER_DELETE',
-  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
-  PROCESS_READ_OWN: 'PROCESS_READ_OWN',
-  PROCESS_READ_ALL: 'PROCESS_READ_ALL',
-  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
-  DMSU_CREATE: 'DMSU_CREATE',
-  PFU_CREATE: 'PFU_CREATE',
-  ERD_CREATE: 'ERD_CREATE'
+exports.DmsuStage = exports.$Enums.DmsuStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK: 'EXTRACT_IMAGE_AND_REMOVE_WATER_MARK',
+  PARSE_PERSON_INFO: 'PARSE_PERSON_INFO',
+  VALIDATE_PERSON_INFO: 'VALIDATE_PERSON_INFO',
+  MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_GENITIVE_FULLNAME: 'NORMALIZE_GENITIVE_FULLNAME',
+  NORMALIZE_BIRTH_PLACE: 'NORMALIZE_BIRTH_PLACE',
+  NORMALIZE_REGISTARION_ADDRESS: 'NORMALIZE_REGISTARION_ADDRESS',
+  NORMALIZE_PASSPORTS_ISSUER: 'NORMALIZE_PASSPORTS_ISSUER',
+  NORMALIZE_FOREIGN_PASSPORTS_ISSUER: 'NORMALIZE_FOREIGN_PASSPORTS_ISSUER',
+  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
+  FINISHED: 'FINISHED'
+};
+
+exports.ErdStage = exports.$Enums.ErdStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  FINISHED: 'FINISHED'
+};
+
+exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  PARSE_DRIVER_LICENCE: 'PARSE_DRIVER_LICENCE',
+  VALIDATE_DRIVER_LICENCE: 'VALIDATE_DRIVER_LICENCE',
+  PARSE_CAR_INFO: 'PARSE_CAR_INFO',
+  VALIDATE_CAR_INFO: 'VALIDATE_CAR_INFO',
+  MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_DRIVER_LICENCE_ISSUED_BY: 'NORMALIZE_DRIVER_LICENCE_ISSUED_BY',
+  NORMALIZE_REGISTRATION_PLACE: 'NORMALIZE_REGISTRATION_PLACE',
+  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
+  FINISHED: 'FINISHED'
+};
+
+exports.PfuStage = exports.$Enums.PfuStage = {
+  NOT_STARTED: 'NOT_STARTED',
+  PARSE_INPUT_FILE: 'PARSE_INPUT_FILE',
+  VALIDATE_INPUT_FILE: 'VALIDATE_INPUT_FILE',
+  TRANSFORM_INPUT_FILE: 'TRANSFORM_INPUT_FILE',
+  MODIFY_DATA: 'MODIFY_DATA',
+  NORMALIZE_INSURE_NAME: 'NORMALIZE_INSURE_NAME',
+  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
+  FINISHED: 'FINISHED'
 };
 
 exports.Status = exports.$Enums.Status = {
@@ -235,58 +265,28 @@ exports.ProcessType = exports.$Enums.ProcessType = {
   ERD: 'ERD'
 };
 
-exports.HstsMvsStage = exports.$Enums.HstsMvsStage = {
-  NOT_STARTED: 'NOT_STARTED',
-  PARSE_DRIVER_LICENCE: 'PARSE_DRIVER_LICENCE',
-  VALIDATE_DRIVER_LICENCE: 'VALIDATE_DRIVER_LICENCE',
-  PARSE_CAR_INFO: 'PARSE_CAR_INFO',
-  VALIDATE_CAR_INFO: 'VALIDATE_CAR_INFO',
-  MODIFY_DATA: 'MODIFY_DATA',
-  NORMALIZE_DRIVER_LICENCE_ISSUED_BY: 'NORMALIZE_DRIVER_LICENCE_ISSUED_BY',
-  NORMALIZE_REGISTRATION_PLACE: 'NORMALIZE_REGISTRATION_PLACE',
-  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
-  FINISHED: 'FINISHED'
-};
-
-exports.DmsuStage = exports.$Enums.DmsuStage = {
-  NOT_STARTED: 'NOT_STARTED',
-  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK: 'EXTRACT_IMAGE_AND_REMOVE_WATER_MARK',
-  PARSE_PERSON_INFO: 'PARSE_PERSON_INFO',
-  VALIDATE_PERSON_INFO: 'VALIDATE_PERSON_INFO',
-  MODIFY_DATA: 'MODIFY_DATA',
-  NORMALIZE_GENITIVE_FULLNAME: 'NORMALIZE_GENITIVE_FULLNAME',
-  NORMALIZE_BIRTH_PLACE: 'NORMALIZE_BIRTH_PLACE',
-  NORMALIZE_REGISTARION_ADDRESS: 'NORMALIZE_REGISTARION_ADDRESS',
-  NORMALIZE_PASSPORTS_ISSUER: 'NORMALIZE_PASSPORTS_ISSUER',
-  NORMALIZE_FOREIGN_PASSPORTS_ISSUER: 'NORMALIZE_FOREIGN_PASSPORTS_ISSUER',
-  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
-  FINISHED: 'FINISHED'
-};
-
-exports.PfuStage = exports.$Enums.PfuStage = {
-  NOT_STARTED: 'NOT_STARTED',
-  PARSE_INPUT_FILE: 'PARSE_INPUT_FILE',
-  VALIDATE_INPUT_FILE: 'VALIDATE_INPUT_FILE',
-  TRANSFORM_INPUT_FILE: 'TRANSFORM_INPUT_FILE',
-  MODIFY_DATA: 'MODIFY_DATA',
-  NORMALIZE_INSURE_NAME: 'NORMALIZE_INSURE_NAME',
-  GENERATE_RESULT_DATA: 'GENERATE_RESULT_DATA',
-  FINISHED: 'FINISHED'
-};
-
-exports.ErdStage = exports.$Enums.ErdStage = {
-  NOT_STARTED: 'NOT_STARTED',
-  FINISHED: 'FINISHED'
+exports.Permission = exports.$Enums.Permission = {
+  USER_READ: 'USER_READ',
+  USER_CREATE: 'USER_CREATE',
+  USER_UPDATE: 'USER_UPDATE',
+  USER_DELETE: 'USER_DELETE',
+  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
+  PROCESS_READ_OWN: 'PROCESS_READ_OWN',
+  PROCESS_READ_ALL: 'PROCESS_READ_ALL',
+  HSTS_MVS_CREATE: 'HSTS_MVS_CREATE',
+  DMSU_CREATE: 'DMSU_CREATE',
+  PFU_CREATE: 'PFU_CREATE',
+  ERD_CREATE: 'ERD_CREATE'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User',
-  StorageFile: 'StorageFile',
-  Process: 'Process',
-  ProcessHstsMvs: 'ProcessHstsMvs',
   ProcessDmsu: 'ProcessDmsu',
+  ProcessErd: 'ProcessErd',
+  ProcessHstsMvs: 'ProcessHstsMvs',
   ProcessPfu: 'ProcessPfu',
-  ProcessErd: 'ProcessErd'
+  Process: 'Process',
+  StorageFile: 'StorageFile',
+  User: 'User'
 };
 
 /**

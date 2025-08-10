@@ -1,0 +1,20 @@
+model ProcessDmsu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  personInfoFileId String      @map("person_info_file_id")
+  personInfoFile   StorageFile @relation("PersonInfoFile", fields: [personInfoFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFileDmsu", fields: [resultFileId], references: [id])
+
+  withoutWMFileId String?      @map("without_wm_file_id")
+  withoutWMFile   StorageFile? @relation("WithoutWMFile", fields: [withoutWMFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        DmsuStage @default(NOT_STARTED)
+  errorMessage String?   @map("error_message")
+
+  @@map("process_dmsu")
+}

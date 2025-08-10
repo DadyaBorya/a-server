@@ -1,0 +1,22 @@
+model Process {
+  id String @id @default(uuid())
+
+  status Status @default(PENDING)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  owner String?
+
+  type ProcessType
+
+  hstsMvs ProcessHstsMvs?
+  dmsu    ProcessDmsu?
+  pfu     ProcessPfu?
+  erd     ProcessErd?
+
+  createdAt  DateTime  @default(now()) @map("created_at")
+  finishedAt DateTime? @map("finished_at")
+
+  @@map("processes")
+}

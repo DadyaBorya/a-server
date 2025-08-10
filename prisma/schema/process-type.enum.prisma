@@ -1,0 +1,6 @@
+enum ProcessType {
+  HSTS_MVS
+  DMSU
+  PFU
+  ERD
+}

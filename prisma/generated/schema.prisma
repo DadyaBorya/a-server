@@ -1,11 +1,34 @@
-generator client {
-  provider = "prisma-client-js"
-  output   = "./generated"
+enum DmsuStage {
+  NOT_STARTED
+  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK
+  PARSE_PERSON_INFO
+  VALIDATE_PERSON_INFO
+  MODIFY_DATA
+  NORMALIZE_GENITIVE_FULLNAME
+  NORMALIZE_BIRTH_PLACE
+  NORMALIZE_REGISTARION_ADDRESS
+  NORMALIZE_PASSPORTS_ISSUER
+  NORMALIZE_FOREIGN_PASSPORTS_ISSUER
+  GENERATE_RESULT_DATA
+  FINISHED
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URI")
+enum ErdStage {
+  NOT_STARTED
+  FINISHED
+}
+
+enum HstsMvsStage {
+  NOT_STARTED
+  PARSE_DRIVER_LICENCE
+  VALIDATE_DRIVER_LICENCE
+  PARSE_CAR_INFO
+  VALIDATE_CAR_INFO
+  MODIFY_DATA
+  NORMALIZE_DRIVER_LICENCE_ISSUED_BY
+  NORMALIZE_REGISTRATION_PLACE
+  GENERATE_RESULT_DATA
+  FINISHED
 }
 
 enum Permission {
@@ -27,48 +50,6 @@ enum Permission {
   ERD_CREATE
 }
 
-enum Status {
-  PENDING
-  STARTED
-  END
-  ERROR
-}
-
-enum ProcessType {
-  HSTS_MVS
-  DMSU
-  PFU
-  ERD
-}
-
-enum HstsMvsStage {
-  NOT_STARTED
-  PARSE_DRIVER_LICENCE
-  VALIDATE_DRIVER_LICENCE
-  PARSE_CAR_INFO
-  VALIDATE_CAR_INFO
-  MODIFY_DATA
-  NORMALIZE_DRIVER_LICENCE_ISSUED_BY
-  NORMALIZE_REGISTRATION_PLACE
-  GENERATE_RESULT_DATA
-  FINISHED
-}
-
-enum DmsuStage {
-  NOT_STARTED
-  EXTRACT_IMAGE_AND_REMOVE_WATER_MARK
-  PARSE_PERSON_INFO
-  VALIDATE_PERSON_INFO
-  MODIFY_DATA
-  NORMALIZE_GENITIVE_FULLNAME
-  NORMALIZE_BIRTH_PLACE
-  NORMALIZE_REGISTARION_ADDRESS
-  NORMALIZE_PASSPORTS_ISSUER
-  NORMALIZE_FOREIGN_PASSPORTS_ISSUER
-  GENERATE_RESULT_DATA
-  FINISHED
-}
-
 enum PfuStage {
   NOT_STARTED
   PARSE_INPUT_FILE
@@ -80,64 +61,92 @@ enum PfuStage {
   FINISHED
 }
 
-enum ErdStage {
-  NOT_STARTED
-  FINISHED
+model ProcessDmsu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  personInfoFileId String      @map("person_info_file_id")
+  personInfoFile   StorageFile @relation("PersonInfoFile", fields: [personInfoFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFileDmsu", fields: [resultFileId], references: [id])
+
+  withoutWMFileId String?      @map("without_wm_file_id")
+  withoutWMFile   StorageFile? @relation("WithoutWMFile", fields: [withoutWMFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        DmsuStage @default(NOT_STARTED)
+  errorMessage String?   @map("error_message")
+
+  @@map("process_dmsu")
 }
 
-model User {
-  id String @id @default(uuid())
+model ProcessErd {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
 
-  username    String @unique
-  password    String
-  displayName String @map("display_name")
+  grantedІnputFileId String?      @map("granted_input_file_id")
+  grantedІnputFile   StorageFile? @relation("GrantedІnputFileErd", fields: [grantedІnputFileId], references: [id])
 
-  isSuperUser Boolean @default(false) @map("is_super_user")
-  isBlocked   Boolean @default(false) @map("is_blocked")
+  acceptedІnputFileId String?      @map("accepted_input_file_id")
+  acceptedІnputFile   StorageFile? @relation("AcceptedІnputFileErd", fields: [acceptedІnputFileId], references: [id])
 
-  isTotpEnabled Boolean @default(false) @map("is_totp_enabled")
-  totpSecret    String? @map("totp_secret")
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFileErd", fields: [resultFileId], references: [id])
 
-  permissions Permission[]
+  isAi Boolean @default(false) @map("is_ai")
 
-  processes Process[]
+  stage        ErdStage @default(NOT_STARTED)
+  errorMessage String?  @map("error_message")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("users")
+  @@map("process_erd")
 }
 
-model StorageFile {
-  id String @id @default(uuid())
+model ProcessHstsMvs {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
 
-  inputFilename  String  @map("input_filename")
-  outputFilename String? @map("output_filename")
-  extension      String
-  size           Int
-  bucket         String
-  path           String
+  driverLicenseFileId String?      @map("driver_license_file_id")
+  driverLicenseFile   StorageFile? @relation("DriverLicenseFile", fields: [driverLicenseFileId], references: [id])
 
-  // MVS
-  driverLicenseProcesses ProcessHstsMvs[] @relation("DriverLicenseFile")
-  carInfoProcesses       ProcessHstsMvs[] @relation("CarInfoFile")
-  resultProcessesHstsMvs ProcessHstsMvs[] @relation("ResultFileHstsMvs")
+  carInfoFileId String      @map("car_info_file_id")
+  carInfoFile   StorageFile @relation("CarInfoFile", fields: [carInfoFileId], references: [id])
 
-  // DMSU
-  personInfoProcesses ProcessDmsu[] @relation("PersonInfoFile")
-  resultProcessesDmsu ProcessDmsu[] @relation("ResultFileDmsu")
-  withoutWMProcesses  ProcessDmsu[] @relation("WithoutWMFile")
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFileHstsMvs", fields: [resultFileId], references: [id])
 
-  // PFU
-  inputFilePfu  ProcessPfu[] @relation("InputFilePfu")
-  resultFilePfu ProcessPfu[] @relation("ResultFilePfu")
+  isAi Boolean @default(false) @map("is_ai")
 
-  // ERD
-  grantedІnputFileErd  ProcessErd[] @relation("GrantedІnputFileErd")
-  acceptedІnputFileErd ProcessErd[] @relation("AcceptedІnputFileErd")
-  resultFileErd         ProcessErd[] @relation("ResultFileErd")
+  stage        HstsMvsStage @default(NOT_STARTED)
+  errorMessage String?      @map("error_message")
 
-  @@map("storage_files")
+  @@map("process_hsts_mvs")
+}
+
+model ProcessPfu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  inputFileId String      @map("input_file_id")
+  inputFile   StorageFile @relation("InputFilePfu", fields: [inputFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFilePfu", fields: [resultFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        PfuStage @default(NOT_STARTED)
+  errorMessage String?  @map("error_message")
+
+  @@map("process_pfu")
+}
+
+enum ProcessType {
+  HSTS_MVS
+  DMSU
+  PFU
+  ERD
 }
 
 model Process {
@@ -163,83 +172,74 @@ model Process {
   @@map("processes")
 }
 
-model ProcessHstsMvs {
-  processId String  @unique @map("process_id")
-  process   Process @relation(fields: [processId], references: [id])
-
-  driverLicenseFileId String?      @map("driver_license_file_id")
-  driverLicenseFile   StorageFile? @relation("DriverLicenseFile", fields: [driverLicenseFileId], references: [id])
-
-  carInfoFileId String      @map("car_info_file_id")
-  carInfoFile   StorageFile @relation("CarInfoFile", fields: [carInfoFileId], references: [id])
-
-  resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFileHstsMvs", fields: [resultFileId], references: [id])
-
-  isAi Boolean @default(false) @map("is_ai")
-
-  stage        HstsMvsStage @default(NOT_STARTED)
-  errorMessage String?      @map("error_message")
-
-  @@map("process_hsts_mvs")
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated"
 }
 
-model ProcessDmsu {
-  processId String  @unique @map("process_id")
-  process   Process @relation(fields: [processId], references: [id])
-
-  personInfoFileId String      @map("person_info_file_id")
-  personInfoFile   StorageFile @relation("PersonInfoFile", fields: [personInfoFileId], references: [id])
-
-  resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFileDmsu", fields: [resultFileId], references: [id])
-
-  withoutWMFileId String?      @map("without_wm_file_id")
-  withoutWMFile   StorageFile? @relation("WithoutWMFile", fields: [withoutWMFileId], references: [id])
-
-  isAi Boolean @default(false) @map("is_ai")
-
-  stage        DmsuStage @default(NOT_STARTED)
-  errorMessage String?   @map("error_message")
-
-  @@map("process_dmsu")
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
 }
 
-model ProcessPfu {
-  processId String  @unique @map("process_id")
-  process   Process @relation(fields: [processId], references: [id])
-
-  inputFileId String      @map("input_file_id")
-  inputFile   StorageFile @relation("InputFilePfu", fields: [inputFileId], references: [id])
-
-  resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFilePfu", fields: [resultFileId], references: [id])
-
-  isAi Boolean @default(false) @map("is_ai")
-
-  stage        PfuStage @default(NOT_STARTED)
-  errorMessage String?  @map("error_message")
-
-  @@map("process_pfu")
+enum Status {
+  PENDING
+  STARTED
+  END
+  ERROR
 }
 
-model ProcessErd {
-  processId String  @unique @map("process_id")
-  process   Process @relation(fields: [processId], references: [id])
+model StorageFile {
+  id String @id @default(uuid())
 
-  grantedІnputFileId String?      @map("granted_input_file_id")
-  grantedІnputFile   StorageFile? @relation("GrantedІnputFileErd", fields: [grantedІnputFileId], references: [id])
+  inputFilename  String  @map("input_filename")
+  outputFilename String? @map("output_filename")
+  extension      String
+  size           Int
+  bucket         String
+  path           String
 
-  acceptedІnputFileId String?      @map("accepted_input_file_id")
-  acceptedІnputFile   StorageFile? @relation("AcceptedІnputFileErd", fields: [acceptedІnputFileId], references: [id])
+  // MVS
+  driverLicenseProcesses ProcessHstsMvs[] @relation("DriverLicenseFile")
+  carInfoProcesses       ProcessHstsMvs[] @relation("CarInfoFile")
+  resultProcessesHstsMvs ProcessHstsMvs[] @relation("ResultFileHstsMvs")
 
-  resultFileId String?      @map("result_file_id")
-  resultFile   StorageFile? @relation("ResultFileErd", fields: [resultFileId], references: [id])
+  // DMSU
+  personInfoProcesses ProcessDmsu[] @relation("PersonInfoFile")
+  withoutWMProcesses  ProcessDmsu[] @relation("WithoutWMFile")
+  resultProcessesDmsu ProcessDmsu[] @relation("ResultFileDmsu")
 
-  isAi Boolean @default(false) @map("is_ai")
+  // PFU
+  inputFilePfu  ProcessPfu[] @relation("InputFilePfu")
+  resultFilePfu ProcessPfu[] @relation("ResultFilePfu")
 
-  stage        ErdStage @default(NOT_STARTED)
-  errorMessage String?  @map("error_message")
+  // ERD
+  grantedІnputFileErd  ProcessErd[] @relation("GrantedІnputFileErd")
+  acceptedІnputFileErd ProcessErd[] @relation("AcceptedІnputFileErd")
+  resultFileErd         ProcessErd[] @relation("ResultFileErd")
 
-  @@map("process_erd")
+  @@map("storage_files")
+}
+
+model User {
+  id String @id @default(uuid())
+
+  username    String @unique
+  password    String
+  displayName String @map("display_name")
+
+  isSuperUser Boolean @default(false) @map("is_super_user")
+  isBlocked   Boolean @default(false) @map("is_blocked")
+
+  isTotpEnabled Boolean @default(false) @map("is_totp_enabled")
+  totpSecret    String? @map("totp_secret")
+
+  permissions Permission[]
+
+  processes Process[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
 }

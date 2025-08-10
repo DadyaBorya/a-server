@@ -1,0 +1,31 @@
+model StorageFile {
+  id String @id @default(uuid())
+
+  inputFilename  String  @map("input_filename")
+  outputFilename String? @map("output_filename")
+  extension      String
+  size           Int
+  bucket         String
+  path           String
+
+  // MVS
+  driverLicenseProcesses ProcessHstsMvs[] @relation("DriverLicenseFile")
+  carInfoProcesses       ProcessHstsMvs[] @relation("CarInfoFile")
+  resultProcessesHstsMvs ProcessHstsMvs[] @relation("ResultFileHstsMvs")
+
+  // DMSU
+  personInfoProcesses ProcessDmsu[] @relation("PersonInfoFile")
+  withoutWMProcesses  ProcessDmsu[] @relation("WithoutWMFile")
+  resultProcessesDmsu ProcessDmsu[] @relation("ResultFileDmsu")
+
+  // PFU
+  inputFilePfu  ProcessPfu[] @relation("InputFilePfu")
+  resultFilePfu ProcessPfu[] @relation("ResultFilePfu")
+
+  // ERD
+  grantedІnputFileErd  ProcessErd[] @relation("GrantedІnputFileErd")
+  acceptedІnputFileErd ProcessErd[] @relation("AcceptedІnputFileErd")
+  resultFileErd         ProcessErd[] @relation("ResultFileErd")
+
+  @@map("storage_files")
+}

@@ -1,0 +1,17 @@
+model ProcessPfu {
+  processId String  @unique @map("process_id")
+  process   Process @relation(fields: [processId], references: [id])
+
+  inputFileId String      @map("input_file_id")
+  inputFile   StorageFile @relation("InputFilePfu", fields: [inputFileId], references: [id])
+
+  resultFileId String?      @map("result_file_id")
+  resultFile   StorageFile? @relation("ResultFilePfu", fields: [resultFileId], references: [id])
+
+  isAi Boolean @default(false) @map("is_ai")
+
+  stage        PfuStage @default(NOT_STARTED)
+  errorMessage String?  @map("error_message")
+
+  @@map("process_pfu")
+}
